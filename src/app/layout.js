@@ -1,13 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
-import "@fontsource/inter";
+import { Cormorant_Garamond, Sora } from "next/font/google";
 import { ThemeProvider as MTProvider } from "@material-tailwind/react";
 
 import { ThemeProvider, useTheme } from "@/context/ThemeContext";
 import { getTheme } from "@/styles/theme";
 
 import "./globals.css";
+
+const displayFont = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
+});
+
+const bodyFont = Sora({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-body",
+});
 
 function MaterialWrapper({ children }) {
   const { theme } = useTheme();
@@ -17,7 +29,7 @@ function MaterialWrapper({ children }) {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body suppressHydrationWarning={true}>
         <ThemeProvider>
           <MaterialWrapper>

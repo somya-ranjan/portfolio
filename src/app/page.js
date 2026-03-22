@@ -1,18 +1,31 @@
 "use client";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 
-import CustomCursor from "@/components/CustomCursor";
-import ScrollProgress from "@/components/ScrollProgress";
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Projects from "@/components/Projects";
-import Skills from "@/components/Skills";
-import Journey from "@/components/Journey";
-import Analytics from "@/components/Analytics";
-import Testimonials from "@/components/Testimonials";
-import ContactMe from "@/components/ContactMe";
-import Footer from "@/components/Footer";
-import Reveal from "@/components/Reveal";
+import {
+  Navbar,
+  Hero,
+  Projects,
+  Skills,
+  Journey,
+  Testimonials,
+  ContactMe,
+  Footer,
+} from "@/components/view";
+
+import {
+  ShowcaseParallax,
+  CustomCursor,
+  ScrollProgress,
+  Reveal,
+} from "@/components";
+
+const Analytics = dynamic(
+  () => import("@/components/view/analytics/Analytics"),
+  {
+    ssr: false,
+  },
+);
 
 export default function Home() {
   return (
@@ -22,6 +35,7 @@ export default function Home() {
 
       <Navbar />
       <Hero />
+      <ShowcaseParallax />
       <Reveal>
         <Projects />
       </Reveal>

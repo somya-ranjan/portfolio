@@ -1,0 +1,10 @@
+export const allMenuItems = [
+  { name: "Home", href: "#home" },
+  { name: "Showcase", href: "#showcase" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
+  { name: "Journey", href: "#journey" },
+  { name: "Analytics", href: "#analytics" },
+  { name: "Testimonials", href: "#testimonials" },
+  { name: "Contact", href: "#contact" },
+];

@@ -1,6 +1,7 @@
 "use client";
 
-// import { Github, Linkedin, Mail } from "lucide-react";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 export default function Footer() {
   return (
@@ -19,30 +20,32 @@ export default function Footer() {
           <a
             href="https://github.com/yourusername"
             target="_blank"
+            rel="noreferrer"
             className="p-2 rounded-full"
             style={{ background: "rgba(0,0,0,0.08)" }}
+            aria-label="GitHub"
           >
-            {/* <Github size={18} /> */}
-            Git
+            <FaGithub size={18} />
           </a>
 
           <a
             href="https://linkedin.com/in/yourusername"
             target="_blank"
+            rel="noreferrer"
             className="p-2 rounded-full"
             style={{ background: "rgba(0,0,0,0.08)" }}
+            aria-label="LinkedIn"
           >
-            {/* <Linkedin size={18} /> */}
-            LinkedIn
+            <FaLinkedinIn size={18} />
           </a>
 
           <a
             href="mailto:youremail@gmail.com"
             className="p-2 rounded-full"
             style={{ background: "rgba(0,0,0,0.08)" }}
+            aria-label="Email"
           >
-            {/* <Mail size={18} /> */}
-            Mail
+            <MdEmail size={18} />
           </a>
         </div>
       </div>

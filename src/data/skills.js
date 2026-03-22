@@ -1,0 +1,43 @@
+import {
+  SiJavascript,
+  SiTypescript,
+  SiHtml5,
+  SiReact,
+  SiNextdotjs,
+  SiWebpack,
+  SiStorybook,
+  SiRedux,
+  SiTailwindcss,
+  SiBootstrap,
+  SiSass,
+  SiPostman,
+  SiGithub,
+  SiJira,
+  SiFormik,
+  SiGithubactions,
+} from "react-icons/si";
+import { FiBox } from "react-icons/fi";
+import { FaCss3 } from "react-icons/fa6";
+
+export const skillsData = [
+  { name: "JavaScript (ES6+)", icon: SiJavascript },
+  { name: "TypeScript", icon: SiTypescript },
+  { name: "HTML5 ", icon: SiHtml5 },
+  { name: "CSS3 ", icon: FaCss3 },
+  { name: "React.js", icon: SiReact },
+  { name: "Next.js", icon: SiNextdotjs },
+  { name: "Micro Frontends (MF)", icon: SiWebpack },
+  { name: "Storybook", icon: SiStorybook },
+  { name: "Redux / Redux Toolkit", icon: SiRedux },
+  { name: "Saga & Thunk", icon: SiRedux },
+  { name: "Tailwind CSS", icon: SiTailwindcss },
+  { name: "Material UI (MUI)", icon: FiBox },
+  { name: "Bootstrap", icon: SiBootstrap },
+  { name: "Sass", icon: SiSass },
+  { name: "REST APIs (Postman)", icon: SiPostman },
+  { name: "Formik", icon: SiFormik },
+  { name: "Git / GitHub", icon: SiGithub },
+  { name: "CI/CD & Webpack", icon: SiWebpack },
+  { name: "GitHub Actions", icon: SiGithubactions },
+  { name: "Jira (Agile/Scrum)", icon: SiJira },
+];

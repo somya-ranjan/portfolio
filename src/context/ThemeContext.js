@@ -5,12 +5,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("portfolio-theme") || "light";
+    }
 
-  useEffect(() => {
-    const saved = localStorage.getItem("portfolio-theme");
-    if (saved) setTheme(saved);
-  }, []);
+    return "light";
+  });
 
   useEffect(() => {
     localStorage.setItem("portfolio-theme", theme);

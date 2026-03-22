@@ -16,11 +16,12 @@ export default function CustomCursor() {
 
   return (
     <div
-      className="fixed top-0 left-0 w-6 h-6 rounded-full pointer-events-none z-[9999] transition-transform duration-75"
+      className="pointer-events-none fixed left-0 top-0 z-9999 hidden h-7 w-7 rounded-full border transition-transform duration-75 lg:block"
       style={{
-        transform: `translate(${pos.x}px, ${pos.y}px)`,
-        background: "var(--text)",
-        opacity: 0.2,
+        transform: `translate(${pos.x - 14}px, ${pos.y - 14}px)`,
+        background: "rgba(255,255,255,0.06)",
+        borderColor: "var(--border)",
+        backdropFilter: "blur(5px)",
       }}
     />
   );

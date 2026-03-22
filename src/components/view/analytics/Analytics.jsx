@@ -1,0 +1,284 @@
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts";
+import { analyticsData } from "@data";
+
+const projectsByCompany = analyticsData.reduce((acc, companyRecord) => {
+  acc[companyRecord.company] = companyRecord;
+  return acc;
+}, {});
+
+const maxProjects = Math.max(
+  ...analyticsData.map((companyRecord) => companyRecord.project.length),
+);
+
+const candleColors = ["#22d3ee", "#38bdf8", "#60a5fa", "#818cf8", "#34d399"];
+
+const chartData = analyticsData.map((companyRecord) => {
+  const candleData = {
+    company: companyRecord.company,
+    projectCount: companyRecord.project.length,
+    duration: companyRecord.year,
+  };
+
+  for (let i = 0; i < maxProjects; i += 1) {
+    candleData[`p${i + 1}`] = companyRecord.project[i] ? 1 : null;
+  }
+
+  return candleData;
+});
+
+function CustomTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) {
+    return null;
+  }
+
+  const companyRecord = projectsByCompany[label];
+  const totalProjects = companyRecord?.project.length ?? 0;
+  const duration = companyRecord?.year;
+  const role = companyRecord?.role;
+  const experienceHighlights = companyRecord?.experienceHighlights ?? [];
+  const companyProjects = companyRecord?.project ?? [];
+
+  return (
+    <div
+      className="w-[min(90vw,22rem)] break-words rounded-xl border px-4 py-3 text-sm shadow-xl backdrop-blur"
+      style={{
+        background: "var(--glass)",
+        borderColor: "var(--border)",
+        color: "var(--text)",
+      }}
+    >
+      <p className="font-semibold">{label}</p>
+      <p className="mt-1 font-medium opacity-90">
+        Project count: {totalProjects}
+      </p>
+      {duration ? <p className="opacity-85">Duration: {duration}</p> : null}
+      {role ? <p className="opacity-85">Role: {role}</p> : null}
+
+      {experienceHighlights.length > 0 ? (
+        <div
+          className="mt-3 border-t pt-3"
+          style={{ borderColor: "var(--border)" }}
+        >
+          <p className="text-xs font-semibold opacity-90">
+            Experience Highlights
+          </p>
+          <ul className="mt-1 list-disc pl-4 text-xs space-y-0.5 opacity-80">
+            {experienceHighlights.slice(0, 3).map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {companyProjects.length > 0 ? (
+        <div
+          className="mt-3 space-y-2 border-t pt-3"
+          style={{ borderColor: "var(--border)" }}
+        >
+          {companyProjects.map((project, index) => (
+            <div key={project.name} className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span
+                  className="inline-block h-2 w-2 rounded-full"
+                  style={{
+                    backgroundColor: candleColors[index % candleColors.length],
+                  }}
+                />
+                <p className="font-medium opacity-95">{project.name}</p>
+              </div>
+              <p className="text-xs opacity-80">{project.description}</p>
+              {project.achievements?.length ? (
+                <ul className="list-disc pl-4 text-xs space-y-0.5 opacity-70">
+                  {project.achievements.slice(0, 2).map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+export default function Analytics() {
+  const containerRef = useRef(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+
+    const updateScreen = () => {
+      setIsSmallScreen(mediaQuery.matches);
+    };
+
+    updateScreen();
+    mediaQuery.addEventListener("change", updateScreen);
+
+    return () => mediaQuery.removeEventListener("change", updateScreen);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+  const chartY = useTransform(scrollYProgress, [0, 1], [70, -70]);
+  const chartOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [0.6, 1, 0.6],
+  );
+
+  return (
+    <section
+      id="analytics"
+      className="overflow-x-hidden py-24 px-6"
+      ref={containerRef}
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-3xl md:text-4xl font-bold text-center"
+        >
+          Growth Analytics
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65 }}
+          viewport={{ once: true }}
+          className="mt-3 text-center text-sm md:text-base opacity-80"
+        >
+          Each company has one candle, split into color sections based on total
+          projects.
+        </motion.p>
+
+        {/* Chart Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{
+            y: chartY,
+            opacity: chartOpacity,
+            background:
+              "linear-gradient(135deg, rgba(37,99,235,0.18), rgba(16,185,129,0.16), rgba(0,0,0,0.1))",
+          }}
+          transition={{ duration: 0.7 }}
+          className="mt-16 rounded-2xl border border-white/10 p-6 md:p-8 shadow-2xl"
+        >
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
+            <h3 className="text-lg md:text-xl font-semibold">
+              Company Delivery Distribution
+            </h3>
+            <span className="text-xs md:text-sm opacity-80">
+              X: Company | Y: Project count
+            </span>
+          </div>
+
+          <div className="h-[22rem] w-full md:h-[26rem]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chartData}
+                margin={{
+                  top: 16,
+                  right: isSmallScreen ? 4 : 10,
+                  left: isSmallScreen ? -8 : 0,
+                  bottom: isSmallScreen ? 2 : 8,
+                }}
+                barCategoryGap={isSmallScreen ? "35%" : "45%"}
+                barGap={2}
+              >
+                <CartesianGrid
+                  strokeDasharray="4 4"
+                  stroke="rgba(148,163,184,0.25)"
+                />
+                <XAxis
+                  dataKey="company"
+                  interval={isSmallScreen ? "preserveStartEnd" : 0}
+                  tick={{
+                    fill: "currentColor",
+                    fontSize: isSmallScreen ? 10 : 11,
+                  }}
+                  tickFormatter={(value) => {
+                    const normalized = value.replace(" Pvt. Ltd", "");
+                    if (!isSmallScreen) {
+                      return normalized;
+                    }
+                    const compact = normalized
+                      .replace(
+                        "Mercedes-Benz Research & Development India",
+                        "MBRDI",
+                      )
+                      .replace("TechneAI", "TechneAI")
+                      .replace("SoluLab", "SoluLab");
+                    return compact;
+                  }}
+                />
+                <YAxis
+                  allowDecimals={false}
+                  width={isSmallScreen ? 26 : 32}
+                  tick={{
+                    fill: "currentColor",
+                    fontSize: isSmallScreen ? 10 : 12,
+                  }}
+                />
+                <Tooltip
+                  content={<CustomTooltip />}
+                  cursor={{ fill: "rgba(148,163,184,0.08)" }}
+                  wrapperStyle={{ zIndex: 50 }}
+                />
+
+                {Array.from({ length: maxProjects }, (_, index) => {
+                  const key = `p${index + 1}`;
+                  return (
+                    <Bar
+                      key={key}
+                      dataKey={key}
+                      name={`Project ${index + 1}`}
+                      stackId="projects"
+                      fill={candleColors[index % candleColors.length]}
+                      barSize={isSmallScreen ? 26 : 34}
+                      maxBarSize={isSmallScreen ? 30 : 38}
+                    >
+                      {chartData.map((entry) => {
+                        const isTopSegment =
+                          entry[key] && index === entry.projectCount - 1;
+                        return (
+                          <Cell
+                            key={`${entry.company}-${key}`}
+                            radius={
+                              isTopSegment ? [10, 10, 0, 0] : [0, 0, 0, 0]
+                            }
+                          />
+                        );
+                      })}
+                    </Bar>
+                  );
+                })}
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

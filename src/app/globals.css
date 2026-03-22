@@ -1,25 +1,61 @@
 @import "tailwindcss";
 
-/* LIGHT */
 html[data-theme="light"] {
-  --bg: #ffffff;
-  --text: #111827;
-  --accent: linear-gradient(to right, #3b82f6, #06b6d4);
+  --bg: #f3f6fb;
+  --bg-soft: #dfe8f4;
+  --text: #101522;
+  --muted: #3e4d68;
+  --border: rgba(16, 21, 34, 0.14);
+  --glass: rgba(255, 255, 255, 0.64);
+  --accent: linear-gradient(120deg, #5d87ff, #3678ff 48%, #00cbb8);
+  --ambient-1: rgba(102, 144, 255, 0.24);
+  --ambient-2: rgba(0, 206, 183, 0.2);
 }
 
-/* DARK */
 html[data-theme="dark"] {
-  --bg: #0a0a0a;
-  --text: #f9fafb;
-  --accent: linear-gradient(to right, #22d3ee, #a78bfa);
+  --bg: #090e19;
+  --bg-soft: #131c2f;
+  --text: #ebf1ff;
+  --muted: #b8c6e8;
+  --border: rgba(225, 235, 255, 0.2);
+  --glass: rgba(12, 19, 34, 0.62);
+  --accent: linear-gradient(120deg, #8fb0ff, #4f8dff 45%, #34dfd0);
+  --ambient-1: rgba(65, 103, 212, 0.35);
+  --ambient-2: rgba(0, 140, 140, 0.24);
 }
 
-/* Apply globally */
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 12% 18%, var(--ambient-1) 0, transparent 34%),
+    radial-gradient(circle at 82% 10%, var(--ambient-2) 0, transparent 38%),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(255, 255, 255, 0.08) 0,
+      transparent 40%
+    ),
+    linear-gradient(160deg, var(--bg) 0%, var(--bg-soft) 100%);
   color: var(--text);
-  transition: all 0.3s ease;
-  font-family: "Inter", sans-serif;
+  transition:
+    background 0.4s ease,
+    color 0.3s ease;
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.06)),
+    radial-gradient(rgba(255, 255, 255, 0.06) 0.45px, transparent 0.45px);
+  background-size:
+    100% 100%,
+    3px 3px;
+  opacity: 0.55;
 }
 
 * {
@@ -27,7 +63,79 @@ body {
   scroll-behavior: smooth;
 }
 
+section {
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+.display-title {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: 0.02em;
+}
+
+.section-title {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 0.95;
+}
+
+.glass-panel {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px) saturate(130%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 18px 40px rgba(8, 15, 30, 0.16),
+    0 2px 16px rgba(78, 126, 255, 0.08);
+}
+
+.float-slow {
+  animation: float-slow 5.4s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+a,
+button {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
 button:hover {
-  transform: scale(1.05);
-  transition: all 0.2s ease-in-out;
+  transform: scale(1.03);
+  transition: transform 0.2s ease-in-out;
+}
+
+.section-fade-in {
+  animation: section-fade 0.9s ease both;
+}
+
+@keyframes section-fade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    letter-spacing: 0.08em;
+  }
 }

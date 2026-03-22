@@ -3,24 +3,16 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button, Drawer } from "@material-tailwind/react";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { FiMenu, FiX } from "react-icons/fi";
+import { MdLightMode, MdDarkMode } from "react-icons/md";
 
 import { useTheme } from "@/context/ThemeContext";
+import { allMenuItems } from "@data";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-
-  const allMenuItems = [
-    { name: "Home", href: "#home" },
-    { name: "Projects", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-    { name: "Journey", href: "#journey" },
-    { name: "Analytics", href: "#analytics" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,59 +50,79 @@ export default function Navbar() {
         style={{
           background: scrolled
             ? theme === "light"
-              ? "rgba(255,255,255,0.7)"
-              : "rgba(0,0,0,0.6)"
+              ? "rgba(244,247,243,0.74)"
+              : "rgba(9,15,13,0.72)"
             : "transparent",
+          boxShadow: scrolled
+            ? "0 12px 36px rgba(8,15,30,0.22), inset 0 1px 0 rgba(255,255,255,0.12)"
+            : "none",
         }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          scrolled ? "backdrop-blur-lg shadow-md" : ""
+          scrolled ? "backdrop-blur-2xl" : ""
         }`}
+        aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-          {/* Logo */}
-          <h1 className="text-xl font-bold tracking-wide">DevPortfolio</h1>
+          <h1 className="display-title text-2xl font-semibold tracking-[0.12em] uppercase">
+            Somyar
+          </h1>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex gap-8 text-sm font-medium">
+          <div className="hidden lg:flex gap-8 text-xs font-semibold uppercase tracking-[0.18em]">
             {allMenuItems.map((item) => (
-              <a key={item.name} href={item.href} className="hover:opacity-70">
+              <motion.a
+                key={item.name}
+                href={item.href}
+                whileHover={{ y: -2, opacity: 0.7 }}
+                transition={{ duration: 0.18 }}
+                className="hover:opacity-70 hover:-translate-y-0.5"
+              >
                 {item.name}
-              </a>
+              </motion.a>
             ))}
           </div>
 
-          {/* Mobile Menu Button & Theme Toggle */}
           <div className="flex items-center gap-2">
-            {/* Hamburger Menu for Mobile */}
             <Button
               size="sm"
               onClick={() => setOpenDrawer(true)}
               className="lg:hidden rounded-full p-2 cursor-pointer"
               variant="text"
+              style={{
+                color: "var(--text)",
+                border: "1px solid var(--border)",
+                background: "var(--glass)",
+              }}
             >
-              <Menu size={18} />
+              <FiMenu size={18} />
             </Button>
 
-            {/* Theme Toggle */}
             <Button
               size="sm"
               onClick={toggleTheme}
               className="rounded-full p-2 cursor-pointer"
+              style={{
+                color: "var(--text)",
+                border: "1px solid var(--border)",
+                background: "var(--glass)",
+              }}
             >
-              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+              {theme === "light" ? (
+                <MdDarkMode size={18} />
+              ) : (
+                <MdLightMode size={18} />
+              )}
             </Button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Drawer Menu */}
       <Drawer
         open={openDrawer}
         onClose={closeDrawerMenu}
-        className="p-4"
+        className="glass-panel p-4 shadow-2xl bg-(--bg-soft) z-9999!"
         placement="left"
         overlayProps={{
-          className: "bg-black/30 backdrop-blur-sm z-9999",
+          className: "bg-black/30 backdrop-blur-sm z-9998!",
           onClick: closeDrawerMenu,
         }}
         dismiss={{
@@ -120,23 +132,24 @@ export default function Navbar() {
         }}
       >
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-bold">Menu</h2>
+          <h2 className="display-title text-2xl font-semibold uppercase tracking-[0.12em]">
+            Menu
+          </h2>
           <button
             onClick={closeDrawerMenu}
             className="p-1 hover:opacity-70 transition-opacity"
           >
-            <X size={24} />
+            <FiX size={24} />
           </button>
         </div>
 
-        {/* Mobile Menu Items */}
         <nav className="flex flex-col gap-4">
           {allMenuItems.map((item) => (
             <a
               key={item.name}
               href={item.href}
               onClick={closeDrawerMenu}
-              className="text-base font-medium hover:opacity-70 transition-opacity"
+              className="text-sm font-semibold uppercase tracking-[0.14em] hover:opacity-70 transition-opacity"
             >
               {item.name}
             </a>
