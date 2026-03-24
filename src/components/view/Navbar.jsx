@@ -57,26 +57,26 @@ export default function Navbar() {
         }`}
         aria-label="Main navigation"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
-          <h1 className="display-title text-2xl font-semibold tracking-[0.12em] uppercase">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:gap-6 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
+          <h1 className="display-title shrink-0 text-xl font-semibold tracking-[0.12em] uppercase xl:text-2xl">
             Somyar
           </h1>
 
-          <div className="hidden lg:flex gap-8 text-xs font-semibold uppercase tracking-[0.18em]">
+          <div className="hidden lg:flex flex-1 items-center justify-center gap-5 px-4 text-[10px] font-semibold uppercase tracking-[0.13em] xl:gap-8 xl:px-6 xl:text-xs xl:tracking-[0.18em]">
             {allMenuItems.map((item) => (
               <motion.a
                 key={item.name}
                 href={item.href}
                 whileHover={{ y: -2, opacity: 0.7 }}
                 transition={{ duration: 0.18 }}
-                className="hover:opacity-70 hover:-translate-y-0.5"
+                className="whitespace-nowrap hover:opacity-70 hover:-translate-y-0.5"
               >
                 {item.name}
               </motion.a>
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <Button
               size="sm"
               onClick={() => setOpenDrawer(true)}

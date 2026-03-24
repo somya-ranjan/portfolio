@@ -205,6 +205,34 @@ button:hover {
   }
 }
 
+@media (min-width: 1024px) and (max-width: 1279px) {
+  body {
+    font-size: 0.97rem;
+  }
+
+  .section-title {
+    letter-spacing: 0.125em;
+  }
+
+  .display-title {
+    letter-spacing: 0.022em;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1919px) {
+  body {
+    font-size: 1.01rem;
+  }
+
+  .section-title {
+    letter-spacing: 0.13em;
+  }
+
+  .display-title {
+    letter-spacing: 0.025em;
+  }
+}
+
 @media (min-width: 1920px) {
   body {
     font-size: 1.04rem;

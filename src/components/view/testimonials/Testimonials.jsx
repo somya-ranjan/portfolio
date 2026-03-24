@@ -177,9 +177,14 @@ export default function Testimonials() {
         </motion.p>
       </div>
 
-      <div className="mx-auto mt-8 grid max-w-6xl gap-6 pb-10 md:grid-cols-2 md:gap-8 3xl:max-w-[86vw] 3xl:gap-10 4xl:max-w-[88vw] 4xl:grid-cols-3 4xl:gap-12 5xl:max-w-[90vw]">
+      <div className="mx-auto mt-8 max-w-6xl columns-1 gap-6 pb-10 md:columns-2 md:gap-8 3xl:columns-3 3xl:max-w-[86vw] 3xl:gap-10 4xl:max-w-[88vw] 4xl:gap-12 5xl:max-w-[90vw]">
         {testimonials.map((item, index) => (
-          <div key={item.id} className="py-1">
+          <div
+            key={item.id}
+            className={`mb-6 break-inside-avoid py-1 md:mb-8 3xl:mb-10 4xl:mb-12 ${
+              index % 5 === 1 ? "md:mt-6" : index % 5 === 3 ? "md:mt-10" : ""
+            }`}
+          >
             <div className="w-full">
               <TestimonialCard item={item} index={index} />
             </div>
