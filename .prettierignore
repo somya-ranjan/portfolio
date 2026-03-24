@@ -5,3 +5,10 @@ dist
 coverage
 bun.lockb
 .husky/_
+package-lock.json
+yarn.lock
+*.log
+*.tsbuildinfo
+package.json
+.prettierrc
+.vscode/settings.json
