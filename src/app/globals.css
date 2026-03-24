@@ -58,6 +58,32 @@ html[data-theme="dark"] {
   --chart-5: #67e8f9;
 }
 
+html[data-theme="minimal"] {
+  --bg: #ece8dc;
+  --bg-soft: #f4f1e6;
+  --surface: #fbf8ef;
+  --text: #121212;
+  --muted: #3d3d3d;
+  --muted-strong: #1f1f1f;
+  --border: rgba(18, 18, 18, 0.34);
+  --glass: rgba(251, 248, 239, 0.92);
+  --accent: linear-gradient(120deg, #0f0f0f, #282828 50%, #515151);
+  --accent-solid: #101010;
+  --accent-soft: #4c4c4c;
+  --accent-contrast: #f6f3ea;
+  --ambient-1: rgba(0, 0, 0, 0.06);
+  --ambient-2: rgba(0, 0, 0, 0.04);
+  --danger: #2f2f2f;
+  --success: #1d1d1d;
+  --warning: #343434;
+  --focus-ring: rgba(0, 0, 0, 0.38);
+  --chart-1: #101010;
+  --chart-2: #262626;
+  --chart-3: #3f3f3f;
+  --chart-4: #5d5d5d;
+  --chart-5: #7d7d7d;
+}
+
 body {
   background:
     radial-gradient(circle at 12% 18%, var(--ambient-1) 0, transparent 34%),
@@ -86,6 +112,44 @@ body::before {
     100% 100%,
     3px 3px;
   opacity: 0.55;
+}
+
+html[data-theme="minimal"] body {
+  background:
+    radial-gradient(circle, rgba(10, 10, 10, 0.35) 1px, transparent 1.2px),
+    linear-gradient(160deg, var(--bg) 0%, var(--bg-soft) 100%);
+  background-size:
+    12px 12px,
+    100% 100%;
+  filter: grayscale(100%);
+  font-family: "Courier New", "Lucida Console", monospace;
+  letter-spacing: 0.01em;
+}
+
+html[data-theme="minimal"] body::before {
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)),
+    radial-gradient(rgba(15, 15, 15, 0.22) 0.6px, transparent 0.6px);
+  background-size:
+    100% 100%,
+    9px 9px;
+  opacity: 0.36;
+}
+
+html[data-theme="minimal"] h1,
+html[data-theme="minimal"] h2,
+html[data-theme="minimal"] h3,
+html[data-theme="minimal"] .display-title {
+  font-family: "Times New Roman", Times, serif;
+  letter-spacing: 0.03em;
+}
+
+html[data-theme="minimal"] .glass-panel {
+  backdrop-filter: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 0 0 1px rgba(0, 0, 0, 0.18),
+    0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 * {

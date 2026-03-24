@@ -17,6 +17,15 @@ export const universalPalette = {
     accentSoft: "#7dd3fc",
     danger: "#f87171",
   },
+  minimal: {
+    bg: "#ece8dc",
+    surface: "#fbf8ef",
+    text: "#121212",
+    muted: "#3d3d3d",
+    accent: "#101010",
+    accentSoft: "#4c4c4c",
+    danger: "#2f2f2f",
+  },
 };
 
 const lightTheme = {
@@ -35,6 +44,34 @@ const darkTheme = {
   },
 };
 
-export const getTheme = (mode) => (mode === "dark" ? darkTheme : lightTheme);
-export const getThemePalette = (mode) =>
-  mode === "dark" ? universalPalette.dark : universalPalette.light;
+const minimalTheme = {
+  button: {
+    defaultProps: {
+      color: "gray",
+    },
+  },
+};
+
+export const getTheme = (mode) => {
+  if (mode === "dark") {
+    return darkTheme;
+  }
+
+  if (mode === "minimal") {
+    return minimalTheme;
+  }
+
+  return lightTheme;
+};
+
+export const getThemePalette = (mode) => {
+  if (mode === "dark") {
+    return universalPalette.dark;
+  }
+
+  if (mode === "minimal") {
+    return universalPalette.minimal;
+  }
+
+  return universalPalette.light;
+};

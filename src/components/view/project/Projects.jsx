@@ -33,30 +33,43 @@ function canUseExternalIframe(url) {
 function getProjectPreviewDoc(project, theme) {
   const imageSrc =
     typeof project.image === "string" ? project.image : project.image?.src || "";
+  const isMinimal = theme === "minimal";
   const isDark = theme === "dark";
-  const palette = isDark
+  const palette = isMinimal
     ? {
-        text: "#e0e0e0",
-        muted: "#b0b8c6",
-        accent: "#7dd3fc",
-        chip: "#c8d0de",
-        border: "rgba(224,224,224,0.18)",
-        surface: "#242424",
-        buttonText: "#062133",
-        buttonGradient: "linear-gradient(120deg,#1f7ea4,#2d9ccc 50%,#38bdf8)",
-        bg: "radial-gradient(circle at top left, rgba(56,189,248,0.2), transparent 28%),radial-gradient(circle at bottom right, rgba(14,165,233,0.16), transparent 32%),linear-gradient(160deg,#121212 0%,#1e1e1e 100%)",
-      }
-    : {
-        text: "#1f2937",
-        muted: "#4b5563",
-        accent: "#0284c7",
-        chip: "#374151",
-        border: "rgba(31,41,55,0.14)",
+        text: "#101010",
+        muted: "#444444",
+        accent: "#111111",
+        chip: "#222222",
+        border: "rgba(16,16,16,0.26)",
         surface: "#ffffff",
-        buttonText: "#f8fbff",
-        buttonGradient: "linear-gradient(120deg,#0284c7,#0ea5e9 52%,#38bdf8)",
-        bg: "radial-gradient(circle at top left, rgba(56,189,248,0.2), transparent 28%),radial-gradient(circle at bottom right, rgba(2,132,199,0.16), transparent 32%),linear-gradient(160deg,#f8f9fa 0%,#ffffff 100%)",
-      };
+        buttonText: "#f7f7f7",
+        buttonGradient: "linear-gradient(120deg,#0f0f0f,#2b2b2b 50%,#565656)",
+        bg: "radial-gradient(circle at top left, rgba(0,0,0,0.06), transparent 28%),radial-gradient(circle at bottom right, rgba(0,0,0,0.07), transparent 32%),linear-gradient(160deg,#f0f0f0 0%,#fafafa 100%)",
+      }
+    : isDark
+      ? {
+          text: "#e0e0e0",
+          muted: "#b0b8c6",
+          accent: "#7dd3fc",
+          chip: "#c8d0de",
+          border: "rgba(224,224,224,0.18)",
+          surface: "#242424",
+          buttonText: "#062133",
+          buttonGradient: "linear-gradient(120deg,#1f7ea4,#2d9ccc 50%,#38bdf8)",
+          bg: "radial-gradient(circle at top left, rgba(56,189,248,0.2), transparent 28%),radial-gradient(circle at bottom right, rgba(14,165,233,0.16), transparent 32%),linear-gradient(160deg,#121212 0%,#1e1e1e 100%)",
+        }
+      : {
+          text: "#1f2937",
+          muted: "#4b5563",
+          accent: "#0284c7",
+          chip: "#374151",
+          border: "rgba(31,41,55,0.14)",
+          surface: "#ffffff",
+          buttonText: "#f8fbff",
+          buttonGradient: "linear-gradient(120deg,#0284c7,#0ea5e9 52%,#38bdf8)",
+          bg: "radial-gradient(circle at top left, rgba(56,189,248,0.2), transparent 28%),radial-gradient(circle at bottom right, rgba(2,132,199,0.16), transparent 32%),linear-gradient(160deg,#f8f9fa 0%,#ffffff 100%)",
+        };
 
   const techBadges = project.tech
     .map(
@@ -79,7 +92,7 @@ function getProjectPreviewDoc(project, theme) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>${project.title} Preview</title>
       </head>
-      <body style="margin:0;font-family:Segoe UI,sans-serif;background:${palette.bg};color:${palette.text};min-height:100vh;">
+      <body style="margin:0;font-family:Segoe UI,sans-serif;background:${palette.bg};color:${palette.text};min-height:100vh;${isMinimal ? "filter:grayscale(100%);" : ""}">
         <main style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:32px;align-items:center;min-height:100vh;padding:32px;box-sizing:border-box;">
           <section style="position:relative;min-height:340px;border-radius:28px;overflow:hidden;border:1px solid ${palette.border};background:${palette.surface};box-shadow:0 18px 40px rgba(0,0,0,0.28);">
             <img src="${imageSrc}" alt="${project.title}" style="width:100%;height:100%;object-fit:cover;display:block;" />

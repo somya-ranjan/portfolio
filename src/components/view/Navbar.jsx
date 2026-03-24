@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button, Drawer } from "@material-tailwind/react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
+import { BsGrid3X3GapFill } from "react-icons/bs";
 
 import { useTheme } from "@/context/ThemeContext";
 import { allMenuItems } from "@data";
@@ -34,8 +35,36 @@ export default function Navbar() {
     };
   }, [openDrawer]);
 
+  const themeCycle = ["light", "dark", "minimal"];
+
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    const currentIndex = themeCycle.indexOf(theme);
+    const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % themeCycle.length;
+    setTheme(themeCycle[nextIndex]);
+  };
+
+  const getThemeIcon = () => {
+    if (theme === "light") {
+      return <MdDarkMode size={18} />;
+    }
+
+    if (theme === "dark") {
+      return <MdLightMode size={18} />;
+    }
+
+    return <BsGrid3X3GapFill size={14} />;
+  };
+
+  const getThemeLabel = () => {
+    if (theme === "light") {
+      return "Light";
+    }
+
+    if (theme === "dark") {
+      return "Dark";
+    }
+
+    return "Minimal";
   };
 
   const closeDrawerMenu = () => {
@@ -94,14 +123,21 @@ export default function Navbar() {
             <Button
               size="sm"
               onClick={toggleTheme}
-              className="rounded-full p-2 cursor-pointer"
+              className="rounded-full px-3 py-2 cursor-pointer"
+              title={`Theme: ${theme}`}
+              aria-label={`Switch theme. Current theme is ${theme}`}
               style={{
                 color: "var(--text)",
                 border: "1px solid var(--border)",
                 background: "var(--glass)",
               }}
             >
-              {theme === "light" ? <MdDarkMode size={18} /> : <MdLightMode size={18} />}
+              <span className="flex items-center gap-2">
+                {getThemeIcon()}
+                <span className="hidden text-[10px] font-semibold uppercase tracking-[0.12em] sm:inline">
+                  {getThemeLabel()}
+                </span>
+              </span>
             </Button>
           </div>
         </div>
