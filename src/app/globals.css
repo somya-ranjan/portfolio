@@ -1,38 +1,68 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-3xl: 120rem;
+  --breakpoint-4xl: 160rem;
+  --breakpoint-5xl: 240rem;
+}
+
 html[data-theme="light"] {
-  --bg: #f3f6fb;
-  --bg-soft: #dfe8f4;
-  --text: #101522;
-  --muted: #3e4d68;
-  --border: rgba(16, 21, 34, 0.14);
-  --glass: rgba(255, 255, 255, 0.64);
-  --accent: linear-gradient(120deg, #5d87ff, #3678ff 48%, #00cbb8);
-  --ambient-1: rgba(102, 144, 255, 0.24);
-  --ambient-2: rgba(0, 206, 183, 0.2);
+  --bg: #f8f9fa;
+  --bg-soft: #ffffff;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #4b5563;
+  --muted-strong: #374151;
+  --border: rgba(31, 41, 55, 0.14);
+  --glass: rgba(255, 255, 255, 0.76);
+  --accent: linear-gradient(120deg, #0284c7, #0ea5e9 52%, #38bdf8);
+  --accent-solid: #0284c7;
+  --accent-soft: #38bdf8;
+  --accent-contrast: #f8fbff;
+  --ambient-1: rgba(56, 189, 248, 0.2);
+  --ambient-2: rgba(2, 132, 199, 0.16);
+  --danger: #dc2626;
+  --success: #0f766e;
+  --warning: #b45309;
+  --focus-ring: rgba(2, 132, 199, 0.35);
+  --chart-1: #0284c7;
+  --chart-2: #0ea5e9;
+  --chart-3: #38bdf8;
+  --chart-4: #0369a1;
+  --chart-5: #0891b2;
 }
 
 html[data-theme="dark"] {
-  --bg: #090e19;
-  --bg-soft: #131c2f;
-  --text: #ebf1ff;
-  --muted: #b8c6e8;
-  --border: rgba(225, 235, 255, 0.2);
-  --glass: rgba(12, 19, 34, 0.62);
-  --accent: linear-gradient(120deg, #8fb0ff, #4f8dff 45%, #34dfd0);
-  --ambient-1: rgba(65, 103, 212, 0.35);
-  --ambient-2: rgba(0, 140, 140, 0.24);
+  --bg: #121212;
+  --bg-soft: #1e1e1e;
+  --surface: #242424;
+  --text: #e0e0e0;
+  --muted: #b0b8c6;
+  --muted-strong: #c8d0de;
+  --border: rgba(224, 224, 224, 0.18);
+  --glass: rgba(30, 30, 30, 0.72);
+  --accent: linear-gradient(120deg, #1f7ea4, #2d9ccc 50%, #38bdf8);
+  --accent-solid: #38bdf8;
+  --accent-soft: #7dd3fc;
+  --accent-contrast: #062133;
+  --ambient-1: rgba(56, 189, 248, 0.18);
+  --ambient-2: rgba(14, 165, 233, 0.14);
+  --danger: #f87171;
+  --success: #5eead4;
+  --warning: #facc15;
+  --focus-ring: rgba(56, 189, 248, 0.32);
+  --chart-1: #38bdf8;
+  --chart-2: #2d9ccc;
+  --chart-3: #7dd3fc;
+  --chart-4: #0ea5e9;
+  --chart-5: #67e8f9;
 }
 
 body {
   background:
     radial-gradient(circle at 12% 18%, var(--ambient-1) 0, transparent 34%),
     radial-gradient(circle at 82% 10%, var(--ambient-2) 0, transparent 38%),
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(255, 255, 255, 0.08) 0,
-      transparent 40%
-    ),
+    radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.1) 0, transparent 40%),
     linear-gradient(160deg, var(--bg) 0%, var(--bg-soft) 100%);
   color: var(--text);
   transition:
@@ -50,8 +80,8 @@ body::before {
   pointer-events: none;
   z-index: -1;
   background-image:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.06)),
-    radial-gradient(rgba(255, 255, 255, 0.06) 0.45px, transparent 0.45px);
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.04), rgba(2, 132, 199, 0.04)),
+    radial-gradient(rgba(56, 189, 248, 0.08) 0.45px, transparent 0.45px);
   background-size:
     100% 100%,
     3px 3px;
@@ -79,6 +109,33 @@ h3,
   text-transform: uppercase;
   letter-spacing: 0.12em;
   line-height: 0.95;
+}
+
+@layer components {
+  .section-wrap {
+    @apply px-6 py-24 3xl:px-10 4xl:px-16 5xl:px-24;
+  }
+
+  .section-heading {
+    @apply text-center font-semibold md:text-5xl lg:text-6xl 3xl:text-7xl 4xl:text-[5.5rem] 5xl:text-[6.5rem];
+  }
+
+  .section-heading-lg {
+    @apply text-4xl;
+  }
+
+  .section-heading-sm {
+    @apply text-3xl;
+  }
+
+  .tilt-text {
+    @apply inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.26em];
+    transform: rotate(-2deg);
+    transform-origin: left center;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    color: var(--text);
+  }
 }
 
 .glass-panel {
@@ -114,6 +171,14 @@ button {
     transform 0.25s ease;
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 button:hover {
   transform: scale(1.03);
   transition: transform 0.2s ease-in-out;
@@ -137,5 +202,31 @@ button:hover {
 @media (max-width: 768px) {
   .section-title {
     letter-spacing: 0.08em;
+  }
+}
+
+@media (min-width: 1920px) {
+  body {
+    font-size: 1.04rem;
+  }
+
+  .section-title {
+    letter-spacing: 0.14em;
+  }
+
+  .display-title {
+    letter-spacing: 0.03em;
+  }
+}
+
+@media (min-width: 2560px) {
+  body {
+    font-size: 1.12rem;
+  }
+}
+
+@media (min-width: 3840px) {
+  body {
+    font-size: 1.22rem;
   }
 }

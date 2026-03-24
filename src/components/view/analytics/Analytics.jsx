@@ -23,7 +23,13 @@ const maxProjects = Math.max(
   ...analyticsData.map((companyRecord) => companyRecord.project.length),
 );
 
-const candleColors = ["#22d3ee", "#38bdf8", "#60a5fa", "#818cf8", "#34d399"];
+const candleColors = [
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+];
 
 const chartData = analyticsData.map((companyRecord) => {
   const candleData = {
@@ -39,7 +45,7 @@ const chartData = analyticsData.map((companyRecord) => {
   return candleData;
 });
 
-function CustomTooltip({ active, payload, label }) {
+function CustomTooltip({ active, payload, label, colors }) {
   if (!active || !payload?.length) {
     return null;
   }
@@ -53,7 +59,7 @@ function CustomTooltip({ active, payload, label }) {
 
   return (
     <div
-      className="w-[min(90vw,22rem)] break-words rounded-xl border px-4 py-3 text-sm shadow-xl backdrop-blur"
+      className="w-[min(90vw,22rem)] wrap-break-word rounded-xl border px-4 py-3 text-sm shadow-xl backdrop-blur"
       style={{
         background: "var(--glass)",
         borderColor: "var(--border)",
@@ -61,21 +67,14 @@ function CustomTooltip({ active, payload, label }) {
       }}
     >
       <p className="font-semibold">{label}</p>
-      <p className="mt-1 font-medium opacity-90">
-        Project count: {totalProjects}
-      </p>
+      <p className="mt-1 font-medium opacity-90">Project count: {totalProjects}</p>
       {duration ? <p className="opacity-85">Duration: {duration}</p> : null}
       {role ? <p className="opacity-85">Role: {role}</p> : null}
 
       {experienceHighlights.length > 0 ? (
-        <div
-          className="mt-3 border-t pt-3"
-          style={{ borderColor: "var(--border)" }}
-        >
-          <p className="text-xs font-semibold opacity-90">
-            Experience Highlights
-          </p>
-          <ul className="mt-1 list-disc pl-4 text-xs space-y-0.5 opacity-80">
+        <div className="mt-3 border-t pt-3" style={{ borderColor: "var(--border)" }}>
+          <p className="text-xs font-semibold opacity-90">Experience Highlights</p>
+          <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs opacity-80">
             {experienceHighlights.slice(0, 3).map((point) => (
               <li key={point}>{point}</li>
             ))}
@@ -94,14 +93,14 @@ function CustomTooltip({ active, payload, label }) {
                 <span
                   className="inline-block h-2 w-2 rounded-full"
                   style={{
-                    backgroundColor: candleColors[index % candleColors.length],
+                    backgroundColor: colors[index % colors.length],
                   }}
                 />
                 <p className="font-medium opacity-95">{project.name}</p>
               </div>
               <p className="text-xs opacity-80">{project.description}</p>
               {project.achievements?.length ? (
-                <ul className="list-disc pl-4 text-xs space-y-0.5 opacity-70">
+                <ul className="list-disc space-y-0.5 pl-4 text-xs opacity-70">
                   {project.achievements.slice(0, 2).map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -137,26 +136,21 @@ export default function Analytics() {
     offset: ["start end", "end start"],
   });
   const chartY = useTransform(scrollYProgress, [0, 1], [70, -70]);
-  const chartOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0.6, 1, 0.6],
-  );
+  const chartOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.6]);
 
   return (
     <section
       id="analytics"
-      className="overflow-x-hidden py-24 px-6"
+      className="overflow-x-hidden px-6 py-24 3xl:px-10 4xl:px-16 5xl:px-24"
       ref={containerRef}
     >
-      <div className="max-w-6xl mx-auto">
-        {/* Heading */}
+      <div className="mx-auto max-w-6xl 3xl:max-w-[86vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw]">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-center"
+          className="text-center text-3xl font-bold md:text-4xl 3xl:text-6xl 4xl:text-7xl 5xl:text-[5.5rem]"
         >
           Growth Analytics
         </motion.h2>
@@ -165,13 +159,11 @@ export default function Analytics() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
           viewport={{ once: true }}
-          className="mt-3 text-center text-sm md:text-base opacity-80"
+          className="mt-3 text-center text-sm opacity-80 md:text-base"
         >
-          Each company has one candle, split into color sections based on total
-          projects.
+          Each company has one candle, split into color sections based on total projects.
         </motion.p>
 
-        {/* Chart Card */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -179,22 +171,23 @@ export default function Analytics() {
           style={{
             y: chartY,
             opacity: chartOpacity,
+            borderColor: "var(--border)",
             background:
-              "linear-gradient(135deg, rgba(37,99,235,0.18), rgba(16,185,129,0.16), rgba(0,0,0,0.1))",
+              "linear-gradient(135deg, color-mix(in srgb, var(--accent-solid) 20%, transparent), color-mix(in srgb, var(--accent-soft) 18%, transparent), color-mix(in srgb, var(--bg) 72%, transparent))",
           }}
           transition={{ duration: 0.7 }}
-          className="mt-16 rounded-2xl border border-white/10 p-6 md:p-8 shadow-2xl"
+          className="mt-16 rounded-2xl border p-6 shadow-2xl md:p-8"
         >
           <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
-            <h3 className="text-lg md:text-xl font-semibold">
+            <h3 className="text-lg font-semibold md:text-xl">
               Company Delivery Distribution
             </h3>
-            <span className="text-xs md:text-sm opacity-80">
+            <span className="text-xs opacity-80 md:text-sm">
               X: Company | Y: Project count
             </span>
           </div>
 
-          <div className="h-[22rem] w-full md:h-[26rem]">
+          <div className="h-88 w-full md:h-104 3xl:h-[34rem] 4xl:h-[42rem] 5xl:h-[50rem]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={chartData}
@@ -209,7 +202,8 @@ export default function Analytics() {
               >
                 <CartesianGrid
                   strokeDasharray="4 4"
-                  stroke="rgba(148,163,184,0.25)"
+                  stroke="var(--border)"
+                  strokeOpacity={0.5}
                 />
                 <XAxis
                   dataKey="company"
@@ -224,10 +218,7 @@ export default function Analytics() {
                       return normalized;
                     }
                     const compact = normalized
-                      .replace(
-                        "Mercedes-Benz Research & Development India",
-                        "MBRDI",
-                      )
+                      .replace("Mercedes-Benz Research & Development India", "MBRDI")
                       .replace("TechneAI", "TechneAI")
                       .replace("SoluLab", "SoluLab");
                     return compact;
@@ -242,8 +233,10 @@ export default function Analytics() {
                   }}
                 />
                 <Tooltip
-                  content={<CustomTooltip />}
-                  cursor={{ fill: "rgba(148,163,184,0.08)" }}
+                  content={<CustomTooltip colors={candleColors} />}
+                  cursor={{
+                    fill: "color-mix(in srgb, var(--accent-soft) 8%, transparent)",
+                  }}
                   wrapperStyle={{ zIndex: 50 }}
                 />
 
@@ -265,9 +258,7 @@ export default function Analytics() {
                         return (
                           <Cell
                             key={`${entry.company}-${key}`}
-                            radius={
-                              isTopSegment ? [10, 10, 0, 0] : [0, 0, 0, 0]
-                            }
+                            radius={isTopSegment ? [10, 10, 0, 0] : [0, 0, 0, 0]}
                           />
                         );
                       })}

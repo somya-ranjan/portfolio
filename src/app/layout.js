@@ -29,7 +29,11 @@ function MaterialWrapper({ children }) {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
+    <html
+      lang="en"
+      data-theme="dark"
+      className={`${displayFont.variable} ${bodyFont.variable}`}
+    >
       <body suppressHydrationWarning={true}>
         <ThemeProvider>
           <MaterialWrapper>

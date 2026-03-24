@@ -5,8 +5,11 @@ import { MdEmail } from "react-icons/md";
 
 export default function Footer() {
   return (
-    <footer className="px-6 py-10 mt-20 border-t border-black/10">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer
+      className="mt-20 border-t px-6 py-10 3xl:px-10 4xl:px-16 5xl:px-24"
+      style={{ borderColor: "var(--border)" }}
+    >
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]">
         {/* Left */}
         <h2 className="text-lg font-semibold">DevPortfolio</h2>
 
@@ -21,8 +24,11 @@ export default function Footer() {
             href="https://github.com/yourusername"
             target="_blank"
             rel="noreferrer"
-            className="p-2 rounded-full"
-            style={{ background: "rgba(0,0,0,0.08)" }}
+            className="rounded-full border p-2"
+            style={{
+              background: "var(--glass)",
+              borderColor: "var(--border)",
+            }}
             aria-label="GitHub"
           >
             <FaGithub size={18} />
@@ -32,8 +38,11 @@ export default function Footer() {
             href="https://linkedin.com/in/yourusername"
             target="_blank"
             rel="noreferrer"
-            className="p-2 rounded-full"
-            style={{ background: "rgba(0,0,0,0.08)" }}
+            className="rounded-full border p-2"
+            style={{
+              background: "var(--glass)",
+              borderColor: "var(--border)",
+            }}
             aria-label="LinkedIn"
           >
             <FaLinkedinIn size={18} />
@@ -41,8 +50,11 @@ export default function Footer() {
 
           <a
             href="mailto:youremail@gmail.com"
-            className="p-2 rounded-full"
-            style={{ background: "rgba(0,0,0,0.08)" }}
+            className="rounded-full border p-2"
+            style={{
+              background: "var(--glass)",
+              borderColor: "var(--border)",
+            }}
             aria-label="Email"
           >
             <MdEmail size={18} />

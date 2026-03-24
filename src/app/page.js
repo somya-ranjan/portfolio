@@ -13,19 +13,11 @@ import {
   Footer,
 } from "@/components/view";
 
-import {
-  ShowcaseParallax,
-  CustomCursor,
-  ScrollProgress,
-  Reveal,
-} from "@/components";
+import { ShowcaseParallax, CustomCursor, ScrollProgress, Reveal } from "@/components";
 
-const Analytics = dynamic(
-  () => import("@/components/view/analytics/Analytics"),
-  {
-    ssr: false,
-  },
-);
+const Analytics = dynamic(() => import("@/components/view/analytics/Analytics"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (

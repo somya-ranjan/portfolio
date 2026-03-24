@@ -7,10 +7,10 @@ const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("portfolio-theme") || "light";
+      return localStorage.getItem("portfolio-theme") || "dark";
     }
 
-    return "light";
+    return "dark";
   });
 
   useEffect(() => {
@@ -19,9 +19,7 @@ export const ThemeProvider = ({ children }) => {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
   );
 };
 

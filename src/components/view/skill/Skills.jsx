@@ -13,19 +13,19 @@ export default function Skills() {
   });
 
   return (
-    <section id="skills" className="py-24 px-6" ref={containerRef}>
-      <div className="max-w-7xl mx-auto">
+    <section id="skills" className="section-wrap" ref={containerRef}>
+      <div className="mx-auto max-w-7xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="section-title mb-4 text-center text-4xl font-semibold md:text-6xl"
+          className="section-title section-heading section-heading-lg mb-4"
         >
           Skills & Expertise
         </motion.h2>
 
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6 3xl:gap-8 4xl:grid-cols-8 4xl:gap-10 5xl:grid-cols-10">
           {skillsData.map((skill, index) => {
             const Icon = skill.icon;
 

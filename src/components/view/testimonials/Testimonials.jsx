@@ -51,7 +51,13 @@ function TestimonialCard({ item, index }) {
       }}
       className="glass-panel relative overflow-hidden rounded-3xl border p-5 md:p-6"
     >
-      <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-sky-400/15 blur-3xl" />
+      <div
+        className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, color-mix(in srgb, var(--accent-soft) 24%, transparent), transparent 70%)",
+        }}
+      />
 
       <div className="relative z-10">
         <div className="flex items-start justify-between gap-3">
@@ -85,7 +91,8 @@ function TestimonialCard({ item, index }) {
           {[...Array(5)].map((_, starIndex) => (
             <span
               key={starIndex}
-              className="text-base leading-none text-amber-400 md:text-lg"
+              className="text-base leading-none md:text-lg"
+              style={{ color: "var(--warning)" }}
             >
               ★
             </span>
@@ -126,19 +133,34 @@ function TestimonialCard({ item, index }) {
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="relative px-6 py-20 md:py-24">
+    <section
+      id="testimonials"
+      className="relative px-6 py-20 md:py-24 3xl:px-10 4xl:px-16 5xl:px-24"
+    >
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-0 top-16 h-44 w-44 rounded-full bg-sky-500/20 blur-3xl" />
-        <div className="absolute bottom-8 right-0 h-52 w-52 rounded-full bg-cyan-400/20 blur-3xl" />
+        <div
+          className="absolute left-0 top-16 h-44 w-44 rounded-full blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in srgb, var(--accent-soft) 22%, transparent), transparent 72%)",
+          }}
+        />
+        <div
+          className="absolute bottom-8 right-0 h-52 w-52 rounded-full blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in srgb, var(--accent-solid) 18%, transparent), transparent 72%)",
+          }}
+        />
       </div>
 
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl 3xl:max-w-[86vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw]">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="section-title text-center text-3xl font-semibold md:text-6xl"
+          className="section-title section-heading section-heading-sm"
         >
           Testimonials
         </motion.h2>
@@ -150,12 +172,12 @@ export default function Testimonials() {
           viewport={{ once: true }}
           className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed opacity-75 md:mt-5 md:text-base"
         >
-          Real recommendations from teammates and collaborators across projects,
-          product deliveries, and frontend engineering engagements.
+          Real recommendations from teammates and collaborators across projects, product
+          deliveries, and frontend engineering engagements.
         </motion.p>
       </div>
 
-      <div className="mx-auto mt-8 grid max-w-6xl gap-6 pb-10 md:grid-cols-2 md:gap-8">
+      <div className="mx-auto mt-8 grid max-w-6xl gap-6 pb-10 md:grid-cols-2 md:gap-8 3xl:max-w-[86vw] 3xl:gap-10 4xl:max-w-[88vw] 4xl:grid-cols-3 4xl:gap-12 5xl:max-w-[90vw]">
         {testimonials.map((item, index) => (
           <div key={item.id} className="py-1">
             <div className="w-full">

@@ -48,21 +48,16 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         style={{
-          background: scrolled
-            ? theme === "light"
-              ? "rgba(244,247,243,0.74)"
-              : "rgba(9,15,13,0.72)"
-            : "transparent",
-          boxShadow: scrolled
-            ? "0 12px 36px rgba(8,15,30,0.22), inset 0 1px 0 rgba(255,255,255,0.12)"
-            : "none",
+          background: scrolled ? "var(--glass)" : "transparent",
+          borderBottom: scrolled ? "1px solid var(--border)" : "none",
+          boxShadow: scrolled ? "0 12px 36px rgba(8, 15, 30, 0.16)" : "none",
         }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled ? "backdrop-blur-2xl" : ""
         }`}
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
           <h1 className="display-title text-2xl font-semibold tracking-[0.12em] uppercase">
             Somyar
           </h1>
@@ -106,11 +101,7 @@ export default function Navbar() {
                 background: "var(--glass)",
               }}
             >
-              {theme === "light" ? (
-                <MdDarkMode size={18} />
-              ) : (
-                <MdLightMode size={18} />
-              )}
+              {theme === "light" ? <MdDarkMode size={18} /> : <MdLightMode size={18} />}
             </Button>
           </div>
         </div>
@@ -122,7 +113,7 @@ export default function Navbar() {
         className="glass-panel p-4 shadow-2xl bg-(--bg-soft) z-9999!"
         placement="left"
         overlayProps={{
-          className: "bg-black/30 backdrop-blur-sm z-9998!",
+          className: "bg-slate-950/30 backdrop-blur-sm z-9998!",
           onClick: closeDrawerMenu,
         }}
         dismiss={{

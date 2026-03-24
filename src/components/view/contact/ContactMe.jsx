@@ -85,9 +85,7 @@ export default function ContactMe() {
       return;
     }
 
-    const subject = encodeURIComponent(
-      `Portfolio Contact: ${formData.name.trim()}`,
-    );
+    const subject = encodeURIComponent(`Portfolio Contact: ${formData.name.trim()}`);
     const body = encodeURIComponent(
       `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`,
     );
@@ -103,19 +101,19 @@ export default function ContactMe() {
   };
 
   return (
-    <section id="contact" className="py-24 px-6" ref={containerRef}>
-      <div className="relative mx-auto max-w-5xl">
+    <section id="contact" className="section-wrap" ref={containerRef}>
+      <div className="relative mx-auto max-w-5xl 3xl:max-w-[84vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw]">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="section-title text-center text-4xl font-semibold md:text-6xl"
+          className="section-title section-heading section-heading-lg"
         >
           Contact Me
         </motion.h2>
 
-        <div className="mt-16 grid md:grid-cols-2 gap-10">
+        <div className="mt-16 grid gap-10 md:grid-cols-2 3xl:gap-14 4xl:gap-20">
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -124,17 +122,15 @@ export default function ContactMe() {
             transition={{ duration: 0.7 }}
             className="glass-panel relative z-30 rounded-2xl p-8"
           >
-            <p className="text-xs uppercase tracking-[0.2em] opacity-65">
-              Start A Conversation
-            </p>
+            <p className="tilt-text opacity-65">Start A Conversation</p>
 
             <h3 className="display-title mt-4 text-3xl font-semibold leading-tight">
               Let’s build something amazing 🚀
             </h3>
 
             <p className="mt-5 text-sm leading-relaxed opacity-80">
-              Feel free to reach out for collaborations, freelance work, or just
-              a friendly hello 👋
+              Feel free to reach out for collaborations, freelance work, or just a
+              friendly hello 👋
             </p>
 
             <div className="mt-8 flex items-center gap-4">
@@ -181,9 +177,7 @@ export default function ContactMe() {
             onSubmit={handleSubmit}
             noValidate
           >
-            <p className="text-xs uppercase tracking-[0.2em] opacity-65">
-              Send Me A Message
-            </p>
+            <p className="tilt-text opacity-65">Send Me A Message</p>
 
             <div>
               <Input
@@ -195,7 +189,9 @@ export default function ContactMe() {
                 className="text-(--text)! placeholder:text-(--muted)! placeholder:opacity-100!"
               />
               {formErrors.name ? (
-                <p className="mt-1 text-xs text-red-500">{formErrors.name}</p>
+                <p className="mt-1 text-xs" style={{ color: "var(--danger)" }}>
+                  {formErrors.name}
+                </p>
               ) : null}
             </div>
 
@@ -210,7 +206,9 @@ export default function ContactMe() {
                 className="text-(--text)! placeholder:text-(--muted)! placeholder:opacity-100!"
               />
               {formErrors.email ? (
-                <p className="mt-1 text-xs text-red-500">{formErrors.email}</p>
+                <p className="mt-1 text-xs" style={{ color: "var(--danger)" }}>
+                  {formErrors.email}
+                </p>
               ) : null}
             </div>
 
@@ -224,7 +222,7 @@ export default function ContactMe() {
                 className="text-(--text)! placeholder:text-(--muted)! placeholder:opacity-100!"
               />
               {formErrors.message ? (
-                <p className="mt-1 text-xs text-red-500">
+                <p className="mt-1 text-xs" style={{ color: "var(--danger)" }}>
                   {formErrors.message}
                 </p>
               ) : null}
@@ -242,7 +240,10 @@ export default function ContactMe() {
             <Button
               type="submit"
               className="w-full rounded-full py-3 text-xs font-semibold uppercase tracking-[0.14em]"
-              style={{ background: "var(--accent)", color: "#0f1714" }}
+              style={{
+                background: "var(--accent)",
+                color: "var(--accent-contrast)",
+              }}
             >
               Send Message
             </Button>

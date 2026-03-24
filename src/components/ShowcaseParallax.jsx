@@ -36,12 +36,8 @@ function FloatingCard({ item, index, progress }) {
       }}
       className="glass-panel rounded-3xl p-6"
     >
-      <h3 className="display-title text-2xl font-semibold md:text-3xl">
-        {item.title}
-      </h3>
-      <p className="mt-3 text-sm leading-relaxed opacity-80 md:text-base">
-        {item.text}
-      </p>
+      <h3 className="display-title text-2xl font-semibold md:text-3xl">{item.title}</h3>
+      <p className="mt-3 text-sm leading-relaxed opacity-80 md:text-base">{item.text}</p>
     </motion.article>
   );
 }
@@ -57,29 +53,27 @@ export default function ShowcaseParallax() {
     <section
       id="showcase"
       ref={sectionRef}
-      className="relative overflow-hidden px-6 py-20 md:pb-44 md:pt-32"
+      className="relative overflow-hidden px-6 py-20 md:pb-44 md:pt-32 3xl:px-10 4xl:px-16 5xl:px-24"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center 3xl:max-w-[90vw] 3xl:gap-18 4xl:max-w-[91vw] 4xl:gap-24 5xl:max-w-[92vw]">
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
-            Premium Experience
-          </p>
-          <h2 className="section-title mt-5 text-4xl font-semibold md:text-7xl">
+          <p className="tilt-text opacity-70">Premium Experience</p>
+          <h2 className="section-title mt-5 text-4xl font-semibold md:text-5xl lg:text-7xl 3xl:text-[6rem] 4xl:text-[7.25rem] 5xl:text-[8.5rem]">
             Crafted Like
             <br />A Product Launch
           </h2>
-          <p className="mt-7 max-w-xl text-sm leading-relaxed opacity-80 md:text-base">
-            A modern, motion-driven layout inspired by flagship product pages.
-            Every block is intentionally spaced, animated, and optimized to tell
-            your story with clarity.
+          <p className="mt-7 max-w-xl text-sm leading-relaxed opacity-80 md:text-base 3xl:max-w-2xl 3xl:text-lg 4xl:max-w-3xl 4xl:text-xl 5xl:text-2xl">
+            A modern, motion-driven layout inspired by flagship product pages. Every block
+            is intentionally spaced, animated, and optimized to tell your story with
+            clarity.
           </p>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
+          <div className="mt-10 grid gap-4 md:grid-cols-2 4xl:grid-cols-3 4xl:gap-6">
             {cards.map((item, index) => (
               <FloatingCard
                 key={item.title}
@@ -92,16 +86,35 @@ export default function ShowcaseParallax() {
         </motion.div>
 
         <motion.div
-          className="relative z-20 mx-auto w-full max-w-md"
+          className="relative z-20 mx-auto w-full max-w-md 3xl:max-w-[34rem] 4xl:max-w-[42rem] 5xl:max-w-[48rem]"
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="absolute -left-6 top-3 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(83,126,255,0.34),transparent_70%)] blur-2xl md:-left-14 md:h-36 md:w-36 md:blur-3xl" />
-          <div className="absolute -right-5 bottom-5 h-24 w-24 rounded-full bg-[radial-gradient(circle,rgba(0,210,187,0.32),transparent_70%)] blur-2xl md:-right-10 md:h-28 md:w-28 md:blur-3xl" />
+          <div
+            className="absolute -left-6 top-3 h-28 w-28 rounded-full blur-2xl md:-left-14 md:h-36 md:w-36 md:blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle, color-mix(in srgb, var(--accent-soft) 38%, transparent), transparent 70%)",
+            }}
+          />
+          <div
+            className="absolute -right-5 bottom-5 h-24 w-24 rounded-full blur-2xl md:-right-10 md:h-28 md:w-28 md:blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle, color-mix(in srgb, var(--accent-solid) 34%, transparent), transparent 70%)",
+            }}
+          />
 
-          <div className="glass-panel rounded-[2.25rem] border border-white/20 bg-white/8 p-3 shadow-[0_22px_54px_rgba(10,24,72,0.34)]">
+          <div
+            className="glass-panel rounded-[2.25rem] border p-3"
+            style={{
+              borderColor: "var(--border)",
+              background: "var(--glass)",
+              boxShadow: "0 22px 54px rgba(8, 15, 30, 0.22)",
+            }}
+          >
             <Image
               src="/demo-showcase.svg"
               alt="Premium section visual"

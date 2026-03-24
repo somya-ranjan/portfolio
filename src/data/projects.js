@@ -9,12 +9,9 @@ export const projects = [
     image: projectNpmImage,
     tech: ["React", "rollup", "JavaScript"],
     link: {
-      gitHub:
-        "https://github.com/somya-ranjan/NPM/tree/react-utility-hooks-hub",
-      liveLink:
-        "https://www.npmjs.com/package/react-utility-hooks-hub?activeTab=readme",
-      iFrame:
-        "https://www.npmjs.com/package/react-utility-hooks-hub?activeTab=readme",
+      gitHub: "https://github.com/somya-ranjan/NPM/tree/react-utility-hooks-hub",
+      liveLink: "https://www.npmjs.com/package/react-utility-hooks-hub?activeTab=readme",
+      iFrame: "https://www.npmjs.com/package/react-utility-hooks-hub?activeTab=readme",
     },
   },
   {

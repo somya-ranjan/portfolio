@@ -18,8 +18,7 @@ function canUseExternalIframe(url) {
 
   try {
     const parsedUrl = new URL(url);
-    const isHttp =
-      parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
+    const isHttp = parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
 
     if (!isHttp) {
       return false;
@@ -33,30 +32,30 @@ function canUseExternalIframe(url) {
 
 function getProjectPreviewDoc(project, theme) {
   const imageSrc =
-    typeof project.image === "string"
-      ? project.image
-      : project.image?.src || "";
+    typeof project.image === "string" ? project.image : project.image?.src || "";
   const isDark = theme === "dark";
   const palette = isDark
     ? {
-        text: "#eef4ff",
-        muted: "#c1d0f1",
-        accent: "#8db7ff",
-        chip: "#d8e2ff",
-        border: "rgba(255,255,255,0.14)",
-        surface: "#0d1628",
-        buttonText: "#08111f",
-        bg: "radial-gradient(circle at top left, rgba(93,135,255,0.28), transparent 28%),radial-gradient(circle at bottom right, rgba(0,203,184,0.22), transparent 32%),linear-gradient(160deg,#0a1120 0%,#141f35 100%)",
+        text: "#e0e0e0",
+        muted: "#b0b8c6",
+        accent: "#7dd3fc",
+        chip: "#c8d0de",
+        border: "rgba(224,224,224,0.18)",
+        surface: "#242424",
+        buttonText: "#062133",
+        buttonGradient: "linear-gradient(120deg,#1f7ea4,#2d9ccc 50%,#38bdf8)",
+        bg: "radial-gradient(circle at top left, rgba(56,189,248,0.2), transparent 28%),radial-gradient(circle at bottom right, rgba(14,165,233,0.16), transparent 32%),linear-gradient(160deg,#121212 0%,#1e1e1e 100%)",
       }
     : {
-        text: "#1a2438",
-        muted: "#3e4d68",
-        accent: "#2e6ef2",
-        chip: "#334764",
-        border: "rgba(16,21,34,0.16)",
-        surface: "#f7faff",
-        buttonText: "#ffffff",
-        bg: "radial-gradient(circle at top left, rgba(93,135,255,0.18), transparent 28%),radial-gradient(circle at bottom right, rgba(0,203,184,0.16), transparent 32%),linear-gradient(160deg,#edf3ff 0%,#dfe8f4 100%)",
+        text: "#1f2937",
+        muted: "#4b5563",
+        accent: "#0284c7",
+        chip: "#374151",
+        border: "rgba(31,41,55,0.14)",
+        surface: "#ffffff",
+        buttonText: "#f8fbff",
+        buttonGradient: "linear-gradient(120deg,#0284c7,#0ea5e9 52%,#38bdf8)",
+        bg: "radial-gradient(circle at top left, rgba(56,189,248,0.2), transparent 28%),radial-gradient(circle at bottom right, rgba(2,132,199,0.16), transparent 32%),linear-gradient(160deg,#f8f9fa 0%,#ffffff 100%)",
       };
 
   const techBadges = project.tech
@@ -66,7 +65,7 @@ function getProjectPreviewDoc(project, theme) {
     )
     .join("");
   const liveLink = project.link.liveLink
-    ? `<a href="${project.link.liveLink}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:999px;background:linear-gradient(120deg,#5d87ff,#00cbb8);color:${palette.buttonText};text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;">Open Live</a>`
+    ? `<a href="${project.link.liveLink}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:999px;background:${palette.buttonGradient};color:${palette.buttonText};text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;">Open Live</a>`
     : "";
   const gitHubLink = project.link.gitHub
     ? `<a href="${project.link.gitHub}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:999px;border:1px solid ${palette.border};color:${palette.text};text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;">Open GitHub</a>`
@@ -106,7 +105,7 @@ function ProjectAction({ href, icon: Icon, label, disabled, onClick }) {
   if (disabled) {
     return (
       <span
-        className={`${baseClassName} cursor-not-allowed opacity-45`}
+        className={`${baseClassName} cursor-not-allowed opacity-60`}
         style={{ color: "var(--muted)" }}
       >
         <Icon className="text-sm" />
@@ -166,7 +165,7 @@ function ProjectCard({ project, index, onPreview }) {
       className="glass-panel group overflow-hidden rounded-3xl"
     >
       <motion.div
-        className="relative h-72 overflow-hidden md:h-80 lg:h-96"
+        className="relative h-72 overflow-hidden md:h-80 lg:h-96 3xl:h-[28rem] 4xl:h-[34rem] 5xl:h-[38rem]"
         style={{ background: "var(--bg-soft)" }}
       >
         <motion.div
@@ -193,8 +192,8 @@ function ProjectCard({ project, index, onPreview }) {
               <span
                 className="mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em]"
                 style={{
-                  background: "rgba(16, 185, 129, 0.14)",
-                  color: "#10b981",
+                  background: "color-mix(in srgb, var(--success) 16%, transparent)",
+                  color: "var(--success)",
                 }}
               >
                 Coming Soon
@@ -212,6 +211,11 @@ function ProjectCard({ project, index, onPreview }) {
             <span
               key={item}
               className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-widest"
+              style={{
+                border: "1px solid var(--border)",
+                color: "var(--muted-strong)",
+                background: "color-mix(in srgb, var(--surface) 88%, transparent)",
+              }}
             >
               {item}
             </span>
@@ -248,6 +252,11 @@ export default function Projects() {
   const [iframeFailed, setIframeFailed] = useState(false);
   const closeButtonRef = useRef(null);
 
+  const openPreview = (project) => {
+    setIframeFailed(false);
+    setActiveProject(project);
+  };
+
   const closeModal = () => setActiveProject(null);
 
   useEffect(() => {
@@ -262,34 +271,30 @@ export default function Projects() {
     return undefined;
   }, [activeProject]);
 
-  useEffect(() => {
-    if (activeProject) setIframeFailed(false);
-  }, [activeProject]);
-
   const shouldUseExternalIframe =
     canUseExternalIframe(activeProject?.link?.iFrame) && !iframeFailed;
 
   return (
     <>
-      <section id="projects" className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
+      <section id="projects" className="section-wrap">
+        <div className="mx-auto max-w-7xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="section-title text-center text-4xl font-semibold md:text-6xl"
+            className="section-title section-heading section-heading-lg"
           >
             Projects
           </motion.h2>
 
-          <div className="mt-16 grid gap-10 md:grid-cols-2">
+          <div className="mt-16 grid gap-10 md:grid-cols-2 3xl:gap-12 4xl:grid-cols-3 4xl:gap-14">
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 project={project}
                 index={index}
-                onPreview={setActiveProject}
+                onPreview={openPreview}
               />
             ))}
           </div>
@@ -304,7 +309,7 @@ export default function Projects() {
       >
         {activeProject ? (
           <div
-            className="glass-panel relative mx-auto flex h-[85vh] w-full max-w-6xl flex-col overflow-hidden rounded-4xl"
+            className="glass-panel relative mx-auto flex h-[85vh] w-full max-w-6xl flex-col overflow-hidden rounded-4xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]"
             style={{ color: "var(--text)" }}
           >
             <div className="flex items-center justify-between gap-4 px-5 py-4">
@@ -331,10 +336,7 @@ export default function Projects() {
               </button>
             </div>
 
-            <div
-              className="relative flex-1"
-              style={{ background: "var(--bg-soft)" }}
-            >
+            <div className="relative flex-1" style={{ background: "var(--bg-soft)" }}>
               {shouldUseExternalIframe ? (
                 <iframe
                   src={activeProject.link.iFrame}

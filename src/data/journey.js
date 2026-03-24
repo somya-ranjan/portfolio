@@ -7,10 +7,7 @@ export const journeyData = [
       <>
         <div className="flex flex-col gap-1 mt-2 ml-0 text-xs">
           <div className="flex items-center justify-between gap-3">
-            <p
-              className="font-medium"
-              style={{ color: "var(--text)", opacity: 0.8 }}
-            >
+            <p className="font-medium" style={{ color: "var(--text)", opacity: 0.8 }}>
               Capgemini
             </p>
             <span
@@ -21,10 +18,7 @@ export const journeyData = [
             </span>
           </div>
           <div className="flex items-center justify-between gap-3">
-            <p
-              className="font-medium"
-              style={{ color: "var(--text)", opacity: 0.8 }}
-            >
+            <p className="font-medium" style={{ color: "var(--text)", opacity: 0.8 }}>
               Allegis Services (India) Pvt. Ltd
             </p>
             <span

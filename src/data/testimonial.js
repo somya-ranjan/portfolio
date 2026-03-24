@@ -13,8 +13,7 @@ export const testimonials = [
     id: 2,
     name: "Mounika Krishna Devi Annapureddi",
     role: "Project Management | Senior Business Analyst | Driving Strategic Insights & Operational Efficiency | Data-Driven Decision Maker",
-    linkedin:
-      "https://www.linkedin.com/in/mounika-krishnaveni-annamneedi-891354171",
+    linkedin: "https://www.linkedin.com/in/mounika-krishnaveni-annamneedi-891354171",
     image:
       "https://media.licdn.com/dms/image/v2/D4D03AQHKYBasoI-X6A/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1686727389587?e=1775692800&v=beta&t=sqFzztGH4x4go4DtkJuhfrjYjWqtJKFDIOdajeQdvZo",
     review:

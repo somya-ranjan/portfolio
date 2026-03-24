@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { journeyData } from "@data";
 
 export default function Journey() {
@@ -13,14 +13,14 @@ export default function Journey() {
   });
 
   return (
-    <section id="journey" className="py-24 px-6" ref={containerRef}>
-      <div className="max-w-5xl mx-auto">
+    <section id="journey" className="section-wrap" ref={containerRef}>
+      <div className="mx-auto max-w-5xl 3xl:max-w-[82vw] 4xl:max-w-[86vw] 5xl:max-w-[88vw]">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="section-title text-center text-4xl font-semibold md:text-6xl"
+          className="section-title section-heading section-heading-lg"
         >
           My Journey
         </motion.h2>
@@ -43,10 +43,8 @@ export default function Journey() {
                     isLeft ? "justify-start" : "justify-end"
                   }`}
                 >
-                  <div className="glass-panel w-full rounded-2xl p-6 shadow-md md:w-[45%]">
-                    <p className="text-sm opacity-60 font-medium">
-                      {item.year}
-                    </p>
+                  <div className="glass-panel w-full rounded-2xl p-6 shadow-md md:w-[45%] 3xl:p-8 4xl:w-[42%] 4xl:p-10">
+                    <p className="text-sm opacity-60 font-medium">{item.year}</p>
 
                     <h3 className="text-xl font-semibold mt-2">{item.title}</h3>
 
@@ -54,7 +52,14 @@ export default function Journey() {
                       {item.clientHighlight ? (
                         <>
                           <span>{item.company}</span>
-                          <span className="rounded-full bg-emerald-600 px-2.5 py-1 text-xs font-semibold text-white shrink-0">
+                          <span
+                            className="rounded-full px-2.5 py-1 text-xs font-semibold shrink-0"
+                            style={{
+                              background:
+                                "color-mix(in srgb, var(--success) 18%, transparent)",
+                              color: "var(--success)",
+                            }}
+                          >
                             Client
                           </span>
                           <span className="ml-1">{item.companySecondary}</span>
@@ -67,7 +72,9 @@ export default function Journey() {
                     <ul className="mt-4 space-y-2">
                       {item.achievements.map((achievement, idx) => (
                         <li key={idx} className="text-sm opacity-80 flex gap-2">
-                          <span className="text-emerald-500 shrink-0">•</span>
+                          <span className="shrink-0" style={{ color: "var(--success)" }}>
+                            •
+                          </span>
                           <span>{achievement}</span>
                         </li>
                       ))}

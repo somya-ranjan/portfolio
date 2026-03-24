@@ -19,7 +19,7 @@ export default function CustomCursor() {
       className="pointer-events-none fixed left-0 top-0 z-9999 hidden h-7 w-7 rounded-full border transition-transform duration-75 lg:block"
       style={{
         transform: `translate(${pos.x - 14}px, ${pos.y - 14}px)`,
-        background: "rgba(255,255,255,0.06)",
+        background: "var(--glass)",
         borderColor: "var(--border)",
         backdropFilter: "blur(5px)",
       }}

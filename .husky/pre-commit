@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+bun run format
+
+if ! bun run lint; then
+	echo "Lint failed. Trying automatic fixes..."
+	bun run lint:fix
+	bun run format
+fi
+
+git add -A
+bun run lint
