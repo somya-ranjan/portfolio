@@ -173,7 +173,7 @@ h3,
 
 @layer components {
   .section-wrap {
-    @apply px-6 py-28 md:py-36 3xl:px-10 4xl:px-16 5xl:px-24;
+    @apply py-10 md:py-15 px-6 3xl:px-10 4xl:px-16 5xl:px-24;
   }
 
   .section-heading {

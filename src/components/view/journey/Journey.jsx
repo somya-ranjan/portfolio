@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll } from "framer-motion";
 import { journeyData } from "@data";
 
@@ -35,6 +36,23 @@ export default function Journey() {
         </motion.h2>
 
         <div className="relative mt-16">
+          {/* Background image shadow */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 bottom-0 flex justify-center">
+            <div
+              className="sticky top-[30vh] h-80 w-80 opacity-25 overflow-hidden rounded-full"
+              style={{ zIndex: -10 }}
+            >
+              <Image
+                src="/contact-my-pic.png"
+                alt=""
+                fill
+                className="object-cover"
+                style={{ filter: "brightness(0.28) saturate(0.85) blur(0.7px)" }}
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+
           <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 transform bg-gradient-to-b from-[var(--accent-solid)] via-[var(--accent-soft)] to-transparent" />
 
           <div className="flex flex-col gap-12">
@@ -93,10 +111,11 @@ export default function Journey() {
                     </ul>
                   </div>
 
-                  <div 
+                  <div
                     className="absolute left-1/2 h-4 w-4 -translate-x-1/2 transform rounded-full bg-[var(--accent-solid)] border-4 border-[var(--bg)] hidden md:block"
                     style={{
-                      boxShadow: "0 0 0 6px color-mix(in srgb, var(--accent-solid) 15%, transparent)"
+                      boxShadow:
+                        "0 0 0 6px color-mix(in srgb, var(--accent-solid) 15%, transparent)",
                     }}
                   />
                 </motion.div>

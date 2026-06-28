@@ -8,8 +8,8 @@ import { skillsData } from "@data";
 const BRAND_COLORS = {
   "JavaScript (ES6+)": "#f7df1e",
   "TypeScript": "#3178c6",
-  "HTML5 ": "#e34f26",
-  "CSS3 ": "#1572b6",
+  HTML5: "#e34f26",
+  CSS3: "#1572b6",
   "React.js": "#61dafb",
   "Next.js": "#38bdf8",
   "Micro Frontends (MF)": "#8dd6f9",
@@ -39,7 +39,7 @@ const CATEGORIES = [
   },
   {
     title: "Styling & UI Systems",
-    skills: ["Tailwind CSS", "Material UI (MUI)", "Bootstrap", "Sass", "Storybook", "HTML5 ", "CSS3 "],
+    skills: ["Tailwind CSS", "Material UI (MUI)", "Bootstrap", "Sass", "Storybook", "HTML5", "CSS3"],
   },
   {
     title: "Tooling & DevOps",

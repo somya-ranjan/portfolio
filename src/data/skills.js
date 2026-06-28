@@ -22,8 +22,8 @@ import { FaCss3 } from "react-icons/fa6";
 export const skillsData = [
   { name: "JavaScript (ES6+)", icon: SiJavascript },
   { name: "TypeScript", icon: SiTypescript },
-  { name: "HTML5 ", icon: SiHtml5 },
-  { name: "CSS3 ", icon: FaCss3 },
+  { name: "HTML5", icon: SiHtml5 },
+  { name: "CSS3", icon: FaCss3 },
   { name: "React.js", icon: SiReact },
   { name: "Next.js", icon: SiNextdotjs },
   { name: "Micro Frontends (MF)", icon: SiWebpack },

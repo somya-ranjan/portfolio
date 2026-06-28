@@ -1,13 +1,26 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import Image from "next/image";
+import { useRef } from "react";
 import { testimonials } from "@data";
+
+const AVATAR_COLORS = [
+  "#e74c3c", "#e67e22", "#f1c40f", "#2ecc71", "#1abc9c",
+  "#3498db", "#9b59b6", "#e91e63", "#00bcd4", "#8bc34a",
+  "#ff5722", "#607d8b",
+];
+
+function getInitials(name) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
+}
 
 function TestimonialCard({ item, index }) {
   const cardRef = useRef(null);
-  const [imageSrc, setImageSrc] = useState(item.image || "/globe.svg");
   const linkedinUrl = item.linkedin
     ? item.linkedin.startsWith("http")
       ? item.linkedin
@@ -33,9 +46,19 @@ function TestimonialCard({ item, index }) {
   const cubeRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [5, 0, -5]);
   const cubeDepth = useTransform(scrollYProgress, [0, 0.5, 1], [-18, 10, -18]);
 
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const yVal = e.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${yVal}px`);
+  };
+
   return (
     <motion.div
       ref={cardRef}
+      onMouseMove={handleMouseMove}
       initial={{ opacity: 0, x: index % 2 === 0 ? 16 : -16 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.015, duration: 0.28, ease: "easeOut" }}
@@ -49,7 +72,7 @@ function TestimonialCard({ item, index }) {
         transformPerspective: 1200,
         transformStyle: "preserve-3d",
       }}
-      className="glass-panel relative overflow-hidden rounded-3xl border p-5 md:p-6"
+      className="glass-panel glow-card relative overflow-hidden rounded-3xl border p-5 md:p-6"
     >
       <div
         className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full blur-3xl"
@@ -62,15 +85,12 @@ function TestimonialCard({ item, index }) {
       <div className="relative z-10">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Image
-              src={imageSrc}
-              alt={item.name}
-              width={52}
-              height={52}
-              unoptimized
-              onError={() => setImageSrc("/globe.svg")}
-              className="h-12 w-12 rounded-full border object-cover"
-            />
+            <div
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold tracking-wide text-white"
+              style={{ background: AVATAR_COLORS[index % AVATAR_COLORS.length] }}
+            >
+              {getInitials(item.name)}
+            </div>
 
             <div>
               <h4 className="display-title text-lg leading-none md:text-xl">
@@ -170,7 +190,7 @@ export default function Testimonials() {
           className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed opacity-75 md:mt-5 md:text-base"
         >
           Real recommendations from teammates and collaborators across projects, product
-          deliveries, and frontend engineering engagements.
+          deliveries, and Ai frontend engineering engagements.
         </motion.p>
       </div>
 

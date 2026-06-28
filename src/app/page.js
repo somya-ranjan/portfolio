@@ -14,7 +14,7 @@ import {
   Footer,
 } from "@/components/view";
 
-import { ShowcaseParallax, ScrollProgress, Reveal } from "@/components";
+import { ScrollProgress, Reveal } from "@/components";
 
 const Analytics = dynamic(() => import("@/components/view/analytics/Analytics"), {
   ssr: false,
@@ -30,7 +30,6 @@ export default function Home() {
         <Reveal>
           <About />
         </Reveal>
-        <ShowcaseParallax />
         <Reveal>
           <Projects />
         </Reveal>

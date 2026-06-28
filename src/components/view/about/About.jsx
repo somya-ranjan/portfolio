@@ -70,7 +70,7 @@ export default function About() {
 
               <div className="space-y-4 text-sm md:text-base leading-relaxed opacity-85">
                 <p>
-                  I am a passionate <strong>Frontend Product Engineer</strong>{" "}
+                  I am a passionate <strong>Ai Frontend Product Engineer</strong>{" "}
                   specializing in building high-performance, fluid, and scalable web
                   applications. Over the past 4.5+ years, I have engineered premium user
                   experiences across diverse domains, including FinTech, E-Commerce, and
@@ -141,7 +141,8 @@ export default function About() {
                 {stats.map((stat, i) => (
                   <div
                     key={i}
-                    className="glass-panel p-5 rounded-2xl flex flex-col justify-between h-full"
+                    onMouseMove={handleMouseMove}
+                    className="glass-panel glow-card p-5 rounded-2xl flex flex-col justify-between h-full cursor-default"
                     style={{ border: "1px solid var(--border)" }}
                   >
                     <span className="text-xs uppercase tracking-[0.14em] opacity-60">

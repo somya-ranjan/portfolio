@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL } from "@/constants";
@@ -77,6 +78,28 @@ export default function ContactMe() {
     }
   };
 
+  const handleCardMouseMove = (event) => {
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${y}px`);
+  };
+
+  const getGmailComposeLink = ({ subject = "", body = "" } = {}) => {
+    const composeParams = new URLSearchParams({
+      view: "cm",
+      fs: "1",
+      to: CONTACT_EMAIL,
+    });
+
+    composeParams.set("su", `${subject} [Coming From Portfolio]`);
+    composeParams.set("body", body);
+
+    return `https://mail.google.com/mail/?${composeParams.toString()}`;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -85,19 +108,24 @@ export default function ContactMe() {
       return;
     }
 
-    const subject = encodeURIComponent(`Portfolio Contact: ${formData.name.trim()}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`,
-    );
+    const subject = `Portfolio Contact: ${formData.name.trim()}`;
+    const body = `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`;
+    const mailtoLink = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+    const gmailComposeLink = getGmailComposeLink({ subject, body });
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    setStatus("Opening a Gmail draft...");
 
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
-    setStatus("Your email draft is ready. Please send it from your mail app.");
+    if (typeof window !== "undefined") {
+      const composeWindow = window.open(gmailComposeLink, "_blank");
+
+      if (composeWindow) {
+        composeWindow.opener = null;
+      } else {
+        window.location.assign(mailtoLink);
+      }
+    }
   };
 
   return (
@@ -120,12 +148,32 @@ export default function ContactMe() {
             viewport={{ once: true }}
             style={{ y: leftY }}
             transition={{ duration: 0.7 }}
-            className="glass-panel relative z-30 rounded-2xl p-8"
+            onMouseMove={handleCardMouseMove}
+            className="glass-panel glow-card relative z-30 rounded-2xl p-8"
           >
             <p className="tilt-text opacity-65">Start A Conversation</p>
 
+            <div className="mt-6 flex items-center gap-4">
+              <div className="relative h-24 w-24 overflow-hidden rounded-full border border-[var(--border)] shadow-lg">
+                <Image
+                  src="/contact-my-pic.png"
+                  alt="Contact portrait"
+                  fill
+                  className="object-cover"
+                  sizes="96px"
+                  priority
+                />
+              </div>
+              <div>
+                <p className="text-sm font-semibold">Let&apos;s connect</p>
+                <p className="text-xs leading-relaxed opacity-80">
+                  Available for collaborations, freelance work, or a friendly hello.
+                </p>
+              </div>
+            </div>
+
             <h3 className="display-title mt-4 text-3xl font-semibold leading-tight">
-              Let’s build something amazing 🚀
+              Let&apos;s build something amazing 🚀
             </h3>
 
             <p className="mt-5 text-sm leading-relaxed opacity-80">
@@ -157,7 +205,9 @@ export default function ContactMe() {
               </a>
 
               <a
-                href={`mailto:${CONTACT_EMAIL}`}
+                href={getGmailComposeLink()}
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border p-3"
                 style={{ borderColor: "var(--border)" }}
                 aria-label="Email"
@@ -173,7 +223,8 @@ export default function ContactMe() {
             viewport={{ once: true }}
             style={{ y: rightY }}
             transition={{ duration: 0.7 }}
-            className="glass-panel relative z-30 space-y-6 rounded-2xl p-8"
+            onMouseMove={handleCardMouseMove}
+            className="glass-panel glow-card relative z-30 space-y-6 rounded-2xl p-8"
             onSubmit={handleSubmit}
             noValidate
           >
@@ -235,21 +286,23 @@ export default function ContactMe() {
               <p
                 className="rounded-lg border px-3 py-2 text-xs opacity-90"
                 style={{ borderColor: "var(--border)" }}
+                aria-live="polite"
               >
                 {status}
               </p>
             ) : null}
 
-            <Button
+            <button
               type="submit"
               className="w-full rounded-full py-3 text-xs font-semibold uppercase tracking-[0.14em]"
               style={{
                 background: "var(--accent)",
                 color: "var(--accent-contrast)",
+                cursor: "pointer",
               }}
             >
               Send Message
-            </Button>
+            </button>
           </motion.form>
         </div>
       </div>

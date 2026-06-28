@@ -5,6 +5,14 @@ import { MdEmail } from "react-icons/md";
 import { LOGO_TEXT, GITHUB_URL, LINKEDIN_URL, CONTACT_EMAIL } from "@/constants";
 
 export default function Footer() {
+  const composeParams = new URLSearchParams({
+    view: "cm",
+    fs: "1",
+    to: CONTACT_EMAIL,
+    su: "[Coming From Portfolio]",
+  });
+  const gmailComposeLink = `https://mail.google.com/mail/?${composeParams.toString()}`;
+
   return (
     <footer
       className="border-t px-6 py-3 3xl:px-10 4xl:px-16 5xl:px-24"
@@ -50,7 +58,9 @@ export default function Footer() {
           </a>
 
           <a
-            href={`mailto:${CONTACT_EMAIL}`}
+            href={gmailComposeLink}
+            target="_blank"
+            rel="noreferrer"
             className="rounded-full border p-2"
             style={{
               background: "var(--glass)",

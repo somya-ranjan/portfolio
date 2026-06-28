@@ -120,6 +120,7 @@ export default function Analytics() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
 
     const mediaQuery = window.matchMedia("(max-width: 767px)");
@@ -140,6 +141,15 @@ export default function Analytics() {
   });
   const chartY = useTransform(scrollYProgress, [0, 1], [70, -70]);
   const chartOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.6]);
+
+  const handleCardMouseMove = (event) => {
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${y}px`);
+  };
 
   return (
     <section id="analytics" className="section-wrap overflow-x-hidden" ref={containerRef}>
@@ -175,7 +185,8 @@ export default function Analytics() {
               "linear-gradient(135deg, color-mix(in srgb, var(--accent-solid) 20%, transparent), color-mix(in srgb, var(--accent-soft) 18%, transparent), color-mix(in srgb, var(--bg) 72%, transparent))",
           }}
           transition={{ duration: 0.7 }}
-          className="mt-16 rounded-2xl border p-6 shadow-2xl md:p-8"
+          onMouseMove={handleCardMouseMove}
+          className="glass-panel glow-card mt-16 rounded-2xl border p-6 shadow-2xl md:p-8"
         >
           <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
             <h3 className="text-lg font-semibold md:text-xl">

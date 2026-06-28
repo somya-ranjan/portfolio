@@ -193,7 +193,7 @@ function ProjectCard({ project, index, onPreview }) {
             alt={project.title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain"
+            className="object-cover"
           />
         </motion.div>
       </motion.div>
@@ -306,6 +306,15 @@ export default function Projects() {
   const [activeTab, setActiveTab] = useState("corporate");
   const closeButtonRef = useRef(null);
 
+  const handleFilterMouseMove = (event) => {
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${y}px`);
+  };
+
   const openPreview = (project) => {
     setIframeFailed(false);
     setActiveProject(project);
@@ -347,42 +356,59 @@ export default function Projects() {
           {/* Category Tabs */}
           <div className="mt-8 flex justify-center">
             <div
-              className="glass-panel p-1.5 rounded-full flex gap-1 relative border"
+              onMouseMove={handleFilterMouseMove}
+              className="glass-panel glow-card p-1.5 rounded-full flex gap-1 relative border"
               style={{ borderColor: "var(--border)" }}
             >
               {/* Tab: Corporate */}
-              <button
+              <motion.button
+                type="button"
                 onClick={() => setActiveTab("corporate")}
-                className={`relative px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase transition-colors duration-300 z-10 ${
-                  activeTab === "corporate" ? "text-[var(--bg)]" : "text-[var(--text)] opacity-75"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className={`group relative px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase transition-all duration-300 z-10 cursor-pointer ${
+                  activeTab === "corporate"
+                    ? "text-[var(--bg)]"
+                    : "text-[var(--text)] opacity-75 hover:opacity-100"
                 }`}
               >
+                {activeTab !== "corporate" ? (
+                  <span className="absolute inset-0 -z-10 rounded-full bg-[var(--text)]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                ) : null}
                 {activeTab === "corporate" && (
                   <motion.div
                     layoutId="activeTabIndicator"
-                    className="absolute inset-0 bg-[var(--text)] rounded-full -z-10"
+                    className="absolute inset-0 bg-[var(--text)] rounded-full -z-10 shadow-lg"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
                 Corporate Projects
-              </button>
+              </motion.button>
 
               {/* Tab: Personal */}
-              <button
+              <motion.button
+                type="button"
                 onClick={() => setActiveTab("personal")}
-                className={`relative px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase transition-colors duration-300 z-10 ${
-                  activeTab === "personal" ? "text-[var(--bg)]" : "text-[var(--text)] opacity-75"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className={`group relative px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase transition-all duration-300 z-10 cursor-pointer ${
+                  activeTab === "personal"
+                    ? "text-[var(--bg)]"
+                    : "text-[var(--text)] opacity-75 hover:opacity-100"
                 }`}
               >
+                {activeTab !== "personal" ? (
+                  <span className="absolute inset-0 -z-10 rounded-full bg-[var(--text)]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                ) : null}
                 {activeTab === "personal" && (
                   <motion.div
                     layoutId="activeTabIndicator"
-                    className="absolute inset-0 bg-[var(--text)] rounded-full -z-10"
+                    className="absolute inset-0 bg-[var(--text)] rounded-full -z-10 shadow-lg"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
                 Personal Projects
-              </button>
+              </motion.button>
             </div>
           </div>
 

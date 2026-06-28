@@ -1,5 +1,5 @@
-export const OWNER_NAME = "Somya Ranjan";
-export const LOGO_TEXT = "Somyar";
+export const OWNER_NAME = "Somyaranjan Sethy";
+export const LOGO_TEXT = "Somyaranjan";
 
 export const CONTACT_EMAIL = "mr.somyars@gmail.com";
 export const GITHUB_URL = "https://github.com/somya-ranjan";

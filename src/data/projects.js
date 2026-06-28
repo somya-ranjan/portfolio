@@ -8,7 +8,7 @@ export const projects = [
     company: "Mercedes-Benz Research & Development India",
     description:
       "Developing a global access management web application aligned with IAM governance standards and enterprise compliance. Boosted performance by 65% through optimized rendering, efficient API integration, and Git submodules for shared UI. Improved accessibility and scalability with modular architecture and lazy loading.",
-    image: "/project-dashboard.svg",
+    image: "/project-iam.png",
     tech: ["React", "TypeScript", "IAM Compliance", "Git Submodules", "REST APIs"],
     link: {
       gitHub: "",
@@ -24,7 +24,7 @@ export const projects = [
     company: "TechneAI Pvt. Ltd",
     description:
       "Engineered and deployed advanced applications for e-commerce and SaaS platforms. Boosted application performance from 19% to 70% by applying code splitting, Webpack optimization, lazy loading, and multithreading. Directed UI component development and library integration, achieving top Lighthouse scores for accessibility and SEO.",
-    image: "/project-dashboard.svg",
+    image: "/project-saas-commerce.png",
     tech: ["React.js", "Webpack", "Multithreading", "SEO/Lighthouse"],
     link: {
       gitHub: "",
@@ -40,7 +40,7 @@ export const projects = [
     company: "TechneAI Pvt. Ltd",
     description:
       "Developed a ticketing system with HRMS features, cutting development time by 25% and streamlining task management. Integrated job application processing and candidate onboarding, increasing overall operational efficiency.",
-    image: "/project-dashboard.svg",
+    image: "/project-hrms.png",
     tech: ["React.js", "HRMS API", "Task Management"],
     link: {
       gitHub: "",
@@ -56,7 +56,7 @@ export const projects = [
     company: "SoluLab Pvt. Ltd",
     description:
       "Engineered a premium NFT trading platform, increasing monthly trading volume by 40% through streamlined UI and business function improvements. Shortened development cycles by 25% through refined component design and modular functionality.",
-    image: "/project-dashboard.svg",
+    image: "/project-nft.png",
     tech: ["React.js", "Web3", "NFT Trading", "State Management"],
     link: {
       gitHub: "",
@@ -72,7 +72,7 @@ export const projects = [
     company: "SoluLab Pvt. Ltd",
     description:
       "Built a comprehensive booking platform for Medical Professionals, resulting in a 30% increase in appointments. Expanded services to include ambulance, physiotherapists, and nursemaids, enhancing user engagement by 25%. Implemented prescription uploading and medicine delivery, driving a 35% increase in prescription fulfillment.",
-    image: "/project-dashboard.svg",
+    image: "/project-booking.png",
     tech: ["React.js", "API Integrations", "Prescription Systems"],
     link: {
       gitHub: "",
@@ -88,7 +88,7 @@ export const projects = [
     company: "SoluLab Pvt. Ltd",
     description:
       "Developed a headless CMS for 30% faster onboarding and 15% quicker page loads. Integrated UI, REST APIs, and Google Analytics, achieving a 20% speed boost. Maintained 99.8% system uptime and drove 40% user base growth.",
-    image: "/project-dashboard.svg",
+    image: "/project-cms.png",
     tech: ["React.js", "Headless CMS", "Google Analytics", "Lazy Loading"],
     link: {
       gitHub: "",
