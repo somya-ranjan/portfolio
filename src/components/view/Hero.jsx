@@ -228,7 +228,7 @@ export default function Hero() {
             className="mt-10 text-sm font-semibold tracking-wide md:text-base 3xl:text-lg 4xl:text-xl"
             style={{ color: "var(--accent-solid)" }}
           >
-            Frontend Developer &bull; React &bull; Next.js &bull; Product-Focused UI
+            Ai Frontend Developer &bull; React &bull; Next.js &bull; Product-Focused UI
           </motion.p>
 
           {/* Description */}

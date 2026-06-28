@@ -155,6 +155,7 @@ html[data-theme="minimal"] .glass-panel {
 
 section {
   position: relative;
+  scroll-margin-top: 2rem;
 }
 
 h1,
