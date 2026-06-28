@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Button, Drawer } from "@material-tailwind/react";
+import { Button, Drawer, Menu, MenuHandler, MenuList, MenuItem } from "@material-tailwind/react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { BsGrid3X3GapFill } from "react-icons/bs";
 
 import { useTheme } from "@/context/ThemeContext";
 import { allMenuItems } from "@data";
+import { LOGO_TEXT, THEME_CYCLE } from "@/constants";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -35,24 +36,28 @@ export default function Navbar() {
     };
   }, [openDrawer]);
 
-  const themeCycle = ["light", "dark", "minimal"];
-
-  const toggleTheme = () => {
-    const currentIndex = themeCycle.indexOf(theme);
-    const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % themeCycle.length;
-    setTheme(themeCycle[nextIndex]);
-  };
-
   const getThemeIcon = () => {
     if (theme === "light") {
-      return <MdDarkMode size={18} />;
-    }
-
-    if (theme === "dark") {
       return <MdLightMode size={18} />;
     }
 
+    if (theme === "dark") {
+      return <MdDarkMode size={18} />;
+    }
+
     return <BsGrid3X3GapFill size={14} />;
+  };
+
+  const getThemeOptionIcon = (t) => {
+    if (t === "light") {
+      return <MdLightMode size={16} />;
+    }
+
+    if (t === "dark") {
+      return <MdDarkMode size={16} />;
+    }
+
+    return <BsGrid3X3GapFill size={12} />;
   };
 
   const getThemeLabel = () => {
@@ -88,7 +93,7 @@ export default function Navbar() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:gap-6 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
           <h1 className="display-title shrink-0 text-xl font-semibold tracking-[0.12em] uppercase xl:text-2xl">
-            Somyar
+            {LOGO_TEXT}
           </h1>
 
           <div className="hidden lg:flex flex-1 items-center justify-center gap-5 px-4 text-[10px] font-semibold uppercase tracking-[0.13em] xl:gap-8 xl:px-6 xl:text-xs xl:tracking-[0.18em]">
@@ -120,25 +125,51 @@ export default function Navbar() {
               <FiMenu size={18} />
             </Button>
 
-            <Button
-              size="sm"
-              onClick={toggleTheme}
-              className="rounded-full px-3 py-2 cursor-pointer"
-              title={`Theme: ${theme}`}
-              aria-label={`Switch theme. Current theme is ${theme}`}
-              style={{
-                color: "var(--text)",
-                border: "1px solid var(--border)",
-                background: "var(--glass)",
-              }}
-            >
-              <span className="flex items-center gap-2">
-                {getThemeIcon()}
-                <span className="hidden text-[10px] font-semibold uppercase tracking-[0.12em] sm:inline">
-                  {getThemeLabel()}
-                </span>
-              </span>
-            </Button>
+            <Menu placement="bottom-end">
+              <MenuHandler>
+                <Button
+                  size="sm"
+                  className="rounded-full px-3 py-2 cursor-pointer"
+                  title={`Theme: ${theme}`}
+                  aria-label={`Switch theme. Current theme is ${theme}`}
+                  style={{
+                    color: "var(--text)",
+                    border: "1px solid var(--border)",
+                    background: "var(--glass)",
+                  }}
+                >
+                  <span className="flex items-center gap-2">
+                    {getThemeIcon()}
+                    <span className="hidden text-[10px] font-semibold uppercase tracking-[0.12em] sm:inline">
+                      {getThemeLabel()}
+                    </span>
+                  </span>
+                </Button>
+              </MenuHandler>
+              <MenuList
+                className="glass-panel border p-1 z-9999 rounded-xl shadow-xl min-w-[120px]"
+                style={{
+                  background: "var(--glass)",
+                  borderColor: "var(--border)",
+                  color: "var(--text)",
+                }}
+              >
+                {THEME_CYCLE.map((t) => (
+                  <MenuItem
+                    key={t}
+                    onClick={() => setTheme(t)}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider cursor-pointer hover:bg-slate-500/10 focus:bg-slate-500/10 outline-none ${
+                      theme === t ? "text-[var(--accent-solid)] bg-slate-500/5" : ""
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      {getThemeOptionIcon(t)}
+                      <span>{t}</span>
+                    </span>
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
           </div>
         </div>
       </motion.nav>

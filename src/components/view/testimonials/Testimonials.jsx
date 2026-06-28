@@ -133,10 +133,7 @@ function TestimonialCard({ item, index }) {
 
 export default function Testimonials() {
   return (
-    <section
-      id="testimonials"
-      className="relative px-6 py-20 md:py-24 3xl:px-10 4xl:px-16 5xl:px-24"
-    >
+    <section id="testimonials" className="section-wrap relative">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div
           className="absolute left-0 top-16 h-44 w-44 rounded-full blur-3xl"

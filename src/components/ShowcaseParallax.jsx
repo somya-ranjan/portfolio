@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const cards = [
   {
@@ -20,21 +20,47 @@ const cards = [
 ];
 
 function FloatingCard({ item, index, progress }) {
+  const cardRef = useRef(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const y = useTransform(progress, [0, 1], [index * 22, -index * 26]);
+
+  const handleMouseMove = (e) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const yVal = e.clientY - rect.top - rect.height / 2;
+    setTilt({
+      x: -(yVal / rect.height) * 15,
+      y: (x / rect.width) * 15,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+  };
 
   return (
     <motion.article
-      style={{ y }}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        y,
+        rotateX: tilt.x,
+        rotateY: tilt.y,
+        transformPerspective: 1000,
+        transformStyle: "preserve-3d",
+      }}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6, scale: 1.01 }}
       viewport={{ once: true, margin: "0px 0px -120px" }}
       transition={{
         duration: 0.7,
         delay: index * 0.12,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="glass-panel rounded-3xl p-6"
+      className="glass-panel rounded-3xl p-6 hover:shadow-2xl hover:border-[var(--accent-soft)]/20 transition-all duration-200"
     >
       <h3 className="display-title text-2xl font-semibold md:text-3xl">{item.title}</h3>
       <p className="mt-3 text-sm leading-relaxed opacity-80 md:text-base">{item.text}</p>
@@ -53,7 +79,7 @@ export default function ShowcaseParallax() {
     <section
       id="showcase"
       ref={sectionRef}
-      className="relative overflow-hidden px-6 py-20 md:pb-44 md:pt-32 3xl:px-10 4xl:px-16 5xl:px-24"
+      className="section-wrap relative overflow-hidden"
     >
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center 3xl:max-w-[90vw] 3xl:gap-18 4xl:max-w-[91vw] 4xl:gap-24 5xl:max-w-[92vw]">
         <motion.div

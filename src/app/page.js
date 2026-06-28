@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import {
   Navbar,
   Hero,
+  About,
   Projects,
   Skills,
   Journey,
@@ -13,31 +14,34 @@ import {
   Footer,
 } from "@/components/view";
 
-import { ShowcaseParallax, CustomCursor, ScrollProgress, Reveal } from "@/components";
+import { ShowcaseParallax, ScrollProgress, Reveal } from "@/components";
 
 const Analytics = dynamic(() => import("@/components/view/analytics/Analytics"), {
   ssr: false,
 });
-
 export default function Home() {
   return (
     <>
-      <CustomCursor />
       <ScrollProgress />
 
       <Navbar />
-      <Hero />
-      <ShowcaseParallax />
-      <Reveal>
-        <Projects />
-      </Reveal>
-      <Skills />
-      <Journey />
-      <Analytics />
+      <main className="theme-content">
+        <Hero />
+        <Reveal>
+          <About />
+        </Reveal>
+        <ShowcaseParallax />
+        <Reveal>
+          <Projects />
+        </Reveal>
+        <Skills />
+        <Journey />
+        <Analytics />
 
-      <Testimonials />
-      <ContactMe />
-      <Footer />
+        <Testimonials />
+        <ContactMe />
+        <Footer />
+      </main>
     </>
   );
 }

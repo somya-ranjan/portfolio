@@ -1,20 +1,22 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { DEFAULT_THEME, LOCAL_STORAGE_THEME_KEY } from "@/constants";
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("portfolio-theme") || "dark";
-    }
-
-    return "dark";
-  });
+  const [theme, setTheme] = useState(DEFAULT_THEME);
 
   useEffect(() => {
-    localStorage.setItem("portfolio-theme", theme);
+    const saved = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
+    if (saved) {
+      setTheme(saved);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_THEME_KEY, theme);
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 

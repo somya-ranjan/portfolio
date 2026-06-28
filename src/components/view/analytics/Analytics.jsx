@@ -117,8 +117,11 @@ function CustomTooltip({ active, payload, label, colors }) {
 export default function Analytics() {
   const containerRef = useRef(null);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     const mediaQuery = window.matchMedia("(max-width: 767px)");
 
     const updateScreen = () => {
@@ -139,11 +142,7 @@ export default function Analytics() {
   const chartOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.6]);
 
   return (
-    <section
-      id="analytics"
-      className="overflow-x-hidden px-6 py-24 3xl:px-10 4xl:px-16 5xl:px-24"
-      ref={containerRef}
-    >
+    <section id="analytics" className="section-wrap overflow-x-hidden" ref={containerRef}>
       <div className="mx-auto max-w-6xl 3xl:max-w-[86vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw]">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -187,86 +186,105 @@ export default function Analytics() {
             </span>
           </div>
 
-          <div className="h-88 w-full md:h-104 3xl:h-[34rem] 4xl:h-[42rem] 5xl:h-[50rem]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={chartData}
-                margin={{
-                  top: 16,
-                  right: isSmallScreen ? 4 : 10,
-                  left: isSmallScreen ? -8 : 0,
-                  bottom: isSmallScreen ? 2 : 8,
-                }}
-                barCategoryGap={isSmallScreen ? "35%" : "45%"}
-                barGap={2}
-              >
-                <CartesianGrid
-                  strokeDasharray="4 4"
-                  stroke="var(--border)"
-                  strokeOpacity={0.5}
-                />
-                <XAxis
-                  dataKey="company"
-                  interval={isSmallScreen ? "preserveStartEnd" : 0}
-                  tick={{
-                    fill: "currentColor",
-                    fontSize: isSmallScreen ? 10 : 11,
+          <div className="relative w-full h-[350px] md:h-[400px] 3xl:h-[500px] 4xl:h-[600px] 5xl:h-[700px]">
+            {mounted ? (
+              <ResponsiveContainer width="100%" height={isSmallScreen ? 350 : 400}>
+                <BarChart
+                  data={chartData}
+                  margin={{
+                    top: 16,
+                    right: isSmallScreen ? 4 : 10,
+                    left: isSmallScreen ? -8 : 0,
+                    bottom: isSmallScreen ? 2 : 8,
                   }}
-                  tickFormatter={(value) => {
-                    const normalized = value.replace(" Pvt. Ltd", "");
-                    if (!isSmallScreen) {
-                      return normalized;
-                    }
-                    const compact = normalized
-                      .replace("Mercedes-Benz Research & Development India", "MBRDI")
-                      .replace("TechneAI", "TechneAI")
-                      .replace("SoluLab", "SoluLab");
-                    return compact;
-                  }}
-                />
-                <YAxis
-                  allowDecimals={false}
-                  width={isSmallScreen ? 26 : 32}
-                  tick={{
-                    fill: "currentColor",
-                    fontSize: isSmallScreen ? 10 : 12,
-                  }}
-                />
-                <Tooltip
-                  content={<CustomTooltip colors={candleColors} />}
-                  cursor={{
-                    fill: "color-mix(in srgb, var(--accent-soft) 8%, transparent)",
-                  }}
-                  wrapperStyle={{ zIndex: 50 }}
-                />
+                  barCategoryGap={isSmallScreen ? "35%" : "45%"}
+                  barGap={2}
+                >
+                  <defs>
+                    {candleColors.map((color, idx) => (
+                      <linearGradient
+                        key={idx}
+                        id={`colorP${idx + 1}`}
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop offset="0%" stopColor={color} stopOpacity={0.95} />
+                        <stop offset="100%" stopColor={color} stopOpacity={0.25} />
+                      </linearGradient>
+                    ))}
+                  </defs>
+                  <CartesianGrid
+                    strokeDasharray="4 4"
+                    stroke="var(--border)"
+                    strokeOpacity={0.5}
+                  />
+                  <XAxis
+                    dataKey="company"
+                    interval={isSmallScreen ? "preserveStartEnd" : 0}
+                    tick={{
+                      fill: "currentColor",
+                      fontSize: isSmallScreen ? 10 : 11,
+                    }}
+                    tickFormatter={(value) => {
+                      const normalized = value.replace(" Pvt. Ltd", "");
+                      if (!isSmallScreen) {
+                        return normalized;
+                      }
+                      const compact = normalized
+                        .replace("Mercedes-Benz Research & Development India", "MBRDI")
+                        .replace("TechneAI", "TechneAI")
+                        .replace("SoluLab", "SoluLab");
+                      return compact;
+                    }}
+                  />
+                  <YAxis
+                    allowDecimals={false}
+                    width={isSmallScreen ? 26 : 32}
+                    tick={{
+                      fill: "currentColor",
+                      fontSize: isSmallScreen ? 10 : 12,
+                    }}
+                  />
+                  <Tooltip
+                    content={<CustomTooltip colors={candleColors} />}
+                    cursor={{
+                      fill: "color-mix(in srgb, var(--accent-soft) 8%, transparent)",
+                    }}
+                    wrapperStyle={{ zIndex: 50 }}
+                  />
 
-                {Array.from({ length: maxProjects }, (_, index) => {
-                  const key = `p${index + 1}`;
-                  return (
-                    <Bar
-                      key={key}
-                      dataKey={key}
-                      name={`Project ${index + 1}`}
-                      stackId="projects"
-                      fill={candleColors[index % candleColors.length]}
-                      barSize={isSmallScreen ? 26 : 34}
-                      maxBarSize={isSmallScreen ? 30 : 38}
-                    >
-                      {chartData.map((entry) => {
-                        const isTopSegment =
-                          entry[key] && index === entry.projectCount - 1;
-                        return (
-                          <Cell
-                            key={`${entry.company}-${key}`}
-                            radius={isTopSegment ? [10, 10, 0, 0] : [0, 0, 0, 0]}
-                          />
-                        );
-                      })}
-                    </Bar>
-                  );
-                })}
-              </BarChart>
-            </ResponsiveContainer>
+                  {Array.from({ length: maxProjects }, (_, index) => {
+                    const key = `p${index + 1}`;
+                    return (
+                      <Bar
+                        key={key}
+                        dataKey={key}
+                        name={`Project ${index + 1}`}
+                        stackId="projects"
+                        fill={`url(#colorP${(index % candleColors.length) + 1})`}
+                        barSize={isSmallScreen ? 26 : 34}
+                        maxBarSize={isSmallScreen ? 30 : 38}
+                      >
+                        {chartData.map((entry) => {
+                          const isTopSegment =
+                            entry[key] && index === entry.projectCount - 1;
+                          return (
+                            <Cell
+                              key={`${entry.company}-${key}`}
+                              radius={isTopSegment ? [10, 10, 0, 0] : [0, 0, 0, 0]}
+                            />
+                          );
+                        })}
+                      </Bar>
+                    );
+                  })}
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="w-full h-full rounded-xl bg-slate-800/10 dark:bg-slate-200/5 animate-pulse" />
+            )}
           </div>
         </motion.div>
       </div>

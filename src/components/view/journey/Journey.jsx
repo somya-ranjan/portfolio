@@ -12,6 +12,15 @@ export default function Journey() {
     offset: ["start end", "end start"],
   });
 
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const yVal = e.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${yVal}px`);
+  };
+
   return (
     <section id="journey" className="section-wrap" ref={containerRef}>
       <div className="mx-auto max-w-5xl 3xl:max-w-[82vw] 4xl:max-w-[86vw] 5xl:max-w-[88vw]">
@@ -26,7 +35,7 @@ export default function Journey() {
         </motion.h2>
 
         <div className="relative mt-16">
-          <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 transform bg-(--border)" />
+          <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 transform bg-gradient-to-b from-[var(--accent-solid)] via-[var(--accent-soft)] to-transparent" />
 
           <div className="flex flex-col gap-12">
             {journeyData.map((item, index) => {
@@ -43,12 +52,15 @@ export default function Journey() {
                     isLeft ? "justify-start" : "justify-end"
                   }`}
                 >
-                  <div className="glass-panel w-full rounded-2xl p-6 shadow-md md:w-[45%] 3xl:p-8 4xl:w-[42%] 4xl:p-10">
+                  <div
+                    onMouseMove={handleMouseMove}
+                    className="glass-panel glow-card w-full rounded-2xl p-6 shadow-md md:w-[45%] 3xl:p-8 4xl:w-[42%] 4xl:p-10 cursor-default"
+                  >
                     <p className="text-sm opacity-60 font-medium">{item.year}</p>
 
                     <h3 className="text-xl font-semibold mt-2">{item.title}</h3>
 
-                    <p className="text-sm mt-1 opacity-70 font-medium flex flex-wrap items-center gap-2">
+                    <div className="text-sm mt-1 opacity-70 font-medium flex flex-wrap items-center gap-2">
                       {item.clientHighlight ? (
                         <>
                           <span>{item.company}</span>
@@ -67,7 +79,7 @@ export default function Journey() {
                       ) : (
                         item.company
                       )}
-                    </p>
+                    </div>
 
                     <ul className="mt-4 space-y-2">
                       {item.achievements.map((achievement, idx) => (
@@ -81,7 +93,12 @@ export default function Journey() {
                     </ul>
                   </div>
 
-                  <div className="absolute left-1/2 h-4 w-4 -translate-x-1/2 transform rounded-full bg-(--text)" />
+                  <div 
+                    className="absolute left-1/2 h-4 w-4 -translate-x-1/2 transform rounded-full bg-[var(--accent-solid)] border-4 border-[var(--bg)] hidden md:block"
+                    style={{
+                      boxShadow: "0 0 0 6px color-mix(in srgb, var(--accent-solid) 15%, transparent)"
+                    }}
+                  />
                 </motion.div>
               );
             })}

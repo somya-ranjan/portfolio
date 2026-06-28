@@ -5,9 +5,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Input, Textarea, Button } from "@material-tailwind/react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL } from "@/constants";
 
 export default function ContactMe() {
-  const CONTACT_EMAIL = "youremail@gmail.com";
   const containerRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -135,7 +135,7 @@ export default function ContactMe() {
 
             <div className="mt-8 flex items-center gap-4">
               <a
-                href="https://github.com/yourusername"
+                href={GITHUB_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border p-3"
@@ -146,7 +146,7 @@ export default function ContactMe() {
               </a>
 
               <a
-                href="https://linkedin.com/in/yourusername"
+                href={LINKEDIN_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border p-3"
@@ -187,6 +187,7 @@ export default function ContactMe() {
                 error={Boolean(formErrors.name)}
                 size="lg"
                 className="text-(--text)! placeholder:text-(--muted)! placeholder:opacity-100!"
+                suppressHydrationWarning
               />
               {formErrors.name ? (
                 <p className="mt-1 text-xs" style={{ color: "var(--danger)" }}>
@@ -204,6 +205,7 @@ export default function ContactMe() {
                 error={Boolean(formErrors.email)}
                 size="lg"
                 className="text-(--text)! placeholder:text-(--muted)! placeholder:opacity-100!"
+                suppressHydrationWarning
               />
               {formErrors.email ? (
                 <p className="mt-1 text-xs" style={{ color: "var(--danger)" }}>
@@ -220,6 +222,7 @@ export default function ContactMe() {
                 error={Boolean(formErrors.message)}
                 rows={6}
                 className="text-(--text)! placeholder:text-(--muted)! placeholder:opacity-100!"
+                suppressHydrationWarning
               />
               {formErrors.message ? (
                 <p className="mt-1 text-xs" style={{ color: "var(--danger)" }}>

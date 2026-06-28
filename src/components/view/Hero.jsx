@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 export default function Hero() {
   const heroRef = useRef(null);
   const [isCoarsePointer, setIsCoarsePointer] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -33,6 +34,14 @@ export default function Hero() {
     };
   }, []);
 
+  const handleMouseMove = (e) => {
+    if (isCoarsePointer) return;
+    const { clientX, clientY } = e;
+    const moveX = (clientX - window.innerWidth / 2) / 32;
+    const moveY = (clientY - window.innerHeight / 2) / 32;
+    setMousePos({ x: moveX, y: moveY });
+  };
+
   const heroGridBreakpointClass = isCoarsePointer
     ? "xl:grid-cols-[1.05fr_0.95fr]"
     : "lg:grid-cols-[1.05fr_0.95fr]";
@@ -42,13 +51,28 @@ export default function Hero() {
   return (
     <motion.section
       ref={heroRef}
+      onMouseMove={handleMouseMove}
       id="home"
-      className="relative min-h-svh overflow-hidden px-6 pb-12 pt-24 md:min-h-screen md:pb-20 md:pt-36 3xl:min-h-[72rem] 3xl:px-10 3xl:pt-32 4xl:min-h-[78rem] 4xl:px-16 4xl:pt-36 5xl:min-h-[84rem] 5xl:px-24 5xl:pt-40"
+      className="section-wrap relative min-h-svh overflow-hidden  md:min-h-screen 3xl:min-h-[72rem] 4xl:min-h-[78rem] 5xl:min-h-[84rem]"
     >
+      {/* Background Grid Pattern inside Hero */}
+      <div
+        className="absolute inset-0 -z-10 pointer-events-none opacity-[0.03] dark:opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, var(--text) 1px, transparent 1px), linear-gradient(to bottom, var(--text) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+
       <motion.div
         aria-hidden
-        style={{ y: auraY }}
-        className="pointer-events-none absolute left-1/2 top-8 h-120 w-2xl -translate-x-1/2 rounded-full blur-3xl"
+        style={{
+          y: auraY,
+          x: mousePos.x,
+          translateY: mousePos.y,
+        }}
+        className="pointer-events-none absolute left-1/2 top-8 h-120 w-2xl -translate-x-1/2 rounded-full blur-3xl transition-transform duration-300 ease-out"
       >
         <div
           className="h-full w-full rounded-full"
@@ -82,7 +106,9 @@ export default function Hero() {
           >
             Premium
             <br />
-            Web Presence
+            <span className="bg-gradient-to-r from-[var(--accent-solid)] via-[var(--accent-soft)] to-[var(--success)] bg-clip-text text-transparent">
+              Web Presence
+            </span>
           </motion.h1>
 
           <motion.p
@@ -104,7 +130,7 @@ export default function Hero() {
           >
             <Button
               size="lg"
-              className="rounded-full px-8 py-3 text-xs font-semibold uppercase tracking-[0.22em] 3xl:px-10 3xl:py-4 3xl:text-sm 4xl:px-12 4xl:text-base"
+              className="rounded-full px-8 py-3 text-xs font-semibold uppercase tracking-[0.22em] 3xl:px-10 3xl:py-4 3xl:text-sm 4xl:px-12 4xl:text-base cursor-pointer hover:shadow-lg hover:shadow-[var(--accent-soft)]/20"
               style={{
                 background: "var(--accent)",
                 color: "var(--accent-contrast)",
@@ -116,7 +142,7 @@ export default function Hero() {
             <Button
               size="lg"
               variant="outlined"
-              className="rounded-full border px-8 py-3 text-xs font-semibold uppercase tracking-[0.2em] 3xl:px-10 3xl:py-4 3xl:text-sm 4xl:px-12 4xl:text-base"
+              className="rounded-full border px-8 py-3 text-xs font-semibold uppercase tracking-[0.2em] 3xl:px-10 3xl:py-4 3xl:text-sm 4xl:px-12 4xl:text-base cursor-pointer hover:bg-slate-500/5"
               style={{ borderColor: "var(--border)", color: "var(--text)" }}
             >
               Contact Me
@@ -146,7 +172,7 @@ export default function Hero() {
             }}
           />
 
-          <div className="glass-panel rounded-4xl p-3">
+          <div className="glass-panel rounded-4xl p-3 hover:-translate-y-1 hover:shadow-3xl hover:border-[var(--accent-soft)]/30 duration-500">
             <Image
               src="/demo-showcase.svg"
               alt="Demo visual for hero section"
@@ -166,6 +192,34 @@ export default function Hero() {
           transition={{ delay: 0.54, duration: 0.8 }}
           className={`h-px w-full bg-linear-to-r from-transparent via-(--border) to-transparent ${dividerSpanBreakpointClass}`}
         />
+      </motion.div>
+
+      {/* Mouse scroll effect indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.6 }}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 cursor-pointer z-40"
+        onClick={() => {
+          document.getElementById("showcase")?.scrollIntoView({ behavior: "smooth" });
+        }}
+      >
+        <span className="text-[9px] uppercase tracking-[0.25em] opacity-50">
+          Scroll Down
+        </span>
+        <div className="w-5 h-8 border-2 border-[var(--text)] rounded-full flex justify-center p-1 opacity-50">
+          <motion.div
+            animate={{
+              y: [0, 8, 0],
+            }}
+            transition={{
+              duration: 1.6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="w-1 h-1 bg-[var(--text)] rounded-full"
+          />
+        </div>
       </motion.div>
     </motion.section>
   );

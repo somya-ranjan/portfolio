@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { FiExternalLink, FiGithub, FiMaximize2, FiX } from "react-icons/fi";
 import { Dialog } from "@material-tailwind/react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
 import { useTheme } from "@/context/ThemeContext";
 import { projects } from "@data";
@@ -98,12 +98,15 @@ function getProjectPreviewDoc(project, theme) {
             <img src="${imageSrc}" alt="${project.title}" style="width:100%;height:100%;object-fit:cover;display:block;" />
           </section>
           <section>
-            <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:${palette.accent};">Iframe Preview</p>
-            <h1 style="margin:0;font-family:Georgia,serif;font-size:clamp(2rem,4vw,3.5rem);line-height:0.95;">${project.title}</h1>
-            <p style="margin:22px 0 0;font-size:16px;line-height:1.8;color:${palette.muted};">This link cannot be embedded by the remote site, so this fallback is still shown inside an iframe.</p>
-            <p style="margin:18px 0 0;font-size:15px;line-height:1.9;color:${palette.text};">${project.description}</p>
-            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;">${techBadges}</div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;">${liveLink}${gitHubLink}</div>
+            ${project.company ? `<span style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.6;display:block;margin-bottom:8px;">${project.company}</span>` : ""}
+            <h1 style="margin:0 0 16px;font-size:32px;font-weight:700;letter-spacing:-0.02em;">${project.title}</h1>
+            <p style="margin:0 0 24px;font-size:15px;line-height:1.75;opacity:0.8;">${project.description}</p>
+            <h2 style="margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;opacity:0.65;">Tech Stack</h2>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;">${techBadges}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+              ${liveLink}
+              ${gitHubLink}
+            </div>
           </section>
         </main>
       </body>
@@ -112,19 +115,8 @@ function getProjectPreviewDoc(project, theme) {
 }
 
 function ProjectAction({ href, icon: Icon, label, disabled, onClick }) {
-  const baseClassName =
-    "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em]";
-
   if (disabled) {
-    return (
-      <span
-        className={`${baseClassName} cursor-not-allowed opacity-60`}
-        style={{ color: "var(--muted)" }}
-      >
-        <Icon className="text-sm" />
-        {label}
-      </span>
-    );
+    return null;
   }
 
   if (onClick) {
@@ -132,7 +124,7 @@ function ProjectAction({ href, icon: Icon, label, disabled, onClick }) {
       <button
         type="button"
         onClick={onClick}
-        className={baseClassName}
+        className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-slate-500/10"
         style={{ color: "var(--text)" }}
       >
         <Icon className="text-sm" />
@@ -145,8 +137,8 @@ function ProjectAction({ href, icon: Icon, label, disabled, onClick }) {
     <a
       href={href}
       target="_blank"
-      rel="noreferrer"
-      className={baseClassName}
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-slate-500/10"
       style={{ color: "var(--text)" }}
     >
       <Icon className="text-sm" />
@@ -167,18 +159,29 @@ function ProjectCard({ project, index, onPreview }) {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.08, 1]);
   const rotate = useTransform(scrollYProgress, [0, 1], [-0.6, 0.6]);
 
+  const handleMouseMove = (e) => {
+    const card = itemRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const yVal = e.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${yVal}px`);
+  };
+
   return (
     <motion.div
       ref={itemRef}
+      onMouseMove={handleMouseMove}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       whileHover={{ y: -10, scale: 1.01 }}
-      transition={{ delay: index * 0.16, duration: 0.72 }}
+      transition={{ duration: 0.72 }}
       viewport={{ once: true, margin: "0px 0px -100px" }}
-      className="glass-panel group overflow-hidden rounded-3xl"
+      className="glass-panel glow-card group overflow-hidden rounded-3xl h-full flex flex-col"
     >
       <motion.div
-        className="relative h-72 overflow-hidden md:h-80 lg:h-96 3xl:h-[28rem] 4xl:h-[34rem] 5xl:h-[38rem]"
+        className="relative h-56 overflow-hidden md:h-60 lg:h-64 shrink-0"
         style={{ background: "var(--bg-soft)" }}
       >
         <motion.div
@@ -195,44 +198,81 @@ function ProjectCard({ project, index, onPreview }) {
         </motion.div>
       </motion.div>
 
-      <div className="p-6">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3 className="display-title text-2xl font-semibold leading-tight">
-              {project.title}
-            </h3>
-            {project.isComingSoon ? (
-              <span
-                className="mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em]"
+      <div className="p-6 flex flex-col flex-1 justify-between">
+        <div>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              {project.company && (
+                <span className="text-xs uppercase tracking-[0.14em] opacity-60 block mb-1">
+                  {project.company}
+                </span>
+              )}
+              <h3 className="display-title text-2xl font-semibold leading-tight">
+                {project.title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {project.metrics && (
+                  <span
+                    className="mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em]"
+                    style={{
+                      background: "color-mix(in srgb, var(--accent-soft) 16%, transparent)",
+                      color: "var(--accent-soft)",
+                    }}
+                  >
+                    {project.metrics}
+                  </span>
+                )}
+                {project.isComingSoon ? (
+                  <span
+                    className="mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em]"
+                    style={{
+                      background: "color-mix(in srgb, var(--success) 16%, transparent)",
+                      color: "var(--success)",
+                    }}
+                  >
+                    Coming Soon
+                  </span>
+                ) : null}
+              </div>
+            </div>
+          </div>
+
+          {/* Truncated Description with Hover Tooltip */}
+          <div className="relative group/desc mt-4">
+            <p className="text-sm leading-7 line-clamp-3 cursor-help" style={{ color: "var(--muted)" }}>
+              {project.description}
+            </p>
+            
+            {/* Elegant Glass Tooltip */}
+            <div className="absolute left-0 bottom-full mb-3 w-full z-30 opacity-0 pointer-events-none group-hover/desc:opacity-100 group-hover/desc:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover/desc:translate-y-0">
+              <div
+                className="glass-panel p-4 rounded-2xl text-xs md:text-sm leading-relaxed border shadow-2xl backdrop-blur-xl"
                 style={{
-                  background: "color-mix(in srgb, var(--success) 16%, transparent)",
-                  color: "var(--success)",
+                  borderColor: "var(--border)",
+                  background: "var(--bg-soft)",
+                  color: "var(--text)"
                 }}
               >
-                Coming Soon
-              </span>
-            ) : null}
+                {project.description}
+              </div>
+            </div>
           </div>
-        </div>
 
-        <p className="mt-4 text-sm leading-7" style={{ color: "var(--muted)" }}>
-          {project.description}
-        </p>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.tech.map((item) => (
-            <span
-              key={item}
-              className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-widest"
-              style={{
-                border: "1px solid var(--border)",
-                color: "var(--muted-strong)",
-                background: "color-mix(in srgb, var(--surface) 88%, transparent)",
-              }}
-            >
-              {item}
-            </span>
-          ))}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {project.tech.map((item) => (
+              <span
+                key={item}
+                className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-widest"
+                style={{
+                  border: "1px solid var(--border)",
+                  color: "var(--muted-strong)",
+                  background: "color-mix(in srgb, var(--surface) 88%, transparent)",
+                }}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
@@ -263,6 +303,7 @@ export default function Projects() {
   const { theme } = useTheme();
   const [activeProject, setActiveProject] = useState(null);
   const [iframeFailed, setIframeFailed] = useState(false);
+  const [activeTab, setActiveTab] = useState("corporate");
   const closeButtonRef = useRef(null);
 
   const openPreview = (project) => {
@@ -287,6 +328,8 @@ export default function Projects() {
   const shouldUseExternalIframe =
     canUseExternalIframe(activeProject?.link?.iFrame) && !iframeFailed;
 
+  const filteredProjects = projects.filter((project) => project.category === activeTab);
+
   return (
     <>
       <section id="projects" className="section-wrap">
@@ -301,16 +344,73 @@ export default function Projects() {
             Projects
           </motion.h2>
 
-          <div className="mt-16 grid gap-10 md:grid-cols-2 3xl:gap-12 4xl:grid-cols-3 4xl:gap-14">
-            {projects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index}
-                onPreview={openPreview}
-              />
-            ))}
+          {/* Category Tabs */}
+          <div className="mt-8 flex justify-center">
+            <div
+              className="glass-panel p-1.5 rounded-full flex gap-1 relative border"
+              style={{ borderColor: "var(--border)" }}
+            >
+              {/* Tab: Corporate */}
+              <button
+                onClick={() => setActiveTab("corporate")}
+                className={`relative px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase transition-colors duration-300 z-10 ${
+                  activeTab === "corporate" ? "text-[var(--bg)]" : "text-[var(--text)] opacity-75"
+                }`}
+              >
+                {activeTab === "corporate" && (
+                  <motion.div
+                    layoutId="activeTabIndicator"
+                    className="absolute inset-0 bg-[var(--text)] rounded-full -z-10"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                Corporate Projects
+              </button>
+
+              {/* Tab: Personal */}
+              <button
+                onClick={() => setActiveTab("personal")}
+                className={`relative px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase transition-colors duration-300 z-10 ${
+                  activeTab === "personal" ? "text-[var(--bg)]" : "text-[var(--text)] opacity-75"
+                }`}
+              >
+                {activeTab === "personal" && (
+                  <motion.div
+                    layoutId="activeTabIndicator"
+                    className="absolute inset-0 bg-[var(--text)] rounded-full -z-10"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                Personal Projects
+              </button>
+            </div>
           </div>
+
+          {/* Projects Grid */}
+          <motion.div
+            layout
+            className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                  className="h-full"
+                >
+                  <ProjectCard
+                    project={project}
+                    index={index}
+                    onPreview={openPreview}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 
