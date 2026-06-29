@@ -215,7 +215,8 @@ function ProjectCard({ project, index, onPreview }) {
                   <span
                     className="mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em]"
                     style={{
-                      background: "color-mix(in srgb, var(--accent-soft) 16%, transparent)",
+                      background:
+                        "color-mix(in srgb, var(--accent-soft) 16%, transparent)",
                       color: "var(--accent-soft)",
                     }}
                   >
@@ -239,10 +240,13 @@ function ProjectCard({ project, index, onPreview }) {
 
           {/* Truncated Description with Hover Tooltip */}
           <div className="relative group/desc mt-4">
-            <p className="text-sm leading-7 line-clamp-3 cursor-help" style={{ color: "var(--muted)" }}>
+            <p
+              className="text-sm leading-7 line-clamp-3 cursor-help"
+              style={{ color: "var(--muted)" }}
+            >
               {project.description}
             </p>
-            
+
             {/* Elegant Glass Tooltip */}
             <div className="absolute left-0 bottom-full mb-3 w-full z-30 opacity-0 pointer-events-none group-hover/desc:opacity-100 group-hover/desc:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover/desc:translate-y-0">
               <div
@@ -250,7 +254,7 @@ function ProjectCard({ project, index, onPreview }) {
                 style={{
                   borderColor: "var(--border)",
                   background: "var(--bg-soft)",
-                  color: "var(--text)"
+                  color: "var(--text)",
                 }}
               >
                 {project.description}
@@ -413,10 +417,7 @@ export default function Projects() {
           </div>
 
           {/* Projects Grid */}
-          <motion.div
-            layout
-            className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-          >
+          <motion.div layout className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, index) => (
                 <motion.div
@@ -428,11 +429,7 @@ export default function Projects() {
                   transition={{ duration: 0.3 }}
                   className="h-full"
                 >
-                  <ProjectCard
-                    project={project}
-                    index={index}
-                    onPreview={openPreview}
-                  />
+                  <ProjectCard project={project} index={index} onPreview={openPreview} />
                 </motion.div>
               ))}
             </AnimatePresence>

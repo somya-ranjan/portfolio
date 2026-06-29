@@ -1,1 +1,12 @@
-export { default as projectNpmImage } from "./project-npm.png";
+export { default as HERO_MY_PIC } from "./hero-my-pic.png";
+export { default as CONTACT_MY_PIC } from "./contact-my-pic.png";
+export { default as CORPORATE_PROJECTS } from "./corporate-projects.png";
+export { default as PROJECT_NPM } from "./project-npm.png";
+export { default as PROJECT_BOOKING } from "./project-booking.png";
+export { default as PROJECT_CMS } from "./project-cms.png";
+export { default as PROJECT_HRMS } from "./project-hrms.png";
+export { default as PROJECT_IAM } from "./project-iam.png";
+export { default as PROJECT_NFT } from "./project-nft.png";
+export { default as PROJECT_SAAS_COMMERCE } from "./project-saas-commerce.png";
+export { default as PROJECT_DASHBOARD } from "./project-dashboard.svg";
+export { default as DEMO_SHOWCASE } from "./demo-showcase.svg";

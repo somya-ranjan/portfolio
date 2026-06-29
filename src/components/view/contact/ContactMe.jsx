@@ -7,6 +7,7 @@ import { Input, Textarea } from "@material-tailwind/react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL } from "@/constants";
+import { CONTACT_MY_PIC } from "@/assets/img";
 
 export default function ContactMe() {
   const containerRef = useRef(null);
@@ -156,7 +157,7 @@ export default function ContactMe() {
             <div className="mt-6 flex items-center gap-4">
               <div className="relative h-24 w-24 overflow-hidden rounded-full border border-[var(--border)] shadow-lg">
                 <Image
-                  src="/contact-my-pic.png"
+                  src={CONTACT_MY_PIC}
                   alt="Contact portrait"
                   fill
                   className="object-cover"

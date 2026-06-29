@@ -20,7 +20,7 @@ export default function Footer() {
     >
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]">
         {/* Left */}
-        <h2 className="text-lg font-semibold">{LOGO_TEXT}</h2>
+        <h2 className="logo-text text-2xl">{LOGO_TEXT}</h2>
 
         {/* Center */}
         <p className="text-sm opacity-70 text-center">

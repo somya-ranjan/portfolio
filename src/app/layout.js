@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Cormorant_Garamond, Sora } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider as MTProvider } from "@material-tailwind/react";
 
 import { ThemeProvider, useTheme } from "@/context/ThemeContext";
@@ -21,6 +22,18 @@ const bodyFont = Sora({
   variable: "--font-body",
 });
 
+const logoFont = localFont({
+  src: "../assets/fonts/Halimun.ttf",
+  variable: "--font-logo",
+  display: "swap",
+});
+
+const heroFont = localFont({
+  src: "../assets/fonts/BrushKing-MVVPp.otf",
+  variable: "--font-hero",
+  display: "swap",
+});
+
 function MaterialWrapper({ children }) {
   const { theme } = useTheme();
 
@@ -32,7 +45,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       data-theme="dark"
-      className={`${displayFont.variable} ${bodyFont.variable}`}
+      className={`${displayFont.variable} ${bodyFont.variable} ${logoFont.variable} ${heroFont.variable}`}
     >
       <body suppressHydrationWarning={true}>
         <ThemeProvider>

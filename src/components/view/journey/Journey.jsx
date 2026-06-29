@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll } from "framer-motion";
 import { journeyData } from "@data";
+import { CONTACT_MY_PIC } from "@/assets/img";
 
 export default function Journey() {
   const containerRef = useRef(null);
@@ -43,7 +44,7 @@ export default function Journey() {
               style={{ zIndex: -10 }}
             >
               <Image
-                src="/contact-my-pic.png"
+                src={CONTACT_MY_PIC}
                 alt=""
                 fill
                 className="object-cover"

@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Button, Drawer, Menu, MenuHandler, MenuList, MenuItem } from "@material-tailwind/react";
+import {
+  Button,
+  Drawer,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+} from "@material-tailwind/react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { BsGrid3X3GapFill } from "react-icons/bs";
@@ -92,9 +99,7 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:gap-6 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
-          <h1 className="display-title shrink-0 text-xl font-semibold tracking-[0.12em] uppercase xl:text-2xl">
-            {LOGO_TEXT}
-          </h1>
+          <h1 className="logo-text shrink-0 text-3xl xl:text-4xl">{LOGO_TEXT}</h1>
 
           <div className="hidden lg:flex flex-1 items-center justify-center gap-5 px-4 text-[10px] font-semibold uppercase tracking-[0.13em] xl:gap-8 xl:px-6 xl:text-xs xl:tracking-[0.18em]">
             {allMenuItems.map((item) => (

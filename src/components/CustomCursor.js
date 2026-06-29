@@ -21,7 +21,9 @@ export default function CustomCursor() {
       const target = e.target;
       if (!target) return;
 
-      const interactive = target.closest("a, button, [role='button'], input, textarea, .glass-panel, .glow-card, iframe");
+      const interactive = target.closest(
+        "a, button, [role='button'], input, textarea, .glass-panel, .glow-card, iframe",
+      );
       if (interactive) {
         if (
           interactive.tagName === "A" ||

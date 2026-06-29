@@ -5,6 +5,7 @@ import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { HERO_MY_PIC } from "@/assets/img";
 
 const valueCards = [
   {
@@ -213,9 +214,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.78 }}
-            className={`section-title text-5xl font-semibold leading-[0.92] md:text-7xl ${heroHeadingBreakpointClass} 3xl:text-[clamp(7rem,7vw,10rem)] 4xl:text-[clamp(8rem,7.5vw,11rem)] 5xl:text-[clamp(9rem,8vw,12rem)]`}
+            className={`section-title text-3xl leading-[0.92] md:text-5xl lg:text-5xl ${heroHeadingBreakpointClass.replace("text-8xl", "text-6xl")} 3xl:text-[clamp(4.5rem,5vw,7rem)] 4xl:text-[clamp(5.5rem,5.5vw,8rem)] 5xl:text-[clamp(6rem,6vw,9rem)]`}
+            style={{ fontFamily: "var(--font-hero), cursive", fontWeight: 400 }}
           >
             Somyaranjan
+            <br />
             <br />
             Sethy
           </motion.h1>
@@ -382,8 +385,8 @@ export default function Hero() {
             className="glass-panel glow-card rounded-4xl p-3 hover:shadow-3xl hover:border-[var(--accent-soft)]/30 duration-500"
           >
             <Image
-              src="/hero-my-pic.png"
-              alt="Somya Ranjan Sanu — Frontend Developer"
+              src={HERO_MY_PIC}
+              alt="Somyaranjan Sethy — Ai Frontend Developer"
               width={960}
               height={1200}
               priority
