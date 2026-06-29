@@ -4,10 +4,10 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Input, Textarea } from "@material-tailwind/react";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL } from "@/constants";
+import { CONTACT_EMAIL } from "@/constants";
 import { CONTACT_MY_PIC } from "@/assets/img";
+import { handleCardMouseMove, getGmailComposeLink } from "@/utils";
+import { SectionHeading, SocialLinks } from "@/components";
 
 export default function ContactMe() {
   const containerRef = useRef(null);
@@ -79,28 +79,6 @@ export default function ContactMe() {
     }
   };
 
-  const handleCardMouseMove = (event) => {
-    const card = event.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${y}px`);
-  };
-
-  const getGmailComposeLink = ({ subject = "", body = "" } = {}) => {
-    const composeParams = new URLSearchParams({
-      view: "cm",
-      fs: "1",
-      to: CONTACT_EMAIL,
-    });
-
-    composeParams.set("su", `${subject} [Coming From Portfolio]`);
-    composeParams.set("body", body);
-
-    return `https://mail.google.com/mail/?${composeParams.toString()}`;
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -130,17 +108,9 @@ export default function ContactMe() {
   };
 
   return (
-    <section id="contact" className="section-wrap" ref={containerRef}>
-      <div className="relative mx-auto max-w-5xl 3xl:max-w-[84vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw]">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="section-title section-heading section-heading-lg"
-        >
-          Contact Me
-        </motion.h2>
+    <section id="contact" ref={containerRef}>
+      <div className="relative container-sm">
+        <SectionHeading>Contact Me</SectionHeading>
 
         <div className="mt-16 grid gap-10 md:grid-cols-2 3xl:gap-14 4xl:gap-20">
           <motion.div
@@ -182,40 +152,11 @@ export default function ContactMe() {
               friendly hello 👋
             </p>
 
-            <div className="mt-8 flex items-center gap-4">
-              <a
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border p-3"
-                style={{ borderColor: "var(--border)" }}
-                aria-label="GitHub"
-              >
-                <FaGithub size={18} />
-              </a>
-
-              <a
-                href={LINKEDIN_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border p-3"
-                style={{ borderColor: "var(--border)" }}
-                aria-label="LinkedIn"
-              >
-                <FaLinkedinIn size={18} />
-              </a>
-
-              <a
-                href={getGmailComposeLink()}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border p-3"
-                style={{ borderColor: "var(--border)" }}
-                aria-label="Email"
-              >
-                <MdEmail size={18} />
-              </a>
-            </div>
+            <SocialLinks
+              className="mt-8 flex items-center gap-4"
+              itemClassName="p-3 inline-flex items-center justify-center"
+              iconSize={18}
+            />
           </motion.div>
 
           <motion.form

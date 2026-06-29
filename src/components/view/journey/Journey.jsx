@@ -5,6 +5,8 @@ import Image from "next/image";
 import { motion, useScroll } from "framer-motion";
 import { journeyData } from "@data";
 import { CONTACT_MY_PIC } from "@/assets/img";
+import { handleCardMouseMove } from "@/utils";
+import { SectionHeading } from "@/components";
 
 export default function Journey() {
   const containerRef = useRef(null);
@@ -14,27 +16,10 @@ export default function Journey() {
     offset: ["start end", "end start"],
   });
 
-  const handleMouseMove = (e) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const yVal = e.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${yVal}px`);
-  };
-
   return (
-    <section id="journey" className="section-wrap" ref={containerRef}>
-      <div className="mx-auto max-w-5xl 3xl:max-w-[82vw] 4xl:max-w-[86vw] 5xl:max-w-[88vw]">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="section-title section-heading section-heading-lg"
-        >
-          My Journey
-        </motion.h2>
+    <section id="journey" ref={containerRef}>
+      <div className="container-sm">
+        <SectionHeading>My Journey</SectionHeading>
 
         <div className="relative mt-16">
           {/* Background image shadow */}
@@ -72,7 +57,7 @@ export default function Journey() {
                   }`}
                 >
                   <div
-                    onMouseMove={handleMouseMove}
+                    onMouseMove={handleCardMouseMove}
                     className="glass-panel glow-card w-full rounded-2xl p-6 shadow-md md:w-[45%] 3xl:p-8 4xl:w-[42%] 4xl:p-10 cursor-default"
                   >
                     <p className="text-sm opacity-60 font-medium">{item.year}</p>

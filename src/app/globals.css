@@ -178,13 +178,29 @@ h3,
   font-weight: 700;
 }
 
+@utility section-wrap {
+  @apply px-6 3xl:px-10 4xl:px-16 5xl:px-24;
+}
+
+@utility container-lg {
+  @apply mx-auto max-w-7xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw];
+}
+
+@utility container-md {
+  @apply mx-auto max-w-6xl 3xl:max-w-[86vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw];
+}
+
+@utility container-sm {
+  @apply mx-auto max-w-5xl 3xl:max-w-[84vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw];
+}
+
 @layer components {
-  .section-wrap {
-    @apply py-10 md:py-15 px-6 3xl:px-10 4xl:px-16 5xl:px-24;
+  .sections-stack {
+    @apply section-wrap flex flex-col gap-y-10 md:gap-y-20 my-10 md:my-20;
   }
 
   .section-heading {
-    @apply text-center font-bold text-5xl md:text-7xl lg:text-8xl 3xl:text-9xl 4xl:text-[7.5rem] 5xl:text-[9rem];
+    @apply text-center font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-[5.5rem];
   }
 
   .section-heading-lg {

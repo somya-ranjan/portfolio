@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { HERO_MY_PIC } from "@/assets/img";
+import { handleCardMouseMove } from "@/utils";
 
 const valueCards = [
   {
@@ -116,23 +117,6 @@ export default function Hero() {
     };
   }, []);
 
-  const handleMouseMove = (e) => {
-    if (isCoarsePointer) return;
-    const { clientX, clientY } = e;
-    const moveX = (clientX - window.innerWidth / 2) / 32;
-    const moveY = (clientY - window.innerHeight / 2) / 32;
-    setMousePos({ x: moveX, y: moveY });
-  };
-
-  const handleCardMouseMove = (e) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${y}px`);
-  };
-
   const heroGridBreakpointClass = isCoarsePointer
     ? "xl:grid-cols-[1.1fr_0.9fr]"
     : "lg:grid-cols-[1.1fr_0.9fr]";
@@ -141,9 +125,9 @@ export default function Hero() {
   return (
     <motion.section
       ref={heroRef}
-      onMouseMove={handleMouseMove}
+      onMouseMove={handleCardMouseMove}
       id="home"
-      className="section-wrap relative min-h-svh overflow-hidden md:min-h-screen 3xl:min-h-[72rem] 4xl:min-h-[78rem] 5xl:min-h-[84rem]"
+      className="section-wrap py-23 md:py-20 relative min-h-svh overflow-hidden md:min-h-screen 3xl:min-h-[72rem] 4xl:min-h-[78rem] 5xl:min-h-[84rem]"
     >
       {/* Background Grid Pattern */}
       <div
@@ -176,7 +160,7 @@ export default function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className={`relative mx-auto grid max-w-7xl items-start gap-10 pt-2 md:gap-12 md:pt-6 ${heroGridBreakpointClass} 3xl:max-w-[90vw] 3xl:gap-20 4xl:max-w-[91vw] 4xl:gap-28 5xl:max-w-[92vw]`}
+        className={`relative grid container-lg items-start gap-10 pt-2 md:gap-12 md:pt-6 ${heroGridBreakpointClass} 3xl:gap-20 4xl:gap-28`}
       >
         {/* ── Left Column ── */}
         <div>
@@ -218,8 +202,7 @@ export default function Hero() {
             style={{ fontFamily: "var(--font-hero), cursive", fontWeight: 400 }}
           >
             Somyaranjan
-            <br />
-            <br />
+            <div className="my-15" />
             Sethy
           </motion.h1>
 

@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 
 import { skillsData } from "@data";
+import { handleCardMouseMove } from "@/utils";
+import { SectionHeading } from "@/components";
 
 const BRAND_COLORS = {
   "JavaScript (ES6+)": "#f7df1e",
@@ -94,42 +96,14 @@ const CATEGORIES = [
 export default function Skills() {
   const containerRef = useRef(null);
 
-  const handleMouseMove = (e, color) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const yVal = e.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${yVal}px`);
-    if (color) {
-      card.style.setProperty("--accent-soft", color);
-    }
-  };
-
   return (
-    <section id="skills" className="section-wrap" ref={containerRef}>
-      <div className="mx-auto max-w-7xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="section-title section-heading section-heading-lg mb-4"
-        >
+    <section id="skills" ref={containerRef}>
+      <div className="container-lg">
+        <SectionHeading subtitle="Centralized tools and frameworks I use to develop scalable frontend product applications.">
           Skills & Expertise
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.1 }}
-          viewport={{ once: true }}
-          className="text-center text-sm opacity-75 max-w-xl mx-auto mb-16"
-        >
-          Centralized tools and frameworks I use to develop scalable frontend product
-          applications.
-        </motion.p>
+        </SectionHeading>
 
-        <div className="space-y-16">
+        <div className="space-y-12">
           {CATEGORIES.map((category) => (
             <div key={category.title} className="space-y-6">
               <h3
@@ -158,7 +132,7 @@ export default function Skills() {
                         }}
                         viewport={{ once: true }}
                         whileHover={{ y: -4 }}
-                        onMouseMove={(e) => handleMouseMove(e, color)}
+                        onMouseMove={(e) => handleCardMouseMove(e, color)}
                         className="glass-panel glow-card group flex flex-col items-center justify-center rounded-2xl p-5 transition-all duration-300 cursor-default"
                       >
                         <Icon

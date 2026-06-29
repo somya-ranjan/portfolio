@@ -1,8 +1,11 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { testimonials } from "@data";
+import { handleCardMouseMove } from "@/utils";
+import { SectionHeading } from "@/components";
 
 const AVATAR_COLORS = [
   "#e74c3c",
@@ -55,19 +58,10 @@ function TestimonialCard({ item, index }) {
   const cubeRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [5, 0, -5]);
   const cubeDepth = useTransform(scrollYProgress, [0, 0.5, 1], [-18, 10, -18]);
 
-  const handleMouseMove = (e) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const yVal = e.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${yVal}px`);
-  };
-
   return (
     <motion.div
       ref={cardRef}
-      onMouseMove={handleMouseMove}
+      onMouseMove={handleCardMouseMove}
       initial={{ opacity: 0, x: index % 2 === 0 ? 16 : -16 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.015, duration: 0.28, ease: "easeOut" }}
@@ -162,7 +156,7 @@ function TestimonialCard({ item, index }) {
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="section-wrap relative">
+    <section id="testimonials" className="relative">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div
           className="absolute left-0 top-16 h-44 w-44 rounded-full blur-3xl"
@@ -180,27 +174,13 @@ export default function Testimonials() {
         />
       </div>
 
-      <div className="mx-auto max-w-6xl 3xl:max-w-[86vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw]">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="section-title section-heading section-heading-sm"
+      <div className="container-md">
+        <SectionHeading
+          subtitle="Real recommendations from teammates and collaborators across projects, product deliveries, and Ai frontend engineering engagements."
+          subtitleClassName="mt-4 max-w-3xl leading-relaxed opacity-75 md:mt-5 md:text-base mb-0"
         >
           Testimonials
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          viewport={{ once: true }}
-          className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed opacity-75 md:mt-5 md:text-base"
-        >
-          Real recommendations from teammates and collaborators across projects, product
-          deliveries, and Ai frontend engineering engagements.
-        </motion.p>
+        </SectionHeading>
       </div>
 
       <div className="mx-auto mt-8 max-w-6xl columns-1 gap-6 pb-10 md:columns-2 md:gap-8 3xl:columns-3 3xl:max-w-[86vw] 3xl:gap-10 4xl:max-w-[88vw] 4xl:gap-12 5xl:max-w-[90vw]">

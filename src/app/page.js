@@ -27,18 +27,19 @@ export default function Home() {
       <Navbar />
       <main className="theme-content">
         <Hero />
-        <Reveal>
-          <About />
-        </Reveal>
-        <Reveal>
-          <Projects />
-        </Reveal>
-        <Skills />
-        <Journey />
-        <Analytics />
-
-        <Testimonials />
-        <ContactMe />
+        <div className="sections-stack">
+          <Reveal>
+            <About />
+          </Reveal>
+          <Reveal>
+            <Projects />
+          </Reveal>
+          <Skills />
+          <Journey />
+          <Analytics />
+          <Testimonials />
+          <ContactMe />
+        </div>
         <Footer />
       </main>
     </>

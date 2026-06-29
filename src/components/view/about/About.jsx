@@ -3,18 +3,11 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { FiCode, FiUser } from "react-icons/fi";
+import { handleCardMouseMove } from "@/utils";
+import { SectionHeading } from "@/components";
 
 export default function About() {
   const containerRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const yVal = e.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${yVal}px`);
-  };
 
   const stats = [
     { label: "Experience", value: "4.5+ Years" },
@@ -24,28 +17,12 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="section-wrap" ref={containerRef}>
-      <div className="mx-auto max-w-7xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]">
+    <section id="about" ref={containerRef}>
+      <div className="container-lg">
         {/* Section Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="section-title section-heading section-heading-lg mb-4"
-        >
+        <SectionHeading subtitle="Bridging the gap between design vision, user experience, and high-performance frontend architecture.">
           About Me
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.1 }}
-          viewport={{ once: true }}
-          className="text-center text-sm opacity-75 max-w-xl mx-auto mb-16"
-        >
-          Bridging the gap between design vision, user experience, and high-performance
-          frontend architecture.
-        </motion.p>
+        </SectionHeading>
 
         {/* Rows Container */}
         <div className="space-y-8">
@@ -58,7 +35,7 @@ export default function About() {
             className="w-full"
           >
             <div
-              onMouseMove={handleMouseMove}
+              onMouseMove={handleCardMouseMove}
               className="glass-panel glow-card rounded-3xl p-8 relative overflow-hidden"
             >
               <div className="flex items-center gap-3 mb-6">
@@ -112,7 +89,7 @@ export default function About() {
               className="flex w-full"
             >
               <div
-                onMouseMove={handleMouseMove}
+                onMouseMove={handleCardMouseMove}
                 className="glass-panel glow-card rounded-3xl p-6 relative overflow-hidden flex flex-col justify-center w-full"
               >
                 <div className="flex items-center gap-3 mb-4">
@@ -141,7 +118,7 @@ export default function About() {
                 {stats.map((stat, i) => (
                   <div
                     key={i}
-                    onMouseMove={handleMouseMove}
+                    onMouseMove={handleCardMouseMove}
                     className="glass-panel glow-card p-5 rounded-2xl flex flex-col justify-between h-full cursor-default"
                     style={{ border: "1px solid var(--border)" }}
                   >

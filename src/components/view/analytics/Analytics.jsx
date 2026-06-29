@@ -13,6 +13,8 @@ import {
   CartesianGrid,
 } from "recharts";
 import { analyticsData } from "@data";
+import { handleCardMouseMove } from "@/utils";
+import { SectionHeading } from "@/components";
 
 const projectsByCompany = analyticsData.reduce((acc, companyRecord) => {
   acc[companyRecord.company] = companyRecord;
@@ -142,36 +144,15 @@ export default function Analytics() {
   const chartY = useTransform(scrollYProgress, [0, 1], [70, -70]);
   const chartOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.6]);
 
-  const handleCardMouseMove = (event) => {
-    const card = event.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${y}px`);
-  };
-
   return (
-    <section id="analytics" className="section-wrap overflow-x-hidden" ref={containerRef}>
-      <div className="mx-auto max-w-6xl 3xl:max-w-[86vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw]">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center text-3xl font-bold md:text-4xl 3xl:text-6xl 4xl:text-7xl 5xl:text-[5.5rem]"
+    <section id="analytics" ref={containerRef}>
+      <div className="container-md">
+        <SectionHeading
+          subtitle="Each company has one candle, split into color sections based on total projects."
+          subtitleClassName="mt-3 text-sm opacity-80 md:text-base max-w-none mb-0"
         >
           Growth Analytics
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65 }}
-          viewport={{ once: true }}
-          className="mt-3 text-center text-sm opacity-80 md:text-base"
-        >
-          Each company has one candle, split into color sections based on total projects.
-        </motion.p>
+        </SectionHeading>
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}

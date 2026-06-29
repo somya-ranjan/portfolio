@@ -5,7 +5,9 @@
       "@components/*": ["./src/components/*"],
       "@data": ["./src/data/index.js"],
       "@data/*": ["./src/data/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@utils": ["./src/utils/index.js"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }
