@@ -98,10 +98,12 @@ export default function Navbar() {
         }`}
         aria-label="Main navigation"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:gap-6 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
-          <h1 className="logo-text shrink-0 text-3xl xl:text-4xl">{LOGO_TEXT}</h1>
+        <div className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-4 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
+          <h1 className="logo-text shrink-0 text-2xl sm:text-3xl xl:text-4xl 3xl:text-5xl 4xl:text-6xl">
+            {LOGO_TEXT}
+          </h1>
 
-          <div className="hidden lg:flex flex-1 items-center justify-center gap-5 px-4 text-[10px] font-semibold uppercase tracking-[0.13em] xl:gap-8 xl:px-6 xl:text-xs xl:tracking-[0.18em]">
+          <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-5 text-[10px] font-semibold uppercase tracking-[0.13em] xl:gap-8 xl:text-xs xl:tracking-[0.18em] 3xl:text-sm 3xl:gap-10 4xl:text-base 4xl:gap-12">
             {allMenuItems.map((item) => (
               <motion.a
                 key={item.name}
@@ -116,19 +118,21 @@ export default function Navbar() {
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
-            <Button
-              size="sm"
-              onClick={() => setOpenDrawer(true)}
-              className="lg:hidden rounded-full p-2 cursor-pointer"
-              variant="text"
-              style={{
-                color: "var(--text)",
-                border: "1px solid var(--border)",
-                background: "var(--glass)",
-              }}
-            >
-              <FiMenu size={18} />
-            </Button>
+            <div className="lg:hidden">
+              <Button
+                size="sm"
+                onClick={() => setOpenDrawer(true)}
+                className="rounded-full p-2 cursor-pointer"
+                variant="text"
+                style={{
+                  color: "var(--text)",
+                  border: "1px solid var(--border)",
+                  background: "var(--glass)",
+                }}
+              >
+                <FiMenu size={18} />
+              </Button>
+            </div>
 
             <Menu placement="bottom-end">
               <MenuHandler>
@@ -152,7 +156,7 @@ export default function Navbar() {
                 </Button>
               </MenuHandler>
               <MenuList
-                className="glass-panel border p-1 z-9999 rounded-xl shadow-xl min-w-[120px]"
+                className="card-base rounded-xl p-1 z-9999 min-w-[120px] shadow-xl"
                 style={{
                   background: "var(--glass)",
                   borderColor: "var(--border)",
@@ -182,7 +186,7 @@ export default function Navbar() {
       <Drawer
         open={openDrawer}
         onClose={closeDrawerMenu}
-        className="glass-panel p-4 shadow-2xl bg-(--bg-soft) z-9999!"
+        className="card-base p-4 shadow-2xl z-9999 bg-(--bg-soft)"
         placement="left"
         overlayProps={{
           className: "bg-slate-950/30 backdrop-blur-sm z-9998!",
@@ -195,8 +199,8 @@ export default function Navbar() {
         }}
       >
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="display-title text-2xl font-semibold uppercase tracking-[0.12em]">
-            Menu
+          <h2 className="logo-text text-2xl font-semibold tracking-[0.12em]">
+            Somyaranjan
           </h2>
           <button
             onClick={closeDrawerMenu}
@@ -212,7 +216,7 @@ export default function Navbar() {
               key={item.name}
               href={item.href}
               onClick={closeDrawerMenu}
-              className="text-sm font-semibold uppercase tracking-[0.14em] hover:opacity-70 transition-opacity"
+              className="text-base font-semibold uppercase tracking-[0.14em] hover:opacity-70 transition-opacity"
             >
               {item.name}
             </a>

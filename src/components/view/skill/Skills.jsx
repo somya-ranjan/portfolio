@@ -13,7 +13,7 @@ const BRAND_COLORS = {
   HTML5: "#e34f26",
   CSS3: "#1572b6",
   "React.js": "#61dafb",
-  "Next.js": "#f8fafc",
+  "Next.js": "#0070f3",
   "Node.js": "#5fa04e",
   "Micro Frontends (MF)": "#8dd6f9",
   Storybook: "#ff4785",
@@ -23,7 +23,7 @@ const BRAND_COLORS = {
   "Material UI (MUI)": "#007fff",
   Bootstrap: "#7952b3",
   "React Bootstrap": "#41e0fd",
-  "Shadcn UI": "#f8fafc",
+  "Shadcn UI": "#7c3aed",
   Sass: "#cc6699",
   "REST APIs (Postman)": "#ff6c37",
   Swagger: "#85ea2d",
@@ -37,7 +37,7 @@ const BRAND_COLORS = {
   Confluence: "#0052cc",
   Vite: "#fcd000",
   NPM: "#cb3837",
-  Bun: "#FBF0DF",
+  Bun: "#d97706",
 };
 
 const CATEGORIES = [
@@ -103,16 +103,16 @@ export default function Skills() {
           Skills & Expertise
         </SectionHeading>
 
-        <div className="space-y-12">
+        <div className="space-y-12 3xl:space-y-16 4xl:space-y-20">
           {CATEGORIES.map((category) => (
             <div key={category.title} className="space-y-6">
               <h3
-                className="text-xl font-bold uppercase tracking-[0.14em] opacity-80 border-b pb-2"
+                className="text-xl font-bold uppercase tracking-[0.14em] opacity-80 border-b pb-2 3xl:text-2xl 4xl:text-3xl"
                 style={{ borderColor: "var(--border)" }}
               >
                 {category.title}
               </h3>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7">
+              <div className="grid-skills">
                 {skillsData
                   .filter((skill) => category.skills.includes(skill.name.trim()))
                   .map((skill, index) => {
@@ -133,14 +133,14 @@ export default function Skills() {
                         viewport={{ once: true }}
                         whileHover={{ y: -4 }}
                         onMouseMove={(e) => handleCardMouseMove(e, color)}
-                        className="glass-panel glow-card group flex flex-col items-center justify-center rounded-2xl p-5 transition-all duration-300 cursor-default"
+                        className="skill-badge group"
                       >
                         <Icon
                           size={32}
                           className="mb-3 transition-transform duration-300 ease-out group-hover:scale-110"
                           style={{ color: color }}
                         />
-                        <p className="text-center text-xs font-semibold uppercase tracking-wider opacity-80 group-hover:opacity-100 transition-opacity">
+                        <p className="text-center text-xs font-semibold uppercase tracking-wider opacity-80 group-hover:opacity-100 transition-opacity 3xl:text-sm 4xl:text-base">
                           {skillName}
                         </p>
                       </motion.div>

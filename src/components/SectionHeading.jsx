@@ -35,7 +35,7 @@ export default function SectionHeading({
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.1 }}
           viewport={{ once: true }}
-          className={`text-sm opacity-75 max-w-2xl mx-auto ${
+          className={`text-sm opacity-75 max-w-2xl mx-auto 3xl:max-w-4xl 3xl:text-base 4xl:max-w-5xl 4xl:text-lg 5xl:max-w-6xl ${
             subtitleClassName || "mt-4 mb-16"
           }`}
         >

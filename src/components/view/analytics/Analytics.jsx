@@ -126,6 +126,7 @@ export default function Analytics() {
     setMounted(true);
 
     const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const largeQuery = window.matchMedia("(min-width: 1920px)");
 
     const updateScreen = () => {
       setIsSmallScreen(mediaQuery.matches);
@@ -133,8 +134,12 @@ export default function Analytics() {
 
     updateScreen();
     mediaQuery.addEventListener("change", updateScreen);
+    largeQuery.addEventListener("change", updateScreen);
 
-    return () => mediaQuery.removeEventListener("change", updateScreen);
+    return () => {
+      mediaQuery.removeEventListener("change", updateScreen);
+      largeQuery.removeEventListener("change", updateScreen);
+    };
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -167,7 +172,7 @@ export default function Analytics() {
           }}
           transition={{ duration: 0.7 }}
           onMouseMove={handleCardMouseMove}
-          className="glass-panel glow-card mt-16 rounded-2xl border p-6 shadow-2xl md:p-8"
+          className="card-sm mt-16 shadow-2xl md:p-8"
         >
           <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
             <h3 className="text-lg font-semibold md:text-xl">
@@ -180,7 +185,7 @@ export default function Analytics() {
 
           <div className="relative w-full h-[350px] md:h-[400px] 3xl:h-[500px] 4xl:h-[600px] 5xl:h-[700px]">
             {mounted ? (
-              <ResponsiveContainer width="100%" height={isSmallScreen ? 350 : 400}>
+              <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={chartData}
                   margin={{

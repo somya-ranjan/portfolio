@@ -9,6 +9,165 @@ import { CONTACT_MY_PIC } from "@/assets/img";
 import { handleCardMouseMove, getGmailComposeLink } from "@/utils";
 import { SectionHeading, SocialLinks } from "@/components";
 
+/* ============================================================
+   Reusable Sub-Components
+   ============================================================ */
+
+/** FormField: Reusable wrapper for input/textarea + error display */
+const FormField = ({ label, error, children }) => (
+  <div className="form-field">
+    {children}
+    {error && <p className="form-error">{error}</p>}
+  </div>
+);
+
+/** FormInput: Consistent text input with standard styling */
+const FormInput = ({ placeholder, value, onChange, error, type = "text" }) => (
+  <Input
+    placeholder={placeholder}
+    type={type}
+    value={value}
+    onChange={onChange}
+    error={Boolean(error)}
+    size="lg"
+    className="form-input"
+    suppressHydrationWarning
+  />
+);
+
+/** FormTextarea: Consistent textarea with standard styling */
+const FormTextarea = ({ placeholder, value, onChange, error, rows = 6 }) => (
+  <Textarea
+    placeholder={placeholder}
+    value={value}
+    onChange={onChange}
+    error={Boolean(error)}
+    rows={rows}
+    className="form-input"
+    suppressHydrationWarning
+  />
+);
+
+/** ContactPanel: Left side info panel with motion */
+const ContactPanel = ({ leftY }) => (
+  <motion.div
+    initial={{ opacity: 0, x: -40 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: true }}
+    style={{ y: leftY }}
+    transition={{ duration: 0.7 }}
+    onMouseMove={handleCardMouseMove}
+    className="glass-panel glow-card contact-panel"
+  >
+    <p className="tilt-text opacity-65">Get In Touch</p>
+
+    <div className="mt-6 flex items-center gap-4">
+      <div className="contact-profile-pic">
+        <Image
+          src={CONTACT_MY_PIC}
+          alt="Contact portrait"
+          fill
+          className="object-cover"
+          sizes="96px"
+          priority
+        />
+      </div>
+      <div>
+        <p className="text-sm font-semibold">Let&apos;s work together</p>
+        <p className="text-xs leading-relaxed opacity-80">
+          Open for senior roles, architecture challenges, or technical partnerships.
+        </p>
+      </div>
+    </div>
+
+    <h3 className="display-title mt-4 text-2xl sm:text-3xl font-semibold leading-tight 3xl:text-4xl 4xl:text-5xl">
+      Ready to solve complex problems at scale
+    </h3>
+
+    <p className="mt-5 text-sm leading-relaxed opacity-80 3xl:text-base 4xl:text-lg">
+      Looking for opportunities to build high-performance systems, mentor teams, or
+      collaborate on architecture challenges that matter.
+    </p>
+
+    <SocialLinks
+      className="mt-8 flex items-center gap-4"
+      itemClassName="p-3 inline-flex items-center justify-center"
+      iconSize={18}
+    />
+  </motion.div>
+);
+
+/** ContactForm: Right side contact form with motion */
+const ContactForm = ({
+  formData,
+  formErrors,
+  status,
+  rightY,
+  onFieldChange,
+  onSubmit,
+}) => (
+  <motion.form
+    initial={{ opacity: 0, x: 40 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: true }}
+    style={{ y: rightY }}
+    transition={{ duration: 0.7 }}
+    onMouseMove={handleCardMouseMove}
+    className="glass-panel glow-card contact-panel space-y-5 sm:space-y-6 3xl:space-y-8"
+    onSubmit={onSubmit}
+    noValidate
+  >
+    <p className="tilt-text opacity-65">Send Me A Message</p>
+
+    {/* Name Field */}
+    <FormField label="Name" error={formErrors.name}>
+      <FormInput
+        placeholder="Your Name"
+        value={formData.name}
+        onChange={onFieldChange("name")}
+        error={formErrors.name}
+      />
+    </FormField>
+
+    {/* Email Field */}
+    <FormField label="Email" error={formErrors.email}>
+      <FormInput
+        placeholder="Your Email"
+        type="email"
+        value={formData.email}
+        onChange={onFieldChange("email")}
+        error={formErrors.email}
+      />
+    </FormField>
+
+    {/* Message Field */}
+    <FormField label="Message" error={formErrors.message}>
+      <FormTextarea
+        placeholder="Your Message"
+        value={formData.message}
+        onChange={onFieldChange("message")}
+        error={formErrors.message}
+      />
+    </FormField>
+
+    {/* Status Message */}
+    {status && (
+      <p className="form-status" aria-live="polite">
+        {status}
+      </p>
+    )}
+
+    {/* Submit Button */}
+    <button type="submit" className="form-submit-btn">
+      Send Message
+    </button>
+  </motion.form>
+);
+
+/* ============================================================
+   Main Component
+   ============================================================ */
+
 export default function ContactMe() {
   const containerRef = useRef(null);
   const [formData, setFormData] = useState({
@@ -67,6 +226,7 @@ export default function ContactMe() {
       [field]: value,
     }));
 
+    // Clear error on change
     if (formErrors[field]) {
       setFormErrors((prev) => ({
         ...prev,
@@ -74,6 +234,7 @@ export default function ContactMe() {
       }));
     }
 
+    // Clear status on change
     if (status) {
       setStatus("");
     }
@@ -109,143 +270,19 @@ export default function ContactMe() {
 
   return (
     <section id="contact" ref={containerRef}>
-      <div className="relative container-sm">
+      <div className="relative container-md">
         <SectionHeading>Contact Me</SectionHeading>
 
-        <div className="mt-16 grid gap-10 md:grid-cols-2 3xl:gap-14 4xl:gap-20">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            style={{ y: leftY }}
-            transition={{ duration: 0.7 }}
-            onMouseMove={handleCardMouseMove}
-            className="glass-panel glow-card relative z-30 rounded-2xl p-8"
-          >
-            <p className="tilt-text opacity-65">Start A Conversation</p>
-
-            <div className="mt-6 flex items-center gap-4">
-              <div className="relative h-24 w-24 overflow-hidden rounded-full border border-[var(--border)] shadow-lg">
-                <Image
-                  src={CONTACT_MY_PIC}
-                  alt="Contact portrait"
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                  priority
-                />
-              </div>
-              <div>
-                <p className="text-sm font-semibold">Let&apos;s connect</p>
-                <p className="text-xs leading-relaxed opacity-80">
-                  Available for collaborations, freelance work, or a friendly hello.
-                </p>
-              </div>
-            </div>
-
-            <h3 className="display-title mt-4 text-3xl font-semibold leading-tight">
-              Let&apos;s build something amazing 🚀
-            </h3>
-
-            <p className="mt-5 text-sm leading-relaxed opacity-80">
-              Feel free to reach out for collaborations, freelance work, or just a
-              friendly hello 👋
-            </p>
-
-            <SocialLinks
-              className="mt-8 flex items-center gap-4"
-              itemClassName="p-3 inline-flex items-center justify-center"
-              iconSize={18}
-            />
-          </motion.div>
-
-          <motion.form
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            style={{ y: rightY }}
-            transition={{ duration: 0.7 }}
-            onMouseMove={handleCardMouseMove}
-            className="glass-panel glow-card relative z-30 space-y-6 rounded-2xl p-8"
+        <div className="contact-grid">
+          <ContactPanel leftY={leftY} />
+          <ContactForm
+            formData={formData}
+            formErrors={formErrors}
+            status={status}
+            rightY={rightY}
+            onFieldChange={handleChange}
             onSubmit={handleSubmit}
-            noValidate
-          >
-            <p className="tilt-text opacity-65">Send Me A Message</p>
-
-            <div>
-              <Input
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleChange("name")}
-                error={Boolean(formErrors.name)}
-                size="lg"
-                className="text-(--text)! placeholder:text-(--muted)! placeholder:opacity-100!"
-                suppressHydrationWarning
-              />
-              {formErrors.name ? (
-                <p className="mt-1 text-xs" style={{ color: "var(--danger)" }}>
-                  {formErrors.name}
-                </p>
-              ) : null}
-            </div>
-
-            <div>
-              <Input
-                placeholder="Your Email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange("email")}
-                error={Boolean(formErrors.email)}
-                size="lg"
-                className="text-(--text)! placeholder:text-(--muted)! placeholder:opacity-100!"
-                suppressHydrationWarning
-              />
-              {formErrors.email ? (
-                <p className="mt-1 text-xs" style={{ color: "var(--danger)" }}>
-                  {formErrors.email}
-                </p>
-              ) : null}
-            </div>
-
-            <div>
-              <Textarea
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={handleChange("message")}
-                error={Boolean(formErrors.message)}
-                rows={6}
-                className="text-(--text)! placeholder:text-(--muted)! placeholder:opacity-100!"
-                suppressHydrationWarning
-              />
-              {formErrors.message ? (
-                <p className="mt-1 text-xs" style={{ color: "var(--danger)" }}>
-                  {formErrors.message}
-                </p>
-              ) : null}
-            </div>
-
-            {status ? (
-              <p
-                className="rounded-lg border px-3 py-2 text-xs opacity-90"
-                style={{ borderColor: "var(--border)" }}
-                aria-live="polite"
-              >
-                {status}
-              </p>
-            ) : null}
-
-            <button
-              type="submit"
-              className="w-full rounded-full py-3 text-xs font-semibold uppercase tracking-[0.14em]"
-              style={{
-                background: "var(--accent)",
-                color: "var(--accent-contrast)",
-                cursor: "pointer",
-              }}
-            >
-              Send Message
-            </button>
-          </motion.form>
+          />
         </div>
       </div>
     </section>

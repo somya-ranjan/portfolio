@@ -75,7 +75,7 @@ function TestimonialCard({ item, index }) {
         transformPerspective: 1200,
         transformStyle: "preserve-3d",
       }}
-      className="glass-panel glow-card relative overflow-hidden rounded-3xl border p-5 md:p-6"
+      className="card-md border overflow-hidden"
     >
       <div
         className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full blur-3xl"
@@ -96,9 +96,7 @@ function TestimonialCard({ item, index }) {
             </div>
 
             <div>
-              <h4 className="display-title text-lg leading-none md:text-xl">
-                {item.name}
-              </h4>
+              <h4 className="title-md">{item.name}</h4>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] opacity-80 md:text-[11px]">
                 {item.role}
               </p>
@@ -125,7 +123,7 @@ function TestimonialCard({ item, index }) {
           </span>
         </div>
 
-        <p className="mt-4 whitespace-pre-line text-sm leading-relaxed opacity-95 md:mt-5">
+        <p className="mt-4 whitespace-pre-line text-sm leading-relaxed opacity-95 md:mt-5 3xl:text-base 4xl:text-lg">
           &ldquo;{item.review}&rdquo;
         </p>
 
@@ -183,7 +181,7 @@ export default function Testimonials() {
         </SectionHeading>
       </div>
 
-      <div className="mx-auto mt-8 max-w-6xl columns-1 gap-6 pb-10 md:columns-2 md:gap-8 3xl:columns-3 3xl:max-w-[86vw] 3xl:gap-10 4xl:max-w-[88vw] 4xl:gap-12 5xl:max-w-[90vw]">
+      <div className="mx-auto mt-8 max-w-6xl columns-1 gap-6 px-6 pb-10 md:columns-2 md:gap-8 3xl:columns-3 3xl:max-w-[86vw] 3xl:gap-10 3xl:px-10 4xl:max-w-[88vw] 4xl:gap-12 4xl:px-16 5xl:max-w-[90vw] 5xl:px-24">
         {testimonials.map((item, index) => (
           <div
             key={item.id}

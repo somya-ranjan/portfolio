@@ -21,7 +21,7 @@ function ProjectAction({ href, icon: Icon, label, disabled, onClick }) {
       <button
         type="button"
         onClick={onClick}
-        className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-slate-500/10"
+        className="inline-flex items-center gap-2 rounded-lg px-4 py-2 sm:px-5 sm:py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-slate-500/10"
         style={{ color: "var(--text)" }}
       >
         <Icon className="text-sm" />
@@ -35,7 +35,7 @@ function ProjectAction({ href, icon: Icon, label, disabled, onClick }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-slate-500/10"
+      className="inline-flex items-center gap-2 rounded-lg px-4 py-2 sm:px-5 sm:py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-slate-500/10"
       style={{ color: "var(--text)" }}
     >
       <Icon className="text-sm" />
@@ -64,16 +64,17 @@ function ProjectCard({ project, index, onPreview }) {
       whileInView={{ opacity: 1, y: 0 }}
       whileHover={{ y: -10, scale: 1.01 }}
       transition={{ duration: 0.72 }}
-      viewport={{ once: true, margin: "0px 0px -100px" }}
-      className="glass-panel glow-card group overflow-hidden rounded-3xl h-full flex flex-col"
+      viewport={{ once: true }}
+      className="card-base rounded-3xl h-full flex flex-col"
     >
       <motion.div
-        className="relative h-56 overflow-hidden md:h-60 lg:h-64 shrink-0"
+        className="img-container-hero rounded-t-3xl"
         style={{ background: "var(--bg-soft)" }}
       >
         <motion.div
-          className="absolute inset-0 transition duration-700 group-hover:scale-[1.08] group-hover:-rotate-1"
+          className="absolute inset-0 transition duration-700"
           style={{ y, opacity, scale, rotate }}
+          whileHover={{ scale: 1.08, rotate: -1 }}
         >
           <Image
             src={project.image}
@@ -85,18 +86,14 @@ function ProjectCard({ project, index, onPreview }) {
         </motion.div>
       </motion.div>
 
-      <div className="p-6 flex flex-col flex-1 justify-between">
+      <div className="p-std flex flex-col flex-1 justify-between">
         <div>
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex-between gap-4">
             <div>
               {project.company && (
-                <span className="text-xs uppercase tracking-[0.14em] opacity-60 block mb-1">
-                  {project.company}
-                </span>
+                <span className="text-caption block mb-1">{project.company}</span>
               )}
-              <h3 className="display-title text-2xl font-semibold leading-tight">
-                {project.title}
-              </h3>
+              <h3 className="title-lg">{project.title}</h3>
               <div className="flex flex-wrap gap-2">
                 {project.metrics && (
                   <span
@@ -128,7 +125,7 @@ function ProjectCard({ project, index, onPreview }) {
           {/* Truncated Description with Hover Tooltip */}
           <div className="relative group/desc mt-4">
             <p
-              className="text-sm leading-7 line-clamp-3 cursor-help"
+              className="text-sm leading-7 line-clamp-3 cursor-help 3xl:text-base 4xl:text-lg"
               style={{ color: "var(--muted)" }}
             >
               {project.description}
@@ -137,7 +134,7 @@ function ProjectCard({ project, index, onPreview }) {
             {/* Elegant Glass Tooltip */}
             <div className="absolute left-0 bottom-full mb-3 w-full z-30 opacity-0 pointer-events-none group-hover/desc:opacity-100 group-hover/desc:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover/desc:translate-y-0">
               <div
-                className="glass-panel p-4 rounded-2xl text-xs md:text-sm leading-relaxed border shadow-2xl backdrop-blur-xl"
+                className="card-sm rounded-2xl border text-xs md:text-sm shadow-2xl"
                 style={{
                   borderColor: "var(--border)",
                   background: "var(--bg-soft)",
@@ -231,7 +228,7 @@ export default function Projects() {
           <div className="mt-8 flex justify-center">
             <div
               onMouseMove={handleCardMouseMove}
-              className="glass-panel glow-card p-1.5 rounded-full flex gap-1 relative border"
+              className="card-base rounded-full p-1.5 flex gap-1 relative"
               style={{ borderColor: "var(--border)" }}
             >
               {/* Tab: Corporate */}
@@ -287,7 +284,7 @@ export default function Projects() {
           </div>
 
           {/* Projects Grid */}
-          <motion.div layout className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <motion.div layout className="mt-16 grid-3col">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, index) => (
                 <motion.div
@@ -314,52 +311,58 @@ export default function Projects() {
         className="bg-transparent p-2 shadow-none transition-colors md:p-6"
       >
         {activeProject ? (
-          <div
-            className="glass-panel relative mx-auto flex h-[85vh] w-full max-w-6xl flex-col overflow-hidden rounded-4xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]"
-            style={{ color: "var(--text)" }}
-          >
-            <div className="flex items-center justify-between gap-4 px-5 py-4">
-              <div>
-                <h3 className="display-title text-2xl font-semibold">
-                  {activeProject.title}
-                </h3>
-                <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>
-                  {shouldUseExternalIframe
-                    ? "Interactive project preview"
-                    : "Iframe preview with project fallback"}
-                </p>
+          <div className="relative">
+            <div
+              aria-hidden
+              className="fixed inset-0 bg-black/35 backdrop-blur-md"
+              onClick={closeModal}
+            />
+
+            <div
+              className="glass-panel relative z-10 mx-auto flex h-[85vh] w-full max-w-6xl flex-col overflow-hidden rounded-4xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]"
+              style={{ color: "var(--text)" }}
+            >
+              <div className="flex-between gap-4 px-5 py-4">
+                <div>
+                  <h3 className="title-xl">{activeProject.title}</h3>
+                  <p className="mt-1 text-body" style={{ color: "var(--muted)" }}>
+                    {shouldUseExternalIframe
+                      ? "Interactive project preview"
+                      : "Iframe preview with project fallback"}
+                  </p>
+                </div>
+
+                <button
+                  ref={closeButtonRef}
+                  type="button"
+                  onClick={closeModal}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full"
+                  style={{ color: "var(--text)" }}
+                  aria-label="Close project preview"
+                >
+                  <FiX className="text-lg" />
+                </button>
               </div>
 
-              <button
-                ref={closeButtonRef}
-                type="button"
-                onClick={closeModal}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full"
-                style={{ color: "var(--text)" }}
-                aria-label="Close project preview"
-              >
-                <FiX className="text-lg" />
-              </button>
-            </div>
-
-            <div className="relative flex-1" style={{ background: "var(--bg-soft)" }}>
-              {shouldUseExternalIframe ? (
-                <iframe
-                  src={activeProject.link.iFrame}
-                  title={`${activeProject.title} preview`}
-                  className="h-full w-full"
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                  onError={() => setIframeFailed(true)}
-                />
-              ) : (
-                <iframe
-                  srcDoc={getProjectPreviewDoc(activeProject, theme)}
-                  title={`${activeProject.title} preview fallback`}
-                  className="h-full w-full"
-                />
-              )}
+              <div className="relative flex-1" style={{ background: "var(--bg-soft)" }}>
+                {shouldUseExternalIframe ? (
+                  <iframe
+                    src={activeProject.link.iFrame}
+                    title={`${activeProject.title} preview`}
+                    className="h-full w-full"
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    onError={() => setIframeFailed(true)}
+                  />
+                ) : (
+                  <iframe
+                    srcDoc={getProjectPreviewDoc(activeProject, theme)}
+                    title={`${activeProject.title} preview fallback`}
+                    className="h-full w-full"
+                  />
+                )}
+              </div>
             </div>
           </div>
         ) : null}
