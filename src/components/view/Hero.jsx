@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Button, Dialog } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -19,6 +19,7 @@ import {
 import { HiMiniSparkles } from "react-icons/hi2";
 import { HERO_MY_PIC } from "@/assets/img";
 import { handleCardMouseMove } from "@/utils";
+import { ReusableDialog } from "@/components";
 
 const valueCards = [
   {
@@ -58,7 +59,6 @@ function DotGrid() {
 
 export default function Hero() {
   const heroRef = useRef(null);
-  const closeResumePreviewButtonRef = useRef(null);
   const [isCoarsePointer, setIsCoarsePointer] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isResumePreviewOpen, setIsResumePreviewOpen] = useState(false);
@@ -87,18 +87,6 @@ export default function Hero() {
       mediaQuery.removeEventListener("change", updatePointerType);
     };
   }, []);
-
-  useEffect(() => {
-    if (!isResumePreviewOpen) {
-      return undefined;
-    }
-
-    requestAnimationFrame(() => {
-      closeResumePreviewButtonRef.current?.focus();
-    });
-
-    return undefined;
-  }, [isResumePreviewOpen]);
 
   const heroGridBreakpointClass = isCoarsePointer
     ? "xl:grid-cols-[1.1fr_0.9fr]"
@@ -371,77 +359,43 @@ export default function Hero() {
         </motion.div>
       </motion.section>
 
-      <Dialog
+      <ReusableDialog
         open={isResumePreviewOpen}
-        handler={() => setIsResumePreviewOpen(false)}
-        size="xxl"
-        className="bg-transparent p-2 shadow-none transition-colors md:p-6"
+        onClose={() => setIsResumePreviewOpen(false)}
+        title="Resume Preview"
+        description="Preview and download my latest resume."
+        headerActions={
+          <>
+            <a
+              href={resumePath}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] transition-all duration-300 hover:bg-slate-500/10"
+              style={{ borderColor: "var(--border)", color: "var(--text)" }}
+              aria-label="View resume in full screen"
+            >
+              <FiMaximize2 size={14} aria-hidden />
+              Full Screen
+            </a>
+
+            <a
+              href={resumePath}
+              download
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] transition-all duration-300 hover:opacity-90"
+              style={{
+                background: "var(--accent)",
+                color: "var(--accent-contrast)",
+              }}
+              aria-label="Download resume"
+            >
+              <FiDownload size={14} aria-hidden />
+              Download
+            </a>
+          </>
+        }
       >
-        <div className="relative">
-          <div
-            aria-hidden
-            className="fixed inset-0 bg-black/35 backdrop-blur-md"
-            onClick={() => setIsResumePreviewOpen(false)}
-          />
-
-          <div
-            className="glass-panel relative z-10 mx-auto flex h-[85vh] w-full max-w-6xl flex-col overflow-hidden rounded-4xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]"
-            style={{ color: "var(--text)" }}
-          >
-            <div className="flex-between gap-4 px-5 py-4">
-              <div>
-                <h3 className="title-xl">Resume Preview</h3>
-                <p className="mt-1 text-body" style={{ color: "var(--muted)" }}>
-                  Preview and download my latest resume.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <a
-                  href={resumePath}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] transition-all duration-300 hover:bg-slate-500/10"
-                  style={{ borderColor: "var(--border)", color: "var(--text)" }}
-                  aria-label="View resume in full screen"
-                >
-                  <FiMaximize2 size={14} aria-hidden />
-                  Full Screen
-                </a>
-
-                <a
-                  href={resumePath}
-                  download
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] transition-all duration-300 hover:opacity-90"
-                  style={{
-                    background: "var(--accent)",
-                    color: "var(--accent-contrast)",
-                  }}
-                  aria-label="Download resume"
-                >
-                  <FiDownload size={14} aria-hidden />
-                  Download
-                </a>
-
-                <button
-                  ref={closeResumePreviewButtonRef}
-                  type="button"
-                  onClick={() => setIsResumePreviewOpen(false)}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full"
-                  style={{ color: "var(--text)" }}
-                  aria-label="Close resume preview"
-                >
-                  <FiX size={18} aria-hidden />
-                </button>
-              </div>
-            </div>
-
-            <div className="relative flex-1" style={{ background: "var(--bg-soft)" }}>
-              <iframe src={resumePath} title="Resume preview" className="h-full w-full" />
-            </div>
-          </div>
-        </div>
-      </Dialog>
+        <iframe src={resumePath} title="Resume preview" className="h-full w-full" />
+      </ReusableDialog>
     </>
   );
 }

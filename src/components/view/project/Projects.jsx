@@ -2,14 +2,13 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { FiExternalLink, FiGithub, FiMaximize2, FiX } from "react-icons/fi";
-import { Dialog } from "@material-tailwind/react";
+import { FiExternalLink, FiGithub, FiMaximize2 } from "react-icons/fi";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
 import { useTheme } from "@/context/ThemeContext";
 import { projects } from "@data";
 import { handleCardMouseMove, canUseExternalIframe, getProjectPreviewDoc } from "@/utils";
-import { SectionHeading } from "@/components";
+import { ReusableDialog, SectionHeading } from "@/components";
 
 function ProjectAction({ href, icon: Icon, label, disabled, onClick }) {
   if (disabled) {
@@ -192,7 +191,6 @@ export default function Projects() {
   const [activeProject, setActiveProject] = useState(null);
   const [iframeFailed, setIframeFailed] = useState(false);
   const [activeTab, setActiveTab] = useState("corporate");
-  const closeButtonRef = useRef(null);
 
   const openPreview = (project) => {
     setIframeFailed(false);
@@ -200,18 +198,6 @@ export default function Projects() {
   };
 
   const closeModal = () => setActiveProject(null);
-
-  useEffect(() => {
-    if (!activeProject) {
-      return undefined;
-    }
-
-    requestAnimationFrame(() => {
-      closeButtonRef.current?.focus();
-    });
-
-    return undefined;
-  }, [activeProject]);
 
   const shouldUseExternalIframe =
     canUseExternalIframe(activeProject?.link?.iFrame) && !iframeFailed;
@@ -304,69 +290,37 @@ export default function Projects() {
         </div>
       </section>
 
-      <Dialog
+      <ReusableDialog
         open={Boolean(activeProject)}
-        handler={closeModal}
-        size="xxl"
-        className="bg-transparent p-2 shadow-none transition-colors md:p-6"
+        onClose={closeModal}
+        title={activeProject?.title || "Project Preview"}
+        description={
+          shouldUseExternalIframe
+            ? "Interactive project preview"
+            : "Iframe preview with project fallback"
+        }
+        closeButtonLabel="Close project preview"
       >
         {activeProject ? (
-          <div className="relative">
-            <div
-              aria-hidden
-              className="fixed inset-0 bg-black/35 backdrop-blur-md"
-              onClick={closeModal}
+          shouldUseExternalIframe ? (
+            <iframe
+              src={activeProject.link.iFrame}
+              title={`${activeProject.title} preview`}
+              className="h-full w-full"
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              onError={() => setIframeFailed(true)}
             />
-
-            <div
-              className="glass-panel relative z-10 mx-auto flex h-[85vh] w-full max-w-6xl flex-col overflow-hidden rounded-4xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw]"
-              style={{ color: "var(--text)" }}
-            >
-              <div className="flex-between gap-4 px-5 py-4">
-                <div>
-                  <h3 className="title-xl">{activeProject.title}</h3>
-                  <p className="mt-1 text-body" style={{ color: "var(--muted)" }}>
-                    {shouldUseExternalIframe
-                      ? "Interactive project preview"
-                      : "Iframe preview with project fallback"}
-                  </p>
-                </div>
-
-                <button
-                  ref={closeButtonRef}
-                  type="button"
-                  onClick={closeModal}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full"
-                  style={{ color: "var(--text)" }}
-                  aria-label="Close project preview"
-                >
-                  <FiX className="text-lg" />
-                </button>
-              </div>
-
-              <div className="relative flex-1" style={{ background: "var(--bg-soft)" }}>
-                {shouldUseExternalIframe ? (
-                  <iframe
-                    src={activeProject.link.iFrame}
-                    title={`${activeProject.title} preview`}
-                    className="h-full w-full"
-                    loading="lazy"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    onError={() => setIframeFailed(true)}
-                  />
-                ) : (
-                  <iframe
-                    srcDoc={getProjectPreviewDoc(activeProject, theme)}
-                    title={`${activeProject.title} preview fallback`}
-                    className="h-full w-full"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
+          ) : (
+            <iframe
+              srcDoc={getProjectPreviewDoc(activeProject, theme)}
+              title={`${activeProject.title} preview fallback`}
+              className="h-full w-full"
+            />
+          )
         ) : null}
-      </Dialog>
+      </ReusableDialog>
     </>
   );
 }
