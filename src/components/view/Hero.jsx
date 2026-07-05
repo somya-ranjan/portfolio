@@ -142,7 +142,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="tilt-text flex items-center gap-2"
+                className="tilt-text hero-eyebrow flex items-center gap-2"
                 style={{ transform: "rotate(-1.5deg)" }}
               >
                 <HiMiniSparkles
@@ -150,7 +150,7 @@ export default function Hero() {
                   aria-hidden
                   style={{ color: "var(--accent-solid)" }}
                 />
-                <span>Premium Developer Portfolio</span>
+                <span className="min-w-0">Premium Developer Portfolio</span>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -166,11 +166,11 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.78 }}
-              className={`section-title text-[2rem] leading-[0.92] sm:text-4xl md:text-5xl lg:text-5xl ${heroHeadingBreakpointClass.replace("text-8xl", "text-6xl")} 3xl:text-[clamp(3.5rem,3.5vw,5.5rem)] 3xl:leading-[0.95] 4xl:text-[clamp(4rem,4vw,6.5rem)] 4xl:leading-[0.98] 5xl:text-[clamp(4.5rem,4.5vw,7rem)] 5xl:leading-[1.02]`}
+              className={`section-title hero-name text-[clamp(1.7rem,8vw,2rem)] leading-[0.92] sm:text-4xl md:text-5xl lg:text-5xl ${heroHeadingBreakpointClass.replace("text-8xl", "text-6xl")} 3xl:text-[clamp(3.5rem,3.5vw,5.5rem)] 3xl:leading-[0.95] 4xl:text-[clamp(4rem,4vw,6.5rem)] 4xl:leading-[0.98] 5xl:text-[clamp(4.5rem,4.5vw,7rem)] 5xl:leading-[1.02]`}
               style={{ fontFamily: "var(--font-hero), cursive", fontWeight: 400 }}
             >
               Somyaranjan
-              <div className="my-6 sm:my-10 md:my-15 3xl:my-20 4xl:my-30 5xl:my-35" />
+              <div className="my-8 sm:my-10 md:my-15 3xl:my-20 4xl:my-30 5xl:my-35" />
               Sethy
             </motion.h1>
 

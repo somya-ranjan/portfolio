@@ -84,6 +84,12 @@ html[data-theme="minimal"] {
   --chart-5: #d4d4d8;
 }
 
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background:
     radial-gradient(circle at 10% 20%, var(--ambient-1) 0, transparent 40%),
@@ -95,6 +101,14 @@ body {
     color 0.3s ease;
   font-family: var(--font-body), "Segoe UI", sans-serif;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.theme-content {
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
 }
 
@@ -326,7 +340,7 @@ h3,
 }
 
 @utility section-wrap {
-  @apply px-6 3xl:px-10 4xl:px-16 5xl:px-24;
+  @apply px-4 sm:px-6 3xl:px-10 4xl:px-16 5xl:px-24;
 }
 
 @utility container-lg {
@@ -366,6 +380,20 @@ h3,
     background: color-mix(in srgb, var(--surface) 95%, transparent);
     color: var(--text);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .hero-eyebrow {
+    max-width: 100%;
+    padding-inline: 0.75rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    line-height: 1.35;
+  }
+
+  .hero-name {
+    max-width: 100%;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
   }
 
   /* ========== CARD COMPONENTS ========== */
@@ -954,4 +982,8 @@ button:hover {
   body {
     font-size: 1.22rem;
   }
+}
+
+.hero-name {
+  letter-spacing: 0;
 }

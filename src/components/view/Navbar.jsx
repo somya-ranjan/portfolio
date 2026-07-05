@@ -98,10 +98,10 @@ export default function Navbar() {
         }`}
         aria-label="Main navigation"
       >
-        <div className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-4 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
+        <div className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
           <a
             href="#home"
-            className="logo-text shrink-0 text-2xl sm:text-3xl xl:text-4xl 3xl:text-5xl 4xl:text-6xl"
+            className="logo-text min-w-0 shrink text-[clamp(1.15rem,5.5vw,1.45rem)] sm:text-3xl xl:text-4xl 3xl:text-5xl 4xl:text-6xl"
             aria-label="Somyaranjan Sethy home"
           >
             {LOGO_TEXT}
@@ -121,18 +121,19 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <div className="lg:hidden">
               <Button
                 size="sm"
                 onClick={() => setOpenDrawer(true)}
-                className="rounded-full p-2 cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-full p-0 cursor-pointer sm:h-10 sm:w-10"
                 variant="text"
                 style={{
                   color: "var(--text)",
                   border: "1px solid var(--border)",
                   background: "var(--glass)",
                 }}
+                aria-label="Open navigation menu"
               >
                 <FiMenu size={18} />
               </Button>
@@ -142,7 +143,7 @@ export default function Navbar() {
               <MenuHandler>
                 <Button
                   size="sm"
-                  className="rounded-full px-3 py-2 cursor-pointer"
+                  className="flex h-9 w-9 items-center justify-center rounded-full p-0 cursor-pointer sm:h-10 sm:w-auto sm:px-3 sm:py-2"
                   title={`Theme: ${theme}`}
                   aria-label={`Switch theme. Current theme is ${theme}`}
                   style={{
