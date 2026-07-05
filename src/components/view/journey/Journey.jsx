@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { journeyData } from "@data";
 import { CONTACT_MY_PIC } from "@/assets/img";
 import { handleCardMouseMove } from "@/utils";
@@ -11,63 +11,69 @@ import { SectionHeading } from "@/components";
 export default function Journey() {
   const containerRef = useRef(null);
 
-  useScroll({
+  const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ["start center", "end center"],
   });
+  const spotlightOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.08, 0.92, 1],
+    [0, 1, 1, 0],
+  );
 
   return (
-    <section id="journey" ref={containerRef} className="isolate">
-      <div className="container-sm">
+    <section id="journey" ref={containerRef} className="relative isolate">
+      {/* Background spotlight */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0 flex items-center justify-center"
+        style={{ opacity: spotlightOpacity }}
+      >
+        <div className="relative h-[min(26rem,88vw)] w-[min(26rem,88vw)]">
+          <div
+            className="absolute inset-[-18%] rounded-full blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle, color-mix(in srgb, var(--accent-solid) 36%, transparent) 0%, color-mix(in srgb, var(--accent-soft) 18%, transparent) 34%, transparent 70%)",
+              opacity: 0.72,
+            }}
+          />
+
+          <div
+            className="absolute inset-0 overflow-hidden rounded-full"
+            style={{
+              maskImage:
+                "radial-gradient(circle, black 0%, black 42%, rgba(0, 0, 0, 0.62) 58%, transparent 76%)",
+              WebkitMaskImage:
+                "radial-gradient(circle, black 0%, black 42%, rgba(0, 0, 0, 0.62) 58%, transparent 76%)",
+            }}
+          >
+            <Image
+              src={CONTACT_MY_PIC}
+              alt=""
+              fill
+              className="object-cover opacity-45"
+              style={{
+                filter: "brightness(0.42) contrast(1.08) saturate(0.9) blur(0.5px)",
+              }}
+              aria-hidden="true"
+            />
+          </div>
+
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 42%, transparent 0%, transparent 34%, rgba(0, 0, 0, 0.72) 74%)",
+            }}
+          />
+        </div>
+      </motion.div>
+
+      <div className="container-sm relative z-10">
         <SectionHeading>My Journey</SectionHeading>
 
         <div className="relative mt-16">
-          {/* Background spotlight */}
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 bottom-0 flex justify-center"
-            style={{ zIndex: -10 }}
-          >
-            <div className="sticky top-[calc(50vh-13rem)] h-[26rem] w-[26rem] max-w-[88vw]">
-              <div
-                className="absolute inset-[-18%] rounded-full blur-3xl"
-                style={{
-                  background:
-                    "radial-gradient(circle, color-mix(in srgb, var(--accent-solid) 36%, transparent) 0%, color-mix(in srgb, var(--accent-soft) 18%, transparent) 34%, transparent 70%)",
-                  opacity: 0.72,
-                }}
-              />
-
-              <div
-                className="absolute inset-0 overflow-hidden rounded-full"
-                style={{
-                  maskImage:
-                    "radial-gradient(circle, black 0%, black 42%, rgba(0, 0, 0, 0.62) 58%, transparent 76%)",
-                  WebkitMaskImage:
-                    "radial-gradient(circle, black 0%, black 42%, rgba(0, 0, 0, 0.62) 58%, transparent 76%)",
-                }}
-              >
-                <Image
-                  src={CONTACT_MY_PIC}
-                  alt=""
-                  fill
-                  className="object-cover opacity-45"
-                  style={{
-                    filter: "brightness(0.42) contrast(1.08) saturate(0.9) blur(0.5px)",
-                  }}
-                  aria-hidden="true"
-                />
-              </div>
-
-              <div
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(circle at 50% 42%, transparent 0%, transparent 34%, rgba(0, 0, 0, 0.72) 74%)",
-                }}
-              />
-            </div>
-          </div>
-
           <div className="absolute left-4 md:left-1/2 top-0 h-full w-0.5 md:-translate-x-1/2 transform bg-gradient-to-b from-[var(--accent-solid)] via-[var(--accent-soft)] to-transparent" />
 
           <div className="flex flex-col gap-12">
