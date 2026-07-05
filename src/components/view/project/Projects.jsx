@@ -77,7 +77,7 @@ function ProjectCard({ project, index, onPreview }) {
         >
           <Image
             src={project.image}
-            alt={project.title}
+            alt={`${project.title} project case study by Somyaranjan Sethy`}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"

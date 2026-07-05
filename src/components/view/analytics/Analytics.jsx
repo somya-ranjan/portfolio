@@ -122,11 +122,9 @@ export default function Analytics() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
+    const mountTimer = window.setTimeout(() => setMounted(true), 0);
 
     const mediaQuery = window.matchMedia("(max-width: 767px)");
-    const largeQuery = window.matchMedia("(min-width: 1920px)");
 
     const updateScreen = () => {
       setIsSmallScreen(mediaQuery.matches);
@@ -134,11 +132,10 @@ export default function Analytics() {
 
     updateScreen();
     mediaQuery.addEventListener("change", updateScreen);
-    largeQuery.addEventListener("change", updateScreen);
 
     return () => {
+      window.clearTimeout(mountTimer);
       mediaQuery.removeEventListener("change", updateScreen);
-      largeQuery.removeEventListener("change", updateScreen);
     };
   }, []);
 

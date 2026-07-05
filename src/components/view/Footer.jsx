@@ -1,6 +1,6 @@
 "use client";
 
-import { LOGO_TEXT } from "@/constants";
+import { LOGO_TEXT, OWNER_NAME } from "@/constants";
 import { SocialLinks } from "@/components";
 
 export default function Footer() {
@@ -11,11 +11,13 @@ export default function Footer() {
     >
       <div className="container-lg flex flex-col items-center justify-between gap-6 md:flex-row">
         {/* Left */}
-        <h2 className="logo-text text-2xl">{LOGO_TEXT}</h2>
+        <a href="#home" className="logo-text text-2xl" aria-label="Back to home">
+          {LOGO_TEXT}
+        </a>
 
         {/* Center */}
         <p className="text-sm opacity-70 text-center">
-          © {new Date().getFullYear()} All rights reserved.
+          Copyright {new Date().getFullYear()} {OWNER_NAME}. All rights reserved.
         </p>
 
         {/* Right - Social */}

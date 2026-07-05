@@ -44,7 +44,7 @@ export default function SocialLinks({
           key={label}
           href={href}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className={`rounded-full border transition-all ${itemClassName}`}
           style={{
             background: "var(--glass)",

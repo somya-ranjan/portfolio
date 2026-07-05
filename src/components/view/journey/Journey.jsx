@@ -17,24 +17,53 @@ export default function Journey() {
   });
 
   return (
-    <section id="journey" ref={containerRef}>
+    <section id="journey" ref={containerRef} className="isolate">
       <div className="container-sm">
         <SectionHeading>My Journey</SectionHeading>
 
         <div className="relative mt-16">
-          {/* Background image shadow */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 bottom-0 flex justify-center">
-            <div
-              className="sticky top-[30vh] h-80 w-80 opacity-25 overflow-hidden rounded-full"
-              style={{ zIndex: -10 }}
-            >
-              <Image
-                src={CONTACT_MY_PIC}
-                alt=""
-                fill
-                className="object-cover"
-                style={{ filter: "brightness(0.28) saturate(0.85) blur(0.7px)" }}
-                aria-hidden="true"
+          {/* Background spotlight */}
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 bottom-0 flex justify-center"
+            style={{ zIndex: -10 }}
+          >
+            <div className="sticky top-[calc(50vh-13rem)] h-[26rem] w-[26rem] max-w-[88vw]">
+              <div
+                className="absolute inset-[-18%] rounded-full blur-3xl"
+                style={{
+                  background:
+                    "radial-gradient(circle, color-mix(in srgb, var(--accent-solid) 36%, transparent) 0%, color-mix(in srgb, var(--accent-soft) 18%, transparent) 34%, transparent 70%)",
+                  opacity: 0.72,
+                }}
+              />
+
+              <div
+                className="absolute inset-0 overflow-hidden rounded-full"
+                style={{
+                  maskImage:
+                    "radial-gradient(circle, black 0%, black 42%, rgba(0, 0, 0, 0.62) 58%, transparent 76%)",
+                  WebkitMaskImage:
+                    "radial-gradient(circle, black 0%, black 42%, rgba(0, 0, 0, 0.62) 58%, transparent 76%)",
+                }}
+              >
+                <Image
+                  src={CONTACT_MY_PIC}
+                  alt=""
+                  fill
+                  className="object-cover opacity-45"
+                  style={{
+                    filter: "brightness(0.42) contrast(1.08) saturate(0.9) blur(0.5px)",
+                  }}
+                  aria-hidden="true"
+                />
+              </div>
+
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 42%, transparent 0%, transparent 34%, rgba(0, 0, 0, 0.72) 74%)",
+                }}
               />
             </div>
           </div>
@@ -89,7 +118,7 @@ export default function Journey() {
                       {item.achievements.map((achievement, idx) => (
                         <li key={idx} className="text-sm opacity-80 flex gap-2">
                           <span className="shrink-0" style={{ color: "var(--success)" }}>
-                            •
+                            &bull;
                           </span>
                           <span>{achievement}</span>
                         </li>

@@ -99,9 +99,13 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         <div className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-4 3xl:max-w-[110rem] 4xl:max-w-[138rem] 4xl:px-10 5xl:max-w-[176rem] 5xl:px-14">
-          <h1 className="logo-text shrink-0 text-2xl sm:text-3xl xl:text-4xl 3xl:text-5xl 4xl:text-6xl">
+          <a
+            href="#home"
+            className="logo-text shrink-0 text-2xl sm:text-3xl xl:text-4xl 3xl:text-5xl 4xl:text-6xl"
+            aria-label="Somyaranjan Sethy home"
+          >
             {LOGO_TEXT}
-          </h1>
+          </a>
 
           <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-5 text-[10px] font-semibold uppercase tracking-[0.13em] xl:gap-8 xl:text-xs xl:tracking-[0.18em] 3xl:text-sm 3xl:gap-10 4xl:text-base 4xl:gap-12">
             {allMenuItems.map((item) => (
@@ -205,6 +209,7 @@ export default function Navbar() {
           <button
             onClick={closeDrawerMenu}
             className="p-1 hover:opacity-70 transition-opacity"
+            aria-label="Close navigation menu"
           >
             <FiX size={24} />
           </button>
