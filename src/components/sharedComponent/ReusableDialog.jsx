@@ -3,6 +3,7 @@
 import { Dialog } from "@material-tailwind/react";
 import { useEffect, useRef } from "react";
 import { FiX } from "react-icons/fi";
+import useBodyScrollLock from "@/hooks/useBodyScrollLock";
 
 export default function ReusableDialog({
   open,
@@ -20,6 +21,8 @@ export default function ReusableDialog({
   className = "",
 }) {
   const closeButtonRef = useRef(null);
+
+  useBodyScrollLock(open);
 
   useEffect(() => {
     if (!open) {
@@ -80,7 +83,7 @@ export default function ReusableDialog({
           </div>
 
           <div
-            className={`relative flex-1 ${bodyClassName}`.trim()}
+            className={`relative flex-1 overflow-auto overscroll-contain ${bodyClassName}`.trim()}
             style={bodyStyle ?? { background: "var(--bg-soft)" }}
           >
             {children}

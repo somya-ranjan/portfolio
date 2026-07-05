@@ -44,12 +44,15 @@ export default function About() {
 
               <div className="space-y-4 text-sm md:text-base leading-relaxed opacity-85 3xl:text-lg 4xl:text-xl 3xl:space-y-6">
                 <p>
-                  I&apos;m a <strong>Full-Stack Frontend Engineer</strong> specializing in
-                  high-performance, scalable systems for enterprise environments. Over
-                  4.5+ years, I&apos;ve engineered production-grade applications across{" "}
-                  <strong>FinTech, E-Commerce, and Enterprise Access Management</strong>,
-                  consistently delivering measurable business outcomes with{" "}
-                  <strong>React, Next.js, TypeScript, and Node.js</strong>.
+                  I&apos;m a <strong>Full-Stack AI Frontend Engineer </strong>{" "}
+                  specializing in high-performance, scalable systems for enterprise
+                  environments. Over 4.5+ years, I&apos;ve engineered production-grade
+                  applications across{" "}
+                  <strong>
+                    FinTech, Sass, E-Commerce, Web3 and Enterprise Access Management (IAM)
+                  </strong>
+                  , consistently delivering measurable business outcomes with{" "}
+                  <strong>React, Next.js, JavaScript, TypeScript, and Node.js</strong>.
                 </p>
                 <p>
                   Currently working on IAM solutions at{" "}

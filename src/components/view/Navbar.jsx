@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Button,
   Drawer,
@@ -17,11 +17,14 @@ import { BsGrid3X3GapFill } from "react-icons/bs";
 import { useTheme } from "@/context/ThemeContext";
 import { allMenuItems } from "@data";
 import { LOGO_TEXT, THEME_CYCLE } from "@/constants";
+import useBodyScrollLock from "@/hooks/useBodyScrollLock";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  useBodyScrollLock(openDrawer);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,17 +34,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    if (openDrawer) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [openDrawer]);
 
   const getThemeIcon = () => {
     if (theme === "light") {
@@ -161,7 +153,7 @@ export default function Navbar() {
                 </Button>
               </MenuHandler>
               <MenuList
-                className="card-base rounded-xl p-1 z-9999 min-w-[120px] shadow-xl"
+                className="card-base z-[9999] min-w-[120px] rounded-xl p-1 shadow-xl"
                 style={{
                   background: "var(--glass)",
                   borderColor: "var(--border)",
@@ -188,15 +180,27 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
+      <AnimatePresence>
+        {openDrawer ? (
+          <motion.button
+            type="button"
+            aria-label="Close navigation overlay"
+            className="fixed inset-0 z-[9998] bg-slate-950/35 backdrop-blur-sm lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={closeDrawerMenu}
+          />
+        ) : null}
+      </AnimatePresence>
+
       <Drawer
         open={openDrawer}
         onClose={closeDrawerMenu}
-        className="card-base p-4 shadow-2xl z-9999 bg-(--bg-soft)"
+        className="card-base z-[9999] flex h-full flex-col overflow-y-auto overscroll-contain p-4 shadow-2xl bg-(--bg-soft)"
         placement="left"
-        overlayProps={{
-          className: "bg-slate-950/30 backdrop-blur-sm z-9998!",
-          onClick: closeDrawerMenu,
-        }}
+        overlay={false}
         dismiss={{
           enabled: true,
           outsidePress: true,

@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
+import useBodyScrollLock from "@/hooks/useBodyScrollLock";
 
 const GREETINGS = ["Hello", "Namaskar", "Namaste", "Hola", "Bonjour", "Ciao"];
 const GREETING_DELAY_MS = 1200;
@@ -17,6 +18,8 @@ export default function InitialLoader() {
   const visibleDuration = greetingDelay * GREETINGS.length;
   const visibleDurationInSeconds = visibleDuration / 1000;
 
+  useBodyScrollLock(isVisible);
+
   useEffect(() => {
     const greetingTimer = window.setInterval(() => {
       setActiveGreeting((current) => (current + 1) % GREETINGS.length);
@@ -31,19 +34,6 @@ export default function InitialLoader() {
       window.clearTimeout(exitTimer);
     };
   }, [greetingDelay, visibleDuration]);
-
-  useEffect(() => {
-    if (!isVisible) {
-      return undefined;
-    }
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [isVisible]);
 
   return (
     <AnimatePresence>
