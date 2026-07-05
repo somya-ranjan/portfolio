@@ -182,7 +182,7 @@ export default function Hero() {
               className="mt-10 text-sm font-semibold tracking-wide md:text-base 3xl:text-lg 4xl:text-xl"
               style={{ color: "var(--accent-solid)" }}
             >
-              Ai Frontend Developer &bull; Product-Focused UI &bull; Aspiring AI
+              AI Frontend Developer &bull; Product-Focused UI &bull; Aspiring AI
               Full-Stack Engineer
             </motion.p>
 
@@ -194,8 +194,8 @@ export default function Hero() {
               className="mt-5 max-w-xl text-sm leading-relaxed text-(--muted) md:text-base 3xl:max-w-[44rem] 3xl:text-xl 4xl:max-w-[52rem] 4xl:text-2xl 5xl:max-w-[60rem] 5xl:text-[1.75rem]"
             >
               I engineer high-performance frontend systems at enterprise scale. React,
-              Next.js, TypeScript, etc. built for reliability, measurable business impact,
-              and systems that handle millions of transactions with zero downtime.
+              Next.js, TypeScript, and Node.js systems built for reliability, measurable
+              business impact, and millions of transactions with zero downtime.
             </motion.p>
 
             {/* CTA buttons */}
@@ -316,7 +316,7 @@ export default function Hero() {
             >
               <Image
                 src={HERO_MY_PIC}
-                alt="Somyaranjan Sethy — Ai Frontend Developer"
+                alt="Somyaranjan Sethy - AI Frontend Developer and React engineer"
                 width={960}
                 height={1200}
                 priority

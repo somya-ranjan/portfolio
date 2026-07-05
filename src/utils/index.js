@@ -69,6 +69,33 @@ export function canUseExternalIframe(url) {
   }
 }
 
+const HTML_ESCAPE_MAP = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+};
+
+function escapeHtml(value = "") {
+  return String(value).replace(/[&<>"']/g, (char) => HTML_ESCAPE_MAP[char]);
+}
+
+function getSafeExternalUrl(url) {
+  if (!url) {
+    return "";
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+    const isHttp = parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
+
+    return isHttp ? parsedUrl.href : "";
+  } catch {
+    return "";
+  }
+}
+
 /**
  * Generate preview HTML for project modal.
  * @param {object} project
@@ -78,6 +105,12 @@ export function canUseExternalIframe(url) {
 export function getProjectPreviewDoc(project, theme) {
   const imageSrc =
     typeof project.image === "string" ? project.image : project.image?.src || "";
+  const title = escapeHtml(project.title);
+  const description = escapeHtml(project.description);
+  const company = escapeHtml(project.company);
+  const imageAlt = escapeHtml(`${project.title} preview`);
+  const safeLiveLink = getSafeExternalUrl(project.link.liveLink);
+  const safeGitHubLink = getSafeExternalUrl(project.link.gitHub);
   const isMinimal = theme === "minimal";
   const isDark = theme === "dark";
   const palette = isMinimal
@@ -119,14 +152,14 @@ export function getProjectPreviewDoc(project, theme) {
   const techBadges = project.tech
     .map(
       (item) =>
-        `<span style="display:inline-flex;border:1px solid ${palette.border};border-radius:999px;padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:${palette.chip};">${item}</span>`,
+        `<span style="display:inline-flex;border:1px solid ${palette.border};border-radius:999px;padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:${palette.chip};">${escapeHtml(item)}</span>`,
     )
     .join("");
-  const liveLink = project.link.liveLink
-    ? `<a href="${project.link.liveLink}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:999px;background:${palette.buttonGradient};color:${palette.buttonText};text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;">Open Live</a>`
+  const liveLink = safeLiveLink
+    ? `<a href="${escapeHtml(safeLiveLink)}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:999px;background:${palette.buttonGradient};color:${palette.buttonText};text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;">Open Live</a>`
     : "";
-  const gitHubLink = project.link.gitHub
-    ? `<a href="${project.link.gitHub}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:999px;border:1px solid ${palette.border};color:${palette.text};text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;">Open GitHub</a>`
+  const gitHubLink = safeGitHubLink
+    ? `<a href="${escapeHtml(safeGitHubLink)}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:999px;border:1px solid ${palette.border};color:${palette.text};text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;">Open GitHub</a>`
     : "";
 
   return `
@@ -135,7 +168,7 @@ export function getProjectPreviewDoc(project, theme) {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>${project.title} Preview</title>
+        <title>${title} Preview</title>
         <style>
           :root {
             color-scheme: light;
@@ -279,12 +312,12 @@ export function getProjectPreviewDoc(project, theme) {
       <body>
         <main>
           <section class="preview-card">
-            <img src="${imageSrc}" alt="${project.title}" />
+            <img src="${escapeHtml(imageSrc)}" alt="${imageAlt}" />
           </section>
           <section>
-            ${project.company ? `<span style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.6;display:block;margin-bottom:8px;">${project.company}</span>` : ""}
-            <h1>${project.title}</h1>
-            <p>${project.description}</p>
+            ${company ? `<span style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.6;display:block;margin-bottom:8px;">${company}</span>` : ""}
+            <h1>${title}</h1>
+            <p>${description}</p>
             <h2>Tech Stack</h2>
             <div class="badges">${techBadges}</div>
             <div class="button-group">

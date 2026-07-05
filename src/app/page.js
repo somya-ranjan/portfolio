@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
 import {
@@ -14,7 +13,7 @@ import {
   Footer,
 } from "@/components/view";
 
-import { ScrollProgress, Reveal } from "@/components";
+import { InitialLoader, ScrollProgress, Reveal } from "@/components";
 
 const Analytics = dynamic(() => import("@/components/view/analytics/Analytics"), {
   ssr: false,
@@ -22,10 +21,11 @@ const Analytics = dynamic(() => import("@/components/view/analytics/Analytics"),
 export default function Home() {
   return (
     <>
+      <InitialLoader />
       <ScrollProgress />
 
       <Navbar />
-      <main className="theme-content">
+      <main id="main-content" className="theme-content" aria-label="Portfolio content">
         <Hero />
         <div className="sections-stack">
           <Reveal>

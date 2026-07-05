@@ -65,7 +65,7 @@ const ContactPanel = ({ leftY }) => (
       <div className="contact-profile-pic">
         <Image
           src={CONTACT_MY_PIC}
-          alt="Contact portrait"
+          alt="Somyaranjan Sethy contact portrait"
           fill
           className="object-cover"
           sizes="96px"

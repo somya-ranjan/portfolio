@@ -174,7 +174,7 @@ export default function Testimonials() {
 
       <div className="container-md">
         <SectionHeading
-          subtitle="Real recommendations from teammates and collaborators across projects, product deliveries, and Ai frontend engineering engagements."
+          subtitle="Real recommendations from teammates and collaborators across projects, product deliveries, and AI frontend engineering engagements."
           subtitleClassName="mt-4 max-w-3xl leading-relaxed opacity-75 md:mt-5 md:text-base mb-0"
         >
           Testimonials
