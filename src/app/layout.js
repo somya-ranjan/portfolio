@@ -1,5 +1,6 @@
 import { Cormorant_Garamond, Sora } from "next/font/google";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 
 import Providers from "./providers";
 import {
@@ -137,6 +138,7 @@ export default function RootLayout({ children }) {
           }}
         />
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
