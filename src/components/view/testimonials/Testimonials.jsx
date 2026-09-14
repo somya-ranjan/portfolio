@@ -223,7 +223,7 @@ export default function Testimonials() {
         </SectionHeading>
       </div>
 
-      <div className="mx-auto mt-8 max-w-6xl columns-1 gap-6 px-0 sm:px-6 pb-10 lg:columns-2 md:gap-8 3xl:columns-3 3xl:max-w-[86vw] 3xl:gap-10 3xl:px-10 4xl:max-w-[88vw] 4xl:gap-12 4xl:px-16 5xl:max-w-[90vw] 5xl:px-24">
+      <div className="mx-auto mt-8 columns-1 gap-6 px-0 sm:px-6 pb-10 lg:columns-2 md:gap-8 3xl:columns-3 3xl:gap-8">
         {testimonials.map((item, index) => (
           <div
             key={item.id}

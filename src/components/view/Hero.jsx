@@ -94,7 +94,6 @@ export default function Hero() {
   const heroGridBreakpointClass = isCoarsePointer
     ? "xl:grid-cols-[1.1fr_0.9fr]"
     : "lg:grid-cols-[1.1fr_0.9fr]";
-  const heroHeadingBreakpointClass = isCoarsePointer ? "xl:text-8xl" : "lg:text-8xl";
 
   return (
     <>
@@ -135,7 +134,7 @@ export default function Hero() {
 
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className={`relative grid container-lg items-start gap-10 pt-2 md:gap-12 md:pt-6 ${heroGridBreakpointClass} 3xl:gap-20 4xl:gap-28`}
+          className={`relative grid container-lg items-center gap-10 pt-2 md:gap-12 md:pt-6 ${heroGridBreakpointClass}`}
         >
           {/* ── Left Column ── */}
           <div>
@@ -153,7 +152,7 @@ export default function Hero() {
                   aria-hidden
                   style={{ color: "var(--accent-solid)" }}
                 />
-                <span className="min-w-0">Frontend Systems Engineer</span>
+                <span className="min-w-0">Frontend Full Stack Ai Engineer</span>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -169,8 +168,12 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.78 }}
-              className={`section-title hero-name flex flex-col gap-3 sm:gap-6 md:gap-8 lg:gap-10 3xl:gap-14 4xl:gap-20 text-[clamp(1.55rem,7.2vw,2.5rem)] sm:text-5xl md:text-6xl lg:text-7xl ${heroHeadingBreakpointClass.replace("text-8xl", "text-6xl")} 3xl:text-[clamp(3.5rem,3.5vw,5.5rem)] 4xl:text-[clamp(4rem,4vw,6.5rem)] 5xl:text-[clamp(4.5rem,4.5vw,7rem)] leading-none`}
-              style={{ fontFamily: "var(--font-hero), cursive", fontWeight: 400 }}
+              className="hero-name flex flex-col gap-6 sm:gap-6 md:gap-7 lg:gap-8 3xl:gap-10 4xl:gap-14 text-[clamp(1.5rem,7vw,2.25rem)] sm:text-3xl md:text-6xl lg:text-[50px] 3xl:text-[70px] !leading-[1.1] sm:!leading-[1.15]"
+              style={{
+                fontFamily: "var(--font-hero), cursive",
+                fontWeight: 400,
+                letterSpacing: "0.02em",
+              }}
             >
               <span className="block tracking-normal whitespace-nowrap">Somyaranjan</span>
               <span className="block tracking-normal whitespace-nowrap">Sethy</span>
@@ -184,8 +187,8 @@ export default function Hero() {
               className="mt-6 sm:mt-8 md:mt-10 text-xs font-semibold tracking-wide sm:text-sm md:text-base 3xl:text-lg 4xl:text-xl"
               style={{ color: "var(--accent-solid)" }}
             >
-              Frontend Engineer &bull; React &bull; Next.js &bull; TypeScript &bull;
-              Node.js
+              Frontend Full Stack Ai Engineer &bull; React &bull; Next.js &bull;
+              TypeScript &bull; Node.js
             </motion.p>
 
             {/* Description */}
@@ -193,7 +196,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.16, duration: 0.68 }}
-              className="mt-3.5 sm:mt-5 max-w-xl text-xs leading-relaxed text-(--muted) sm:text-sm md:text-base 3xl:max-w-[44rem] 3xl:text-xl 4xl:max-w-[52rem] 4xl:text-2xl 5xl:max-w-[60rem] 5xl:text-[1.75rem]"
+              className="mt-3.5 sm:mt-5 max-w-xl text-xs leading-relaxed text-(--muted) sm:text-sm md:text-base 3xl:max-w-2xl"
             >
               I build frontend systems for high-traffic web applications. Production
               stacks include React, Next.js, TypeScript, and Node.js.
@@ -278,7 +281,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.78 }}
-            className="relative mx-auto w-full max-w-lg self-center overflow-visible 3xl:max-w-[34rem] 4xl:max-w-[50rem] 5xl:max-w-[70rem]"
+            className="relative mx-auto w-full max-w-md sm:max-w-lg lg:max-w-full xl:max-w-[34rem] 2xl:max-w-[38rem] self-center overflow-visible"
           >
             {/* Ambient glows */}
             <div

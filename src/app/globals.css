@@ -242,9 +242,11 @@ body {
   overflow-x: hidden;
 }
 
-.theme-content {
+.theme-content,
+nav > div {
   width: 100%;
-  max-width: 100%;
+  max-width: 2000px;
+  margin-inline: auto;
   overflow-x: hidden;
 }
 
@@ -483,19 +485,19 @@ h3,
 }
 
 @utility section-wrap {
-  @apply px-4 sm:px-6 3xl:px-10 4xl:px-16 5xl:px-24;
+  @apply px-4 sm:px-6 lg:px-8;
 }
 
 @utility container-lg {
-  @apply mx-auto max-w-7xl 3xl:max-w-[90vw] 4xl:max-w-[91vw] 5xl:max-w-[92vw];
+  @apply mx-auto w-full;
 }
 
 @utility container-md {
-  @apply mx-auto max-w-6xl 3xl:max-w-[86vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw];
+  @apply mx-auto w-full;
 }
 
 @utility container-sm {
-  @apply mx-auto max-w-5xl 3xl:max-w-[84vw] 4xl:max-w-[88vw] 5xl:max-w-[90vw];
+  @apply mx-auto w-full max-w-5xl;
 }
 
 @layer components {
