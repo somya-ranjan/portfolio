@@ -16,7 +16,7 @@ export const projects = [
     title: "Access Management Web App",
     company: "Mercedes-Benz Research & Development India",
     description:
-      "Contributing to global IAM application serving enterprise compliance. Challenge: Handle millions of access transactions for 50K+ users with strict IAM governance. Solution: Built modular React/JavaScript frontend with shared UI components (Git submodules) under architecture lead guidance. Delivered 65% performance gain through intelligent code-splitting, lazy loading, and API orchestration. Result: Reduced page load from 4.2s → 1.5s, zero downtime. Team: Collaborated with 3-person frontend team + coordinated with backend/compliance while learning architectural patterns.",
+      "Engineered IAM frontend modules for 50,000 enterprise users. Implemented route code-splitting and API caching. Reduced page load times from 4.2s to 1.5s.",
     image: PROJECT_IAM,
     tech: ["React", "JavaScript", "IAM Compliance", "Git Submodules", "REST APIs"],
     link: {
@@ -32,7 +32,7 @@ export const projects = [
     title: "E-Commerce & SaaS Platforms",
     company: "TechneAI Pvt. Ltd",
     description:
-      "Transformed performance across multiple e-commerce and SaaS products. Challenge: 19% Lighthouse score = high bounce. Solution: Spearheaded Webpack optimization, code-splitting, lazy loading, multithreading strategy. Led UI component library development to standardize across 2 products. Achieved: 70% Lighthouse score (SEO, Accessibility top tier), 3.2s → 1.1s load time, 40% reduction in user bounce. Team: Directed 4-person UI team + mentored junior developers on performance.",
+      "Rebuilt build pipelines with Webpack code-splitting and asset minification. Raised Lighthouse performance scores from 19% to 70%. Reduced load times from 3.2s to 1.1s.",
     image: PROJECT_SAAS_COMMERCE,
     tech: ["React.js", "Webpack", "Multithreading", "SEO/Lighthouse"],
     link: {
@@ -48,7 +48,7 @@ export const projects = [
     title: "Ticketing & HRMS System",
     company: "TechneAI Pvt. Ltd",
     description:
-      "Built integrated ticket + HRMS system for internal operations. Challenge: Manual processes causing 40% hiring delays + poor task visibility. Solution: Designed React UI for ticket triage, job application processing, candidate onboarding workflow. Used reusable form components + smart state management. Delivered: Reduced development time 25%, cut hiring time by 40%, automated 80% of manual workflows. Impact: Enabled team to onboard 3x faster, improved accuracy. Solo project with full ownership.",
+      "Built internal ticketing and candidate onboarding workflows with React. Automated multi-step hiring approval pipelines. Cut operational processing delays by 40%.",
     image: PROJECT_HRMS,
     tech: ["React.js", "HRMS API", "Task Management"],
     link: {
@@ -64,7 +64,7 @@ export const projects = [
     title: "Mighty Jaxx NFT Trading Platform",
     company: "SoluLab Pvt. Ltd",
     description:
-      "Engineered premium NFT marketplace for luxury brand collectibles. Challenge: Complex UX for Web3 newcomers; trading volume plateaued. Solution: Redesigned trading flow, checkout experience, portfolio dashboard. Built modular React components (reusable across 15 pages), optimized Redux state for gas estimation + transactions. Results: +40% monthly trading volume, +25% user retention, cut checkout abandonment 35%, 50% faster feature delivery through reusability. Team: Worked with 1 product designer + 2 backend engineers.",
+      "Engineered checkout and portfolio dashboards for digital collectibles. Optimized Redux transaction state and gas estimation calls. Decreased checkout abandonment by 35%.",
     image: PROJECT_NFT,
     tech: ["React.js", "Web3", "NFT Trading", "State Management"],
     link: {
@@ -80,7 +80,7 @@ export const projects = [
     title: "Etabibo Healthcare Booking Platform",
     company: "SoluLab Pvt. Ltd",
     description:
-      "Built healthcare marketplace connecting patients with doctors, physiotherapists, ambulance services. Challenge: Low appointment conversion + fragmented service discovery. Solution: Designed multi-service booking interface with smart filtering, real-time availability, prescription management. Implemented smart caching + pagination (Handle 500K+ daily searches). Results: +30% appointments booked, +25% user engagement, +35% prescription fulfillment. Scaled to 100K+ active users. Team: Led UI for 6-person product team.",
+      "Built multi-service booking interfaces handling 500,000 daily queries. Implemented client-side caching and paginated doctor search. Increased completed appointment bookings by 30%.",
     image: PROJECT_BOOKING,
     tech: ["React.js", "API Integrations", "Prescription Systems"],
     link: {
@@ -96,7 +96,7 @@ export const projects = [
     title: "SoluLab Headless CMS Platform",
     company: "SoluLab Pvt. Ltd",
     description:
-      "Built enterprise headless CMS enabling clients (agencies, publishers) to manage multi-tenant content. Challenge: 60-day deployment cycles, clients facing 6s page loads. Solution: Architected React UI with GraphQL integration, lazy loading, image optimization. Built real-time analytics dashboard + 15+ content templates. Results: 30% faster client onboarding (60d → 18d), 20% speed improvement (6s → 4.8s), 99.8% uptime SLA maintained, 40% YoY user growth (100 → 140 clients). Team: Built full UI layer for 8-person platform team.",
+      "Architected multi-tenant CMS dashboards with React and GraphQL. Shipped 15 reusable page templates with automated image optimization. Cut tenant onboarding cycles from 60 days to 18 days.",
     image: PROJECT_CMS,
     tech: ["React.js", "Headless CMS", "Google Analytics", "Lazy Loading"],
     link: {
@@ -111,7 +111,7 @@ export const projects = [
     category: "personal",
     title: "React Utility Hooks Hub",
     description:
-      "A production-ready NPM package providing a collection of reusable React hooks for common utility patterns such as debouncing, throttling, and state synchronization. Optimized for minimal bundle size and tree-shaking support.",
+      "Published open-source NPM library containing zero-dependency React hooks. Implemented debounce, throttle, and sync primitives with full TypeScript coverage. Built with Rollup for tree-shaking support.",
     image: PROJECT_NPM,
     tech: ["React", "Rollup", "TypeScript", "NPM"],
     link: {
@@ -126,7 +126,7 @@ export const projects = [
     isComingSoon: true,
     title: "Cloud Kitchen App",
     description:
-      "A comprehensive cloud kitchen management application that streamlines operations, enhances customer experience, and optimizes resource allocation with real-time analytics, order management, and delivery system integrations.",
+      "Engineered kitchen order dispatch dashboard using React and Node.js. Integrated live order tracking and third-party delivery webhooks.",
     image: PROJECT_DASHBOARD,
     tech: ["React", "MUI", "Node.js"],
     link: {

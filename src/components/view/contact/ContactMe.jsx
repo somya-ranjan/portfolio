@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Input, Textarea } from "@material-tailwind/react";
 import { CONTACT_EMAIL } from "@/constants";
 import { CONTACT_MY_PIC } from "@/assets/img";
 import { handleCardMouseMove, getGmailComposeLink } from "@/utils";
@@ -13,37 +12,41 @@ import { SectionHeading, SocialLinks } from "@/components";
    Reusable Sub-Components
    ============================================================ */
 
-/** FormField: Reusable wrapper for input/textarea + error display */
+/** FormField: Reusable wrapper for input/textarea + label + error display */
 const FormField = ({ label, error, children }) => (
   <div className="form-field">
+    {label && (
+      <label className="text-xs font-semibold uppercase tracking-[0.14em] opacity-80 pl-1">
+        {label}
+      </label>
+    )}
     {children}
-    {error && <p className="form-error">{error}</p>}
+    {error && <p className="form-error pl-1">{error}</p>}
   </div>
 );
 
-/** FormInput: Consistent text input with standard styling */
-const FormInput = ({ placeholder, value, onChange, error, type = "text" }) => (
-  <Input
+/** FormInput: Consistent text input with modern glass styling */
+const FormInput = ({ placeholder, value, onChange, error, type = "text", name }) => (
+  <input
+    name={name}
     placeholder={placeholder}
     type={type}
     value={value}
     onChange={onChange}
-    error={Boolean(error)}
-    size="lg"
-    className="form-input"
+    className={`form-input ${error ? "form-input--error" : ""}`}
     suppressHydrationWarning
   />
 );
 
-/** FormTextarea: Consistent textarea with standard styling */
-const FormTextarea = ({ placeholder, value, onChange, error, rows = 6 }) => (
-  <Textarea
+/** FormTextarea: Consistent textarea with modern glass styling */
+const FormTextarea = ({ placeholder, value, onChange, error, rows = 5, name }) => (
+  <textarea
+    name={name}
     placeholder={placeholder}
     value={value}
     onChange={onChange}
-    error={Boolean(error)}
     rows={rows}
-    className="form-input"
+    className={`form-input form-textarea ${error ? "form-input--error" : ""}`}
     suppressHydrationWarning
   />
 );
@@ -73,20 +76,19 @@ const ContactPanel = ({ leftY }) => (
         />
       </div>
       <div>
-        <p className="text-sm font-semibold">Let&apos;s work together</p>
+        <p className="text-sm font-semibold">Available for Work</p>
         <p className="text-xs leading-relaxed opacity-80">
-          Open for senior roles, architecture challenges, or technical partnerships.
+          Open to engineering roles and architecture contracts.
         </p>
       </div>
     </div>
 
     <h3 className="display-title mt-4 text-2xl sm:text-3xl font-semibold leading-tight 3xl:text-4xl 4xl:text-5xl">
-      Ready to solve complex problems at scale
+      Start a project conversation
     </h3>
 
     <p className="mt-5 text-sm leading-relaxed opacity-80 3xl:text-base 4xl:text-lg">
-      Looking for opportunities to build high-performance systems, mentor teams, or
-      collaborate on architecture challenges that matter.
+      Send me an email. I respond within 24 hours.
     </p>
 
     <SocialLinks
@@ -122,6 +124,7 @@ const ContactForm = ({
     {/* Name Field */}
     <FormField label="Name" error={formErrors.name}>
       <FormInput
+        name="name"
         placeholder="Your Name"
         value={formData.name}
         onChange={onFieldChange("name")}
@@ -132,6 +135,7 @@ const ContactForm = ({
     {/* Email Field */}
     <FormField label="Email" error={formErrors.email}>
       <FormInput
+        name="email"
         placeholder="Your Email"
         type="email"
         value={formData.email}
@@ -143,6 +147,7 @@ const ContactForm = ({
     {/* Message Field */}
     <FormField label="Message" error={formErrors.message}>
       <FormTextarea
+        name="message"
         placeholder="Your Message"
         value={formData.message}
         onChange={onFieldChange("message")}

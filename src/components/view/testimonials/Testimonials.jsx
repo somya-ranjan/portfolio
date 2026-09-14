@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { testimonials } from "@data";
@@ -33,11 +33,28 @@ function getInitials(name) {
 
 function TestimonialCard({ item, index }) {
   const cardRef = useRef(null);
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
   const linkedinUrl = item.linkedin
     ? item.linkedin.startsWith("http")
       ? item.linkedin
       : `https://${item.linkedin}`
     : null;
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(
+      "(hover: none), (pointer: coarse), (max-width: 768px)",
+    );
+    const updatePointerType = () => {
+      setIsCoarsePointer(mediaQuery.matches);
+    };
+
+    updatePointerType();
+    mediaQuery.addEventListener("change", updatePointerType);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updatePointerType);
+    };
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: cardRef,
@@ -69,13 +86,13 @@ function TestimonialCard({ item, index }) {
       style={{
         opacity: dissolveOpacity,
         scale: dissolveScale,
-        rotateY: cubeRotateY,
-        rotateX: cubeRotateX,
-        z: cubeDepth,
-        transformPerspective: 1200,
-        transformStyle: "preserve-3d",
+        rotateY: isCoarsePointer ? 0 : cubeRotateY,
+        rotateX: isCoarsePointer ? 0 : cubeRotateX,
+        z: isCoarsePointer ? 0 : cubeDepth,
+        transformPerspective: isCoarsePointer ? "none" : 1200,
+        transformStyle: isCoarsePointer ? "flat" : "preserve-3d",
       }}
-      className="card-md border overflow-hidden"
+      className="card-md !p-4 sm:!p-6 md:!p-8 border overflow-hidden"
     >
       <div
         className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full blur-3xl"
@@ -86,29 +103,54 @@ function TestimonialCard({ item, index }) {
       />
 
       <div className="relative z-10">
+        {/* Mobile top meta bar: Star rating + Verified badge */}
+        <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[var(--border)]/40 sm:hidden">
+          <div className="flex items-center gap-1">
+            {[...Array(5)].map((_, starIndex) => (
+              <span
+                key={starIndex}
+                className="text-xs leading-none"
+                style={{ color: "var(--warning)" }}
+              >
+                ★
+              </span>
+            ))}
+            <span className="ml-1 text-[9px] font-semibold uppercase tracking-[0.12em] opacity-60">
+              Recommendation
+            </span>
+          </div>
+          <span className="shrink-0 rounded-full border border-[var(--border)] px-2 py-0.5 text-[8px] font-bold uppercase tracking-[0.14em] opacity-75">
+            Verified
+          </span>
+        </div>
+
+        {/* Author info */}
         <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center sm:items-start gap-3 min-w-0 flex-1">
             <div
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold tracking-wide text-white"
+              className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full text-xs sm:text-sm font-bold tracking-wide text-white"
               style={{ background: AVATAR_COLORS[index % AVATAR_COLORS.length] }}
             >
               {getInitials(item.name)}
             </div>
 
-            <div>
-              <h4 className="title-md">{item.name}</h4>
-              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] opacity-80 md:text-[11px]">
+            <div className="min-w-0 flex-1">
+              <h4 className="text-sm sm:text-base font-semibold leading-snug font-serif">
+                {item.name}
+              </h4>
+              <p className="mt-0.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.06em] sm:tracking-[0.14em] opacity-75 leading-tight">
                 {item.role}
               </p>
             </div>
           </div>
 
-          <span className="rounded-full border px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.18em] opacity-70 md:px-3 md:text-[10px]">
+          <span className="hidden sm:inline-flex shrink-0 rounded-full border px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.18em] opacity-70 md:px-3 md:text-[10px] mt-0.5">
             Verified
           </span>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-2 md:mt-5">
+        {/* Desktop stars row */}
+        <div className="hidden sm:flex mt-4 flex-wrap items-center gap-2 md:mt-5">
           {[...Array(5)].map((_, starIndex) => (
             <span
               key={starIndex}
@@ -174,14 +216,14 @@ export default function Testimonials() {
 
       <div className="container-md">
         <SectionHeading
-          subtitle="Real recommendations from teammates and collaborators across projects, product deliveries, and AI frontend engineering engagements."
+          subtitle="Peer reviews from engineering managers, team leads, and developers."
           subtitleClassName="mt-4 max-w-3xl leading-relaxed opacity-75 md:mt-5 md:text-base mb-0"
         >
           Testimonials
         </SectionHeading>
       </div>
 
-      <div className="mx-auto mt-8 max-w-6xl columns-1 gap-6 px-6 pb-10 md:columns-2 md:gap-8 3xl:columns-3 3xl:max-w-[86vw] 3xl:gap-10 3xl:px-10 4xl:max-w-[88vw] 4xl:gap-12 4xl:px-16 5xl:max-w-[90vw] 5xl:px-24">
+      <div className="mx-auto mt-8 columns-1 gap-6 px-0 sm:px-6 pb-10 lg:columns-2 md:gap-8 3xl:columns-3 3xl:gap-8">
         {testimonials.map((item, index) => (
           <div
             key={item.id}

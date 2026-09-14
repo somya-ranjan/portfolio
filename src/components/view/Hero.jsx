@@ -24,18 +24,18 @@ import { ReusableDialog } from "@/components";
 const valueCards = [
   {
     icon: <FiZap size={22} />,
-    title: "Performance-Driven",
-    text: "Delivered 65% performance gains through architectural optimization and smart bundling strategies.",
+    title: "Performance",
+    text: "Cut bundle sizes and optimized runtime execution. Delivered 65% faster render cycles.",
   },
   {
     icon: <FiGrid size={22} />,
-    title: "Enterprise-Grade Architecture",
-    text: "Scalable, maintainable systems handling compliance, high-stakes business logic, and enterprise complexity.",
+    title: "Architecture",
+    text: "Designed scalable frontend state machines. Maintained zero downtime across compliance workflows.",
   },
   {
     icon: <FiTarget size={22} />,
-    title: "Learning & Impact",
-    text: "Growing as a developer: Contributing to 30-40% team efficiency gains while learning from architectural leadership.",
+    title: "Team Delivery",
+    text: "Shipped reusable component libraries. Reduced development cycle times by 35%.",
   },
 ];
 
@@ -74,6 +74,9 @@ export default function Hero() {
   const cardY = useTransform(scrollYProgress, [0, 1], [0, -90]);
   const cardRotate = useTransform(scrollYProgress, [0, 1], [-2, 4]);
 
+  const effectiveCardY = isCoarsePointer ? 0 : cardY;
+  const effectiveCardRotate = isCoarsePointer ? 0 : cardRotate;
+
   useEffect(() => {
     const mediaQuery = window.matchMedia("(hover: none), (pointer: coarse)");
     const updatePointerType = () => {
@@ -91,7 +94,6 @@ export default function Hero() {
   const heroGridBreakpointClass = isCoarsePointer
     ? "xl:grid-cols-[1.1fr_0.9fr]"
     : "lg:grid-cols-[1.1fr_0.9fr]";
-  const heroHeadingBreakpointClass = isCoarsePointer ? "xl:text-8xl" : "lg:text-8xl";
 
   return (
     <>
@@ -99,7 +101,7 @@ export default function Hero() {
         ref={heroRef}
         onMouseMove={handleCardMouseMove}
         id="home"
-        className="section-wrap py-16 sm:py-20 md:py-20 relative min-h-svh overflow-hidden md:min-h-screen 3xl:min-h-[72rem] 4xl:min-h-[78rem] 5xl:min-h-[84rem]"
+        className="section-wrap pt-18 pb-12 sm:pt-20 sm:pb-16 md:py-20 relative min-h-svh overflow-hidden md:min-h-screen 3xl:min-h-[72rem] 4xl:min-h-[78rem] 5xl:min-h-[84rem]"
       >
         {/* Background Grid Pattern */}
         <div
@@ -132,17 +134,17 @@ export default function Hero() {
 
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className={`relative grid container-lg items-start gap-10 pt-2 md:gap-12 md:pt-6 ${heroGridBreakpointClass} 3xl:gap-20 4xl:gap-28`}
+          className={`relative grid container-lg items-center gap-10 pt-2 md:gap-12 md:pt-6 ${heroGridBreakpointClass}`}
         >
           {/* ── Left Column ── */}
           <div>
             {/* Premium badge + dot grid row */}
-            <div className="flex items-center gap-5 mb-7">
+            <div className="flex items-center gap-3 sm:gap-5 mb-5 sm:mb-7">
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="tilt-text hero-eyebrow flex items-center gap-2"
+                className="tilt-text hero-eyebrow flex items-center gap-2 text-[0.68rem] sm:text-xs"
                 style={{ transform: "rotate(-1.5deg)" }}
               >
                 <HiMiniSparkles
@@ -150,7 +152,7 @@ export default function Hero() {
                   aria-hidden
                   style={{ color: "var(--accent-solid)" }}
                 />
-                <span className="min-w-0">Premium Developer Portfolio</span>
+                <span className="min-w-0">Frontend Full Stack Ai Engineer</span>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -166,12 +168,15 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.78 }}
-              className={`section-title hero-name text-[clamp(1.7rem,8vw,2rem)] leading-[0.92] sm:text-4xl md:text-5xl lg:text-5xl ${heroHeadingBreakpointClass.replace("text-8xl", "text-6xl")} 3xl:text-[clamp(3.5rem,3.5vw,5.5rem)] 3xl:leading-[0.95] 4xl:text-[clamp(4rem,4vw,6.5rem)] 4xl:leading-[0.98] 5xl:text-[clamp(4.5rem,4.5vw,7rem)] 5xl:leading-[1.02]`}
-              style={{ fontFamily: "var(--font-hero), cursive", fontWeight: 400 }}
+              className="hero-name flex flex-col gap-6 sm:gap-6 md:gap-7 lg:gap-8 3xl:gap-10 4xl:gap-14 text-[clamp(1.5rem,7vw,2.25rem)] sm:text-3xl md:text-6xl lg:text-[50px] 3xl:text-[70px] !leading-[1.1] sm:!leading-[1.15]"
+              style={{
+                fontFamily: "var(--font-hero), cursive",
+                fontWeight: 400,
+                letterSpacing: "0.02em",
+              }}
             >
-              Somyaranjan
-              <div className="my-8 sm:my-10 md:my-15 3xl:my-20 4xl:my-30 5xl:my-35" />
-              Sethy
+              <span className="block tracking-normal whitespace-nowrap">Somyaranjan</span>
+              <span className="block tracking-normal whitespace-nowrap">Sethy</span>
             </motion.h1>
 
             {/* Tech stack subtitle */}
@@ -179,11 +184,11 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.12, duration: 0.6 }}
-              className="mt-10 text-sm font-semibold tracking-wide md:text-base 3xl:text-lg 4xl:text-xl"
+              className="mt-6 sm:mt-8 md:mt-10 text-xs font-semibold tracking-wide sm:text-sm md:text-base 3xl:text-lg 4xl:text-xl"
               style={{ color: "var(--accent-solid)" }}
             >
-              AI Frontend Developer &bull; Product-Focused UI &bull; Aspiring AI
-              Full-Stack Engineer
+              Frontend Full Stack Ai Engineer &bull; React &bull; Next.js &bull;
+              TypeScript &bull; Node.js
             </motion.p>
 
             {/* Description */}
@@ -191,11 +196,10 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.16, duration: 0.68 }}
-              className="mt-5 max-w-xl text-sm leading-relaxed text-(--muted) md:text-base 3xl:max-w-[44rem] 3xl:text-xl 4xl:max-w-[52rem] 4xl:text-2xl 5xl:max-w-[60rem] 5xl:text-[1.75rem]"
+              className="mt-3.5 sm:mt-5 max-w-xl text-xs leading-relaxed text-(--muted) sm:text-sm md:text-base 3xl:max-w-2xl"
             >
-              I engineer high-performance frontend systems at enterprise scale. React,
-              Next.js, TypeScript, and Node.js systems built for reliability, measurable
-              business impact, and millions of transactions with zero downtime.
+              I build frontend systems for high-traffic web applications. Production
+              stacks include React, Next.js, TypeScript, and Node.js.
             </motion.p>
 
             {/* CTA buttons */}
@@ -203,57 +207,41 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.65 }}
-              className="mt-9 flex flex-wrap items-center gap-4 3xl:mt-12 3xl:gap-5 4xl:mt-14 4xl:gap-6"
+              className="mt-7 sm:mt-9 grid grid-cols-2 gap-2.5 sm:flex sm:flex-row sm:items-center sm:gap-4 3xl:mt-12 3xl:gap-5 4xl:mt-14 4xl:gap-6"
             >
               <Button
                 type="button"
                 size="lg"
                 onClick={() => setIsResumePreviewOpen(true)}
-                className="rounded-full px-8 py-3 text-xs font-semibold uppercase tracking-[0.22em] 3xl:px-10 3xl:py-4 3xl:text-sm 4xl:px-12 4xl:text-base cursor-pointer hover:shadow-lg hover:shadow-[var(--accent-soft)]/20 flex items-center gap-2.5"
+                className="w-full sm:w-auto rounded-full px-3 py-2.5 sm:px-8 sm:py-3 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.12em] sm:tracking-[0.22em] 3xl:px-10 3xl:py-4 3xl:text-sm 4xl:px-12 4xl:text-base cursor-pointer hover:shadow-lg hover:shadow-[var(--accent-soft)]/20 flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap"
                 style={{
                   background: "var(--accent)",
                   color: "var(--accent-contrast)",
                 }}
               >
-                <FiFileText size={16} aria-hidden />
+                <FiFileText size={14} aria-hidden />
                 View Resume
               </Button>
 
-              <Link href="#contact">
+              <Link href="#contact" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outlined"
-                  className="rounded-full border px-8 py-3 text-xs font-semibold uppercase tracking-[0.2em] 3xl:px-10 3xl:py-4 3xl:text-sm 4xl:px-12 4xl:text-base cursor-pointer hover:bg-slate-500/5 flex items-center gap-2.5"
+                  className="w-full sm:w-auto rounded-full border px-3 py-2.5 sm:px-8 sm:py-3 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.12em] sm:tracking-[0.2em] 3xl:px-10 3xl:py-4 3xl:text-sm 4xl:px-12 4xl:text-base cursor-pointer hover:bg-slate-500/5 flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap"
                   style={{ borderColor: "var(--border)", color: "var(--text)" }}
                 >
-                  <FiMail size={15} aria-hidden />
+                  <FiMail size={13} aria-hidden />
                   Contact Me
                 </Button>
               </Link>
-
-              <motion.div
-                className="hidden items-center gap-2 rounded-full border border-[var(--border)] bg-[rgba(255,255,255,0.08)] px-3 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-(--muted) transition hover:bg-[rgba(255,255,255,0.14)] sm:inline-flex"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45, duration: 0.6 }}
-              >
-                <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-[var(--border)] bg-[rgba(255,255,255,0.12)]">
-                  <motion.span
-                    className="absolute h-2 w-2 rounded-full bg-[var(--accent-solid)]"
-                    animate={{ y: [0, 6, 0] }}
-                    transition={{ duration: 1.4, ease: "easeInOut", repeat: Infinity }}
-                  />
-                </span>
-                Scroll Down
-              </motion.div>
             </motion.div>
 
-            {/* ── Value Prop Cards (merged from Showcase) ── */}
+            {/* ── Value Prop Cards ── */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.7 }}
-              className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 3xl:mt-14 3xl:gap-4 4xl:gap-5"
+              className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-2.5 md:gap-3 3xl:mt-14 3xl:gap-4 4xl:gap-5"
             >
               {valueCards.map((card, index) => (
                 <motion.div
@@ -262,10 +250,10 @@ export default function Hero() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.55 + index * 0.1, duration: 0.5 }}
                   onMouseMove={handleCardMouseMove}
-                  className="card-sm"
+                  className="card-sm !p-3.5 sm:!p-3 md:!p-3.5 lg:!p-3 xl:!p-4 3xl:!p-6 flex flex-row sm:flex-col items-start gap-3 sm:gap-0"
                 >
                   <div
-                    className="mb-2.5 flex h-9 w-9 items-center justify-center rounded-xl 3xl:h-11 3xl:w-11 4xl:h-12 4xl:w-12"
+                    className="shrink-0 flex h-8 w-8 sm:h-8 sm:w-8 md:h-9 md:w-9 sm:mb-2.5 items-center justify-center rounded-lg sm:rounded-xl 3xl:h-11 3xl:w-11 4xl:h-12 4xl:w-12"
                     style={{
                       background:
                         "color-mix(in srgb, var(--accent-solid) 12%, transparent)",
@@ -274,12 +262,14 @@ export default function Hero() {
                   >
                     {card.icon}
                   </div>
-                  <h3 className="text-sm font-bold md:text-[0.92rem] 3xl:text-base 4xl:text-lg">
-                    {card.title}
-                  </h3>
-                  <p className="mt-1 text-xs leading-relaxed text-(--muted) 3xl:text-sm 4xl:text-base">
-                    {card.text}
-                  </p>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-xs sm:text-xs font-bold md:text-[0.88rem] xl:text-[0.92rem] 3xl:text-base 4xl:text-lg">
+                      {card.title}
+                    </h3>
+                    <p className="mt-0.5 sm:mt-1 text-[11px] sm:text-[11px] md:text-xs leading-relaxed text-(--muted) 3xl:text-sm 4xl:text-base">
+                      {card.text}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
@@ -287,11 +277,11 @@ export default function Hero() {
 
           {/* ── Right Column — Photo + Floating Badge ── */}
           <motion.div
-            style={{ y: cardY, rotate: cardRotate }}
+            style={{ y: effectiveCardY, rotate: effectiveCardRotate }}
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.78 }}
-            className="relative mx-auto w-full max-w-lg self-center overflow-visible 3xl:max-w-[34rem] 4xl:max-w-[50rem] 5xl:max-w-[70rem]"
+            className="relative mx-auto w-full max-w-md sm:max-w-lg lg:max-w-full xl:max-w-[34rem] 2xl:max-w-[38rem] self-center overflow-visible"
           >
             {/* Ambient glows */}
             <div
@@ -349,9 +339,9 @@ export default function Hero() {
                   className="text-xs font-medium leading-snug sm:text-sm 3xl:text-base"
                   style={{ color: "var(--text)" }}
                 >
-                  Building elegant interfaces
+                  Shipping production code
                   <br />
-                  that users love.
+                  daily.
                 </p>
               </div>
             </motion.div>

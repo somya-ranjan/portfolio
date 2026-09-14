@@ -10,17 +10,17 @@ export default function About() {
   const containerRef = useRef(null);
 
   const stats = [
-    { label: "Impact Delivered", value: "65% Performance Gain" },
-    { label: "Business Domains", value: "FinTech, E-Comm, Enterprise" },
-    { label: "Career Span", value: "4.5+ Years" },
-    { label: "Learning Growth", value: "From Developer to Architect" },
+    { label: "Performance Gain", value: "65% Faster Load" },
+    { label: "Domains", value: "FinTech, E-Commerce, IAM" },
+    { label: "Experience", value: "4.5+ Years" },
+    { label: "Core Stack", value: "React, Next.js, TypeScript" },
   ];
 
   return (
     <section id="about" ref={containerRef}>
       <div className="container-lg">
         {/* Section Heading */}
-        <SectionHeading subtitle="Bridging the gap between design vision, user experience, and high-performance frontend architecture.">
+        <SectionHeading subtitle="Engineering scalable web applications with React, Next.js, and TypeScript.">
           About Me
         </SectionHeading>
 
@@ -44,34 +44,24 @@ export default function About() {
 
               <div className="space-y-4 text-sm md:text-base leading-relaxed opacity-85 3xl:text-lg 4xl:text-xl 3xl:space-y-6">
                 <p>
-                  I&apos;m a <strong>Full-Stack AI Frontend Engineer </strong>{" "}
-                  specializing in high-performance, scalable systems for enterprise
-                  environments. Over 4.5+ years, I&apos;ve engineered production-grade
-                  applications across{" "}
-                  <strong>
-                    FinTech, Sass, E-Commerce, Web3 and Enterprise Access Management (IAM)
-                  </strong>
-                  , consistently delivering measurable business outcomes with{" "}
-                  <strong>React, Next.js, JavaScript, TypeScript, and Node.js</strong>.
+                  I build web applications with React, Next.js, TypeScript, and Node.js.
+                  My experience spans 4.5+ years across FinTech, E-Commerce, and Identity
+                  Access Management (IAM). Every project prioritizes runtime performance
+                  and system stability.
                 </p>
                 <p>
-                  Currently working on IAM solutions at{" "}
-                  <strong>Mercedes-Benz R&D (via Capgemini)</strong> handling enterprise
-                  compliance at scale. Recent contributions:{" "}
-                  <strong>65% performance optimization</strong> through code-splitting and
-                  API orchestration; collaborating on{" "}
-                  <strong>30-40% team efficiency gains</strong> while learning from
-                  architectural leadership; systems handling millions of transactions with
-                  zero downtime.
+                  Currently building IAM solutions at{" "}
+                  <strong>Mercedes-Benz R&D via Capgemini</strong>. Optimized frontend
+                  architecture with code-splitting and API orchestration. Cut initial load
+                  times by 65%. Maintained zero downtime across high-volume authentication
+                  flows.
                 </p>
                 <p>
-                  <strong>Engineering philosophy:</strong> Backend thinking meets frontend
-                  execution. I build modular, battle-tested systems that scale while
-                  continuously learning from senior architects. Every decision is
-                  metrics-driven—Lighthouse scores, bundle size, user engagement, business
-                  impact. Background in <strong>Mechanical Engineering (BPUT)</strong>{" "}
-                  means I think in systems and complexity. The goal: pragmatic excellence
-                  and continuous growth.
+                  <strong>Engineering approach:</strong> I structure frontend codebases
+                  with systems engineering discipline. Every technical decision targets
+                  hard metrics like bundle size, Core Web Vitals, and API latency. I hold
+                  a Mechanical Engineering degree from <strong>BPUT</strong>. My focus is
+                  shipping clean, maintainable production software.
                 </p>
               </div>
             </div>
@@ -100,11 +90,10 @@ export default function About() {
                   </h4>
                 </div>
                 <p className="text-xs md:text-sm leading-relaxed opacity-75 3xl:text-base 4xl:text-lg">
-                  Code that compiles is table stakes. I deliver systems that scale.
-                  Modular architecture, battle-tested patterns, accessible interfaces. I
-                  obsess over metrics—performance, user behavior, business outcomes. The
-                  goal isn&apos;t code perfection; it&apos;s shipping products that create
-                  real value and grow with you.
+                  Functional code is the baseline. Production code must scale and stay
+                  maintainable. I build modular interfaces backed by strict TypeScript
+                  types and automated tests. I measure success by bundle weight, render
+                  speed, and user error rates.
                 </p>
               </div>
             </motion.div>

@@ -127,26 +127,26 @@ export function getProjectPreviewDoc(project, theme) {
       }
     : isDark
       ? {
-          text: "#e0e0e0",
-          muted: "#b0b8c6",
-          accent: "#7dd3fc",
-          chip: "#c8d0de",
-          border: "rgba(224,224,224,0.18)",
-          surface: "#242424",
-          buttonText: "#062133",
-          buttonGradient: "linear-gradient(120deg,#1f7ea4,#2d9ccc 50%,#38bdf8)",
-          bg: "radial-gradient(circle at top left, rgba(56,189,248,0.2), transparent 28%),radial-gradient(circle at bottom right, rgba(14,165,233,0.16), transparent 32%),linear-gradient(160deg,#121212 0%,#1e1e1e 100%)",
+          text: "#fafafa",
+          muted: "#a1a1aa",
+          accent: "#38e062",
+          chip: "#fafafa",
+          border: "rgba(255,255,255,0.08)",
+          surface: "#101013",
+          buttonText: "#09090b",
+          buttonGradient: "linear-gradient(120deg,#38e062,#10b981 50%,#06b6d4)",
+          bg: "radial-gradient(circle at top left, rgba(56,224,98,0.18), transparent 28%),radial-gradient(circle at bottom right, rgba(6,182,212,0.12), transparent 32%),linear-gradient(160deg,#09090b 0%,#101013 100%)",
         }
       : {
-          text: "#1f2937",
-          muted: "#4b5563",
-          accent: "#0284c7",
-          chip: "#374151",
-          border: "rgba(31,41,55,0.14)",
+          text: "#09090b",
+          muted: "#64748b",
+          accent: "#059669",
+          chip: "#334155",
+          border: "rgba(15,23,42,0.12)",
           surface: "#ffffff",
-          buttonText: "#f8fbff",
-          buttonGradient: "linear-gradient(120deg,#0284c7,#0ea5e9 52%,#38bdf8)",
-          bg: "radial-gradient(circle at top left, rgba(56,189,248,0.2), transparent 28%),radial-gradient(circle at bottom right, rgba(2,132,199,0.16), transparent 32%),linear-gradient(160deg,#f8f9fa 0%,#ffffff 100%)",
+          buttonText: "#ffffff",
+          buttonGradient: "linear-gradient(120deg,#10b981,#059669 50%,#0891b2)",
+          bg: "radial-gradient(circle at top left, rgba(16,185,129,0.14), transparent 28%),radial-gradient(circle at bottom right, rgba(6,182,212,0.10), transparent 32%),linear-gradient(160deg,#f8fafc 0%,#ffffff 100%)",
         };
 
   const techBadges = project.tech

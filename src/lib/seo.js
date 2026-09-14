@@ -92,28 +92,28 @@ const featuredProjects = [
     name: "Access Management Web App",
     organization: "Mercedes-Benz Research & Development India",
     description:
-      "Enterprise IAM frontend application serving compliance workflows for 50K+ users with a 65% performance gain and zero downtime.",
+      "Enterprise IAM frontend modules serving 50,000 users. Route-level code-splitting delivered a 65% page load boost with zero downtime.",
     keywords: ["React", "JavaScript", "IAM Compliance", "REST APIs"],
   },
   {
     name: "E-Commerce & SaaS Platforms",
     organization: "TechneAI Pvt. Ltd",
     description:
-      "Frontend performance program improving Lighthouse from 19% to 70%, cutting load time from 3.2s to 1.1s and reducing bounce by 40%.",
+      "Webpack optimization program raising Lighthouse scores from 19% to 70% and cutting load times from 3.2s to 1.1s.",
     keywords: ["React.js", "Webpack", "SEO", "Lighthouse", "SaaS"],
   },
   {
     name: "Etabibo Healthcare Booking Platform",
     organization: "SoluLab Pvt. Ltd",
     description:
-      "Healthcare marketplace UI supporting smart filtering, real-time availability and high-volume appointment search workflows.",
+      "Multi-service booking interfaces handling 500,000 daily queries with client-side caching and paginated search.",
     keywords: ["React.js", "Healthcare", "Booking Platform", "API Integrations"],
   },
   {
     name: "React Utility Hooks Hub",
     organization: OWNER_NAME,
     description:
-      "Production-ready NPM package with reusable React hooks for debouncing, throttling and state synchronization.",
+      "Open-source NPM library containing zero-dependency React hooks for debounce, throttle, and state synchronization.",
     keywords: ["React", "TypeScript", "NPM", "Open Source"],
   },
 ];

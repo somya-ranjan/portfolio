@@ -99,7 +99,7 @@ export const viewport = {
   initialScale: 1,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
-    { media: "(prefers-color-scheme: dark)", color: "#040408" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
   ],
 };
 
@@ -113,6 +113,11 @@ const themeInitScript = `
 
       if (allowedThemes.indexOf(savedTheme) !== -1) {
         document.documentElement.setAttribute("data-theme", savedTheme);
+        if (savedTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
       }
     } catch (error) {}
   })();

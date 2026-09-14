@@ -1,21 +1,21 @@
 export const universalPalette = {
   light: {
-    bg: "#f8f9fa",
+    bg: "#f8fafc",
     surface: "#ffffff",
-    text: "#1f2937",
-    muted: "#4b5563",
-    accent: "#0284c7",
-    accentSoft: "#38bdf8",
-    danger: "#dc2626",
+    text: "#09090b",
+    muted: "#64748b",
+    accent: "#059669",
+    accentSoft: "#10b981",
+    danger: "#ef4444",
   },
   dark: {
-    bg: "#121212",
-    surface: "#1e1e1e",
-    text: "#e0e0e0",
-    muted: "#b0b8c6",
-    accent: "#38bdf8",
-    accentSoft: "#7dd3fc",
-    danger: "#f87171",
+    bg: "#09090b",
+    surface: "#101013",
+    text: "#fafafa",
+    muted: "#a1a1aa",
+    accent: "#38e062",
+    accentSoft: "#38e062",
+    danger: "oklch(0.704 0.191 22.216)",
   },
   minimal: {
     bg: "#ece8dc",
@@ -31,7 +31,7 @@ export const universalPalette = {
 const lightTheme = {
   button: {
     defaultProps: {
-      color: "blue",
+      color: "green",
     },
   },
 };
@@ -39,7 +39,7 @@ const lightTheme = {
 const darkTheme = {
   button: {
     defaultProps: {
-      color: "cyan",
+      color: "green",
     },
   },
 };
