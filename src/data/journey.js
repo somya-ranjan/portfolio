@@ -33,11 +33,11 @@ export const journeyData = [
     ),
     clientHighlight: true,
     achievements: [
-      "Developing a global Access Management application aligned with IAM governance standards.",
-      "Building responsive and scalable UI with strong form validations.",
-      "Integrating APIs and ensuring seamless enterprise-level functionality.",
-      "Improving performance by 65% through optimized rendering and architecture.",
-      "Enhancing accessibility and scalability using modular architecture and lazy loading.",
+      "Built enterprise Access Management UI aligned with IAM governance standards.",
+      "Coded validation logic for complex multi-field identity forms.",
+      "Integrated REST APIs across distributed authentication microservices.",
+      "Cut page render times by 65% through component memoization.",
+      "Shipped lazy-loaded route architectures to reduce initial payloads.",
     ],
   },
   {
@@ -45,11 +45,11 @@ export const journeyData = [
     title: "Software Developer",
     company: "TechneAI Pvt. Ltd",
     achievements: [
-      "Boosted system performance by 51% using optimized bundling and code splitting.",
-      "Improved application performance from 19% to 70%.",
-      "Accelerated development cycles by 40% through better API coordination.",
-      "Mentored junior developers and improved team productivity by 30%.",
-      "Strengthened frontend-backend integration for scalable applications.",
+      "Cut initial bundle sizes by 51% through Webpack route splitting.",
+      "Raised Lighthouse performance scores from 19% to 70%.",
+      "Accelerated sprint cycle velocity by 40% with typed API contracts.",
+      "Mentored junior developers on React design patterns.",
+      "Standardized UI component libraries across two production apps.",
     ],
   },
   {
@@ -57,11 +57,11 @@ export const journeyData = [
     title: "React.js Developer",
     company: "SoluLab Pvt. Ltd",
     achievements: [
-      "Improved client-side performance by 45% across multiple applications.",
-      "Achieved top Lighthouse scores in SEO, accessibility, and best practices.",
-      "Built scalable applications in healthcare, NFT, and CMS domains.",
-      "Enhanced code efficiency using advanced React patterns and optimization techniques.",
-      "Worked in Agile environment following SDLC best practices.",
+      "Cut client-side bundle weight by 45% across production web apps.",
+      "Delivered 90+ Lighthouse audit scores across SEO and accessibility.",
+      "Shipped production web apps in healthcare, NFT, and CMS sectors.",
+      "Refactored legacy React class components into custom hooks.",
+      "Maintained bi-weekly release cycles following agile workflows.",
     ],
   },
   {
@@ -69,9 +69,9 @@ export const journeyData = [
     title: "Bachelor of Technology (Mechanical Engineering)",
     company: "BPUT",
     achievements: [
-      "Completed engineering degree with strong analytical foundation.",
-      "Developed problem-solving and system design thinking.",
-      "Transitioned into software development with focus on frontend technologies.",
+      "Completed engineering coursework in thermodynamics and machine kinematics.",
+      "Applied mathematical modeling to computational problem solving.",
+      "Built web applications using JavaScript, React, and Node.js.",
     ],
   },
 ];

@@ -105,7 +105,7 @@ export default function Skills() {
   return (
     <section id="skills" ref={containerRef}>
       <div className="container-lg">
-        <SectionHeading subtitle="Centralized tools and frameworks I use to develop scalable frontend product applications.">
+        <SectionHeading subtitle="Production toolchain and technical stack.">
           Skills & Expertise
         </SectionHeading>
 
